@@ -2,12 +2,17 @@
 var http = require('http');
 var url = require('url');
 var models = require("./models");
+var fs = require('fs');
+var path = require('path');
 
 var port = 8080;
-var ip = '127.0.0.1';
+var ip = "127.0.0.1";
 
 //creates server on local port 8080
-http.createServer(requestHandler).listen(port, ip);
+var server = http.createServer(function(request, response) {
+  reqMethods[request.method](request, response);
+});
+server.listen(port, ip);
 
 //sends response back to client
 var sendResponse = function(status, headers, obj, resp) {
@@ -18,8 +23,18 @@ var sendResponse = function(status, headers, obj, resp) {
 //sets up request method control structure
 var reqMethods = {
   'GET': function(req, res) {
-    //control flow here to replace'null' with res obj depending on req.url (parse with url module)    
-    sendResponse(200, defaultHeaders, null, res); 
+    var kara = new models.User({first_name: "Kara"});
+    kara.save(function(err, kara) {
+      models.User.find({ first_name: "Kara" }, function(err, users) {
+        sendResponse(200, defaultHeaders, JSON.stringify(users), res);
+      });      
+    });
+    // if (req.url === "/") {
+    //   fs.readFile(path.join(process.cwd() + "/index.html"), function(err, text) {
+    //     sendResponse(200, defaultHeaders, text, res);         
+    //   });
+    // }
+
   },
   'OPTIONS': function(req, res) {
     sendResponse(200, defaultHeaders, null, res); 
@@ -36,10 +51,6 @@ var reqMethods = {
   }
 }
 
-//routes request to control flow for that method
-var requestHandler = function(request, response) {
-  reqMethods[request.method](request, response);
-};
 
 var defaultHeaders = {
   "access-control-allow-origin": "*",

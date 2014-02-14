@@ -1,9 +1,12 @@
 
 var mongoose = require('mongoose');
+var autoIncrement = require('mongoose-auto-increment');
 
 mongoose.connect('mongodb://localhost/test');
 
 var db = mongoose.connection;
+
+autoIncrement.initialize(db);
 
 //log any connection errors to database
 db.on('error', function (err) {
@@ -12,7 +15,6 @@ db.on('error', function (err) {
 
 //creates user schema
 var userSchema = mongoose.Schema({
-  _id: Number,
   first_name: String,
   last_name: String,
   email: String,
@@ -28,29 +30,34 @@ var userSchema = mongoose.Schema({
   image: String,
   created_at: Date
 });
+
+userSchema.plugin(autoIncrement.plugin, 'User');
     
 //creates school schema
 var schoolSchema = mongoose.Schema({
-  _id: Number,
   name: String,
   type: String,
   domain: String,
   courses: [{type: Number, ref: 'Course'}]
 });
+
+schoolSchema.plugin(autoIncrement.plugin, 'School');
+
     
 //creates course schema
 var courseSchema = mongoose.Schema({
-  _id: Number,
   school_id: {type: Number, ref: 'School'},
   name: String,
   term: String,
   instructor: String,
   created_at: Date
 });
+
+courseSchema.plugin(autoIncrement.plugin, 'Course');
+
   
 //creates group schema
 var groupSchema = mongoose.Schema({
-  _id: Number,
   name: String,
   course_id: {type: Number, ref: 'Course'},
   intensity: String,
@@ -66,21 +73,23 @@ var groupSchema = mongoose.Schema({
   rsvps: [{type: Number, ref: "Rsvp"}],
   requests: [{type: Number, ref: "Request"}]
 });
+
+groupSchema.plugin(autoIncrement.plugin, 'Group');
   
   //creates lecture schema
 var lectureSchema = mongoose.Schema({
-  _id: Number,
   group_id: {type: Number, ref: 'Group'},
   title: String,
   lecture_date: Date,
   updated_at: Date,
   flashcards: []
 });
-  
+
+lectureSchema.plugin(autoIncrement.plugin, 'Lecture');
+
   
 //creates communication schema
 var communicationSchema = mongoose.Schema({
-  _id: Number,
   group_id: {type: Number, ref: 'Group'},
   user_id: {type: Number, ref: 'User'},
   subject: String,
@@ -88,9 +97,10 @@ var communicationSchema = mongoose.Schema({
   created_at: Date
 });
   
+communicationSchema.plugin(autoIncrement.plugin, 'Communication');
+
 //creates rsvp schema
 var rsvpSchema = mongoose.Schema({
-  _id: Number,
   group_id: {type: Number, ref: 'Group'},
   user_id: {type: Number, ref: 'User'},
   proposed_time: Date,
@@ -98,16 +108,20 @@ var rsvpSchema = mongoose.Schema({
   available: Boolean,
   created_at: Date
 });
+
+rsvpSchema.plugin(autoIncrement.plugin, 'Rsvp');
   
 //creates request schema
 var requestSchema = mongoose.Schema({
-  _id: Number,
   group_id: {type: Number, ref: 'Group'},
   user_id: {type: Number, ref: 'User'},
   entry_answer: String,
   ignored: Boolean,
   created_at: Date
 });
+
+requestSchema.plugin(autoIncrement.plugin, 'Request');
+
   
 var self = module.exports = {
   db: db,
