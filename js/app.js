@@ -4,15 +4,18 @@ app.config(function ($routeProvider) {
       // controller: '',
       templateUrl: 'index.html'
     }).when('/myGroups', {
-      templateUrl: ''
+      templateUrl: 'mygroups.jade' // or .html?
     }).otherwise({
       redirectTo: '/'
     });
   });
 
-//// group controller
-app.controller('groupViewController', 'getUsersGroups', function($scope){
+////////////////////// USER-CENTRIC CONTROLLERS
+
+//// mygroups controller
+app.controller('allGroupsViewController', 'getUsersGroups', function($scope){
   $scope.usersGroups = getUsersGroups.getGroups;
+  // $scope.usersSubjects = ...
 })
 
 //// get User's groups
@@ -24,7 +27,7 @@ app.factory('getUsersGroups', function(){
         url : '/getGroupsURL',
         params: { user_id: user.id }
         }).success(function(data, status, headers, config) {
-          return data;
+          return data; // should be an array
         }).error(function(data, status, headers, config) {
           console.log(status, error)
       });    
@@ -32,18 +35,36 @@ app.factory('getUsersGroups', function(){
   }
 });
 
-// app.service('groupCreator', )
-// var groupViewController = function(){
-//   this.groupName = name;
-// }
+////////////////////// GROUP-CENTRIC CONTROLLERS
 
-// groupViewController.prototype.nameGroup = function(){
-//   this.groupName = 
+app.controller('groupController', 'getGroupsLectures', function($scope){
+  $scope.groupSubject = getGroupsLectures.getSubject;
+  $scope.groupLectures = getGroupsLectures.getLectures;
+})
 
-// }
-// multiple controllers, one view 
-
-// {{ groupName }}
-// {{ groupUsersArray }}
-// {{ groupMenu }}
-
+app.factory('getGroupsLectures', function(){
+  return {
+    getLectures: function(option){
+      $http({
+        method : 'GET',
+        url : '/someOtherURL',
+        params: { group_id: group.id } // or group name or whatever
+        }).success(function(data, status, headers, config) {
+          return data; // should be an array
+        }).error(function(data, status, headers, config) {
+          console.log(status, error)
+      });    
+    },
+    getSubject: function(option){ // necessary?
+      $http({
+        method : 'GET',
+        url : '/someOtherURL',
+        params: { group_id: group.id } // or group name or whatever
+        }).success(function(data, status, headers, config) {
+          return data; // should be an array
+        }).error(function(data, status, headers, config) {
+          console.log(status, error)
+      });    
+    }
+  }
+})

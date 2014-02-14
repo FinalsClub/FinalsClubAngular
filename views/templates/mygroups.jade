@@ -1,8 +1,12 @@
-div.groupDiv(ng-controller='groupViewController' ng-repeat='group in groups')
+div.groupDiv(ng-controller='allGroupsViewController' ng-repeat='group in usersGroups')
+  
   li.groupName {{ group.Name }}
-  li.groupNav(ng-controller='groupViewNavigation') {{ navigation }} 
-   //- add groupname to each link in nav
-  //- does this need to be its own controller?
+  
+  li.groupNav
+    a(href="'{{group.Name}}'" + "/flashcards") | 
+    a(href="'{{group.Name}}'" + "/communications") | 
+    a(href="'{{group.Name}}'" + "/meetUp") 
+
   div.groupMembers(ng-repeat='member in group.members')
     span.groupMember {{ member }}
 
