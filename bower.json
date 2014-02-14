@@ -1,0 +1,20 @@
+{
+  "name": "finalsClub",
+  "version": "0.0.0",
+  "homepage": "https://github.com/kaybomv/finalsClub",
+  "authors": [
+    "Kara Erickson <kara.erickson3@gmail.com>",
+    "Anastasia Aizman <anastasia.aizman@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fullcalendar": "~1.6.4"
+  }
+}
