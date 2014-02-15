@@ -35,3 +35,51 @@ for(var i = 0; i < routes.length; i++) {
     res.render('layout.jade');
   });
 }
+
+//api routes
+
+app.get('/groups', function(req, res) {
+  if (req.query['user_id']) {    
+    //return groups for that user
+    models.User.findOne({ _id: req.query['user_id'] })
+               .populate('groups')
+               .exec(function(err, user) {
+                 res.send(200, JSON.stringify(user.groups));            
+               });  
+  } else {
+    //return all groups with their users
+    models.Group.find()
+                .populate('users')
+                .exec(function(err, groups) {
+                  res.send(200, JSON.stringify(groups));
+                });
+  }
+});
+
+app.get('/users', function(req, res) {
+  if (req.query['id']) {
+    //return user
+    models.User.findOne({_id: req.query['id']}, function(err, user) {
+      res.send(200, JSON.stringify(user));
+    });
+  }
+});
+
+app.get('/lectures', function(req, res) {
+  if (req.query['id']) {
+    //return lecture with its parent group name
+    models.Lecture.findOne({ _id: req.query['id'] })
+                  .populate('group_id', 'name')
+                  .exec(function(err, lecture) {
+                    res.send(200, JSON.stringify(lecture));
+                  });
+
+  } else if (req.query['group_id']) {
+    //return lectures with their parent group name
+    models.Lecture.find({ group_id: req.query['group_id'] })
+                  .populate('group_id', 'name')
+                  .exec(function(err, lectures) {
+                    res.send(200, JSON.stringify(lectures));
+                  });      
+  }
+});
