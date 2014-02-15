@@ -55,7 +55,6 @@ var courseSchema = mongoose.Schema({
 
 courseSchema.plugin(autoIncrement.plugin, 'Course');
 
-  
 //creates group schema
 var groupSchema = mongoose.Schema({
   name: String,
@@ -86,7 +85,6 @@ var lectureSchema = mongoose.Schema({
 });
 
 lectureSchema.plugin(autoIncrement.plugin, 'Lecture');
-
   
 //creates communication schema
 var communicationSchema = mongoose.Schema({
@@ -122,7 +120,6 @@ var requestSchema = mongoose.Schema({
 
 requestSchema.plugin(autoIncrement.plugin, 'Request');
 
-  
 var self = module.exports = {
   db: db,
   User: mongoose.model('User', userSchema),
