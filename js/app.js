@@ -1,10 +1,11 @@
 app = angular.module('app', ['ngRoute']);
 app.config(function ($httpProvider, $routeProvider, $locationProvider) {
-  $httpProvider.responseInterceptors.push(interceptor);
+  $httpProvider.interceptors.push(interceptor);
   $locationProvider.html5Mode(true);
   $routeProvider
     .when('/', { template: 'index.jade', controller: 'UserController' })
-    .when('/login', { template: 'login.jade', controller: 'LogInController' })
+    .when('/log_in', { template: 'log_in.jade', controller: 'LogInController' })
+    .when('/sign_up', { template: 'sign_up.jade', controller: 'SignUpController' })
     .when('/groups/'+group.id+'/flashcards', { template: 'flashcards.jade', controller: '' })
     .when('/groups/'+group.id+'/flashcards'+lecture.id+'', { template: 'lectureFlashcards.jade', controller: '' })
     .when('/groups/'+group.id+'/flashcards'+lecture.id+'/edit', { template: 'editFlashcards.jade', controller: '' })
@@ -14,13 +15,27 @@ app.config(function ($httpProvider, $routeProvider, $locationProvider) {
     .otherwise({ redirectTo: '/' });
 });
 
-// app.run($http, $rootscope){
-//   $http.get('/')
-//     .success(function(data, status, headers, config){
-//       $rootscope.user = data; // user object
-//     })
-//     .error()
-// }
+app.factory('interceptor',['$q','$location',function($q,$location){
+  return {
+    response: function(response){
+      return promise.then(
+        function success(response) {
+        return response;
+      },
+      function error(response) {
+        if(response.status === 401){ // 401 - unauthorized
+          $location.path('/log_in');
+          return $q.reject(response);
+        }
+        else{
+          return $q.reject(response); 
+        }
+      });
+    }
+  }
+}]);
+
+
     /////// http interceptor for USER object: 
     ///// user obj comes with group names
     ///// more get requests for lectures, etc
