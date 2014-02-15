@@ -29,13 +29,12 @@ var reqMethods = {
     
     if (pathname === "/groups" && params['user_id']) {
       
-      //return groups for that user, along with that group's nested models
+      //return groups for that user
       models.User.findOne({ _id: params['user_id'] })
-                 .populate('users')
-                 .populate('requests')
-                 .populate('communications')
-                 .exec(function(err, groups) {
-                   sendResponse(200, defaultHeaders, groups, res);            
+                 .populate('groups')
+                 .exec(function(err, user) {
+                    user.groups.forEach();
+                   sendResponse(200, defaultHeaders, user.groups, res);            
                  });
       
     } else if (pathname === "/groups"){
@@ -57,9 +56,11 @@ var reqMethods = {
     } else if (pathname === '/lectures' && params['id']) {
       
       //return lecture with its parent group name
-      models.Lecture.findOne({ _id: params['id'] }).populate('group_id', 'name').exec(function(err, lecture) {
-        sendResponse(200, defaultHeaders, lecture, res);        
-      });
+      models.Lecture.findOne({ _id: params['id'] })
+                    .populate('group_id', 'name')
+                    .exec(function(err, lecture) {
+                      sendResponse(200, defaultHeaders, lecture, res);        
+                    });
       
     } else if (pathname === '/lectures' && params['group_id']) {
       
@@ -72,16 +73,6 @@ var reqMethods = {
     } else {
       sendResponse(404, defaultHeaders, null, res);
     }
-
-
-    // if (req.url === '/groups') {
-    //   //return all groups
-    //   models.Group.find(function(err, groups) {
-    //     sendResponse(200, defaultHeaders, groups, res);
-    //   });
-    // } 
-    
-    
     
     // if (req.url === "/") {
     //   fs.readFile(path.join(process.cwd() + "/index.html"), function(err, text) {
