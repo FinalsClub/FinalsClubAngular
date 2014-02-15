@@ -36,7 +36,9 @@ for(var i = 0; i < routes.length; i++) {
   });
 }
 
-//api routes
+//------------------ API --------------------//
+
+//GET routes
 
 app.get('/groups', function(req, res) {
   if (req.query['user_id']) {    
@@ -82,4 +84,48 @@ app.get('/lectures', function(req, res) {
                     res.send(200, JSON.stringify(lectures));
                   });      
   }
+});
+
+app.get('/communications', function(req, res) {
+  if (req.query['group_id']) {
+    models.Communication.find({group_id: req.query['group_id']})
+                        .populate('user_id');
+                        .exec(function(err, communications) {
+                          res.send(200, JSON.stringify(communications));
+                        });
+  }
+});
+
+app.get('/courses', function(req, res) {
+  if (req.query['school_id']) {
+    models.Course.find({ school_id: req.query['school_id'] })
+                 .exec(function(err, courses) {
+                   res.send(200, JSON.stringify(courses));
+                 });
+  }
+});
+
+app.get('/schools', function(req, res) {
+  models.School.find()
+               .exec(function(err, schools) {
+                res.send(200, JSON.stringify(schools));
+               });
+});
+
+//POST routes
+
+app.post('/users', function(req, res){
+
+});
+
+app.post('/groups', function(req, res){
+
+});
+
+app.post('/requests', function(req, res){
+
+});
+
+app.post('/new_member', function(req, res){
+
 });
