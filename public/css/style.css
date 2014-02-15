@@ -1,5 +1,5 @@
-body {
-  background-color: red;
+html, body {
+  margin:0;
 }
 .masthead {
   background-color: black;
