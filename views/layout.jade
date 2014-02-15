@@ -1,6 +1,41 @@
 doctype html
 html(lang="en")
   head
-    link(rel='stylesheet', href='/css/app.css')
-  body
-    h1 Finals Club
+    ng-app='app'
+    title Finals Club
+    script(type="text/css" src="/css/fonts.css")      
+    script(type="text/css" src="/css/style.css")      
+    script(src="/bower_components/angular/angular.js") 
+    script(src="/bower_components/angular-route/angular-route.js") 
+    script(src="/bower_components/jquery/dist/jquery.min.js") 
+    script(src="/js/app.js")
+  //- mainController ? 
+  .masthead 
+    //- .loginstatus
+    //-   - if( user && user.loggedIn )
+    //-     | Currently logged in as 
+    //-     span.username
+    //-       | !{ user.displayName || user.name }
+    //-   - else
+    //-     | &nbsp;
+    .navbar
+      table
+        tr
+          td
+            a(href="/")
+          td.menu
+            a(href="/groups") Groups
+            //- a(href="/archive") Archive
+            a(href="/press") Press
+
+            - if( user && user.loggedIn )
+              a(href="/account") account settings
+              a.special( href='/logout' ) Logout
+            - else
+              a(href="/register") Create an Account
+              a.special(href="/login") Login
+    div.logbar
+      //- &nbsp;
+  ng-view=''
+//- place view here!
+
