@@ -10,33 +10,32 @@ html(lang="en")
     script(src="../../bower_components/jquery/dist/jquery.min.js") 
     script(src="../../js/app.js")
   // mainController ? 
-  div.masthead 
-  div.logbar
-    div.loginstatus
-      - if( user && user.loggedIn )
-        | Currently logged in as 
-        span.username
-          | !{ user.displayName || user.name }
-      - else
-        | &nbsp;
-  div.navbar
-    table
-      tr
-        td
-          a(href="/")
-        td.menu
-          a(href="/groups") Groups
-          //- a(href="/archive") Archive
-          a(href="/press") Press
+  .masthead 
+    //- .loginstatus
+    //-   - if( user && user.loggedIn )
+    //-     | Currently logged in as 
+    //-     span.username
+    //-       | !{ user.displayName || user.name }
+    //-   - else
+    //-     | &nbsp;
+    .navbar
+      table
+        tr
+          td
+            a(href="/")
+          td.menu
+            a(href="/groups") Groups
+            //- a(href="/archive") Archive
+            a(href="/press") Press
 
-          - if( user && user.loggedIn )
-            a(href="/profile") Profile
-            a.special( href='/logout' ) Logout
-          - else
-            a(href="/register") Create an Account
-            a.special(href="/login") Login
-  div.logbar
-    //- &nbsp;
+            - if( user && user.loggedIn )
+              a(href="/account") account settings
+              a.special( href='/logout' ) Logout
+            - else
+              a(href="/register") Create an Account
+              a.special(href="/login") Login
+    div.logbar
+      //- &nbsp;
   ng-view=''
-// place view here!
+//- place view here!
 

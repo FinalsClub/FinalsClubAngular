@@ -1,9 +1,10 @@
-div.createGroup
-  li.createTitle Course affiliation
+form.createGroup(ng-submit='submit()' ng-controller='createGroupController')
+  label(ng-model='course') Course affiliation
     input.createGroup(max=140)
-  li.createTitle Group name
+  label Group name
     input.createGroup(max=140)
-  li.createTitle Motto
+  label Motto
     input.createGroup(max=140)
-  li.createTitle Description
-    input.createGroup(max=500)  
+  label Description
+    input.createGroup(max=500)
+  input(type='submit' id='submit')
