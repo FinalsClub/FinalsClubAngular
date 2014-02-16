@@ -1,6 +1,12 @@
 // write GET request for login page, dropdown menu /schools
 //// SEND JSON FOR POSTS
+
 app = angular.module('app', []);
+
+app.config(function ($locationProvider) {
+  $locationProvider.html5Mode(true);
+});
+
 
 /*
 -----------------------------CONTROLLERS----------------------------------------------------------------------------------
