@@ -54,10 +54,12 @@ var routes = [
 
 //goes through routes and serves layout page for each
 for(var i = 0; i < routes.length; i++) {
-  app.get(routes[i], isLoggedIn, function(req, res) {
+  app.get(routes[i], function(req, res) {
     res.render('index.jade');
   });
 }
+
+app.set('user', null);
 
 //FB login routes
 app.get('/auth/facebook', passport.authenticate('facebook'));
@@ -65,13 +67,22 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook'),
   function(req, res) {
-   res.send(req.user);
+    app.set('user', req.user);
   }
 );
 
+app.get('/loggedin', function(req, res) {
+  console.log("LOOK HERE:  ", app.get('user'));
+  if (app.get('user')) {
+    res.send(200, app.get('user'));
+  } else {
+    res.send(200, 0);
+  }
+});
+
 app.get('/log_out', function(req, res) {
   req.logout();
-  req.redirect('/');
+  res.send(200);
 });
 
 //--------------------------- API -----------------------------//
