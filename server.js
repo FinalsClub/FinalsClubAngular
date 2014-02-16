@@ -28,7 +28,7 @@ app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
  console.log('serializeUser: ' + user)
- done(null, user);
+ done(null, user._id);
 });
 passport.deserializeUser(function(id, done) {
  models.User.findById(id, function(err, user){
@@ -65,16 +65,16 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook'),
   function(req, res) {
-   res.send("logged in!");
+   res.send(req.user);
   }
 );
 
 app.get('/log_out', function(req, res) {
   req.logout();
-  res.send("logged out!");
+  req.redirect('/');
 });
 
-//------------------ API --------------------//
+//--------------------------- API -----------------------------//
 
 //GET routes
 
@@ -170,7 +170,7 @@ app.post('/new_member', function(req, res){
 
 });
 
-//helper functions
+//----------------------helper functions-------------------------//
 
 function isLoggedIn(req, res, next) {
 
