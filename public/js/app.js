@@ -45,10 +45,11 @@ app.controller('UserController', ['$scope', '$location', 'isUserLoggedIn', 'getU
   if(isUserLoggedIn.checkLogIn()){
     console.log('in here')
     $scope.user = new isUserLoggedIn();
+    $scope.groups = new getUserGroups($scope.user._id);  
   } else {
     $location.path('/log_in');
   }
-  $scope.groups = new getUserGroups($scope.user.id);  
+  ////////////////////////////////////////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }]);
 
 app.factory('isUserLoggedIn', ['$http', function($http){
