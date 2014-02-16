@@ -22,7 +22,10 @@ var userSchema = mongoose.Schema({
   password_salt: String,
   auth_token: String,
   school_id: { type: Number, ref: 'School' },
-  facebook_id: String,
+  facebook:  {
+    id: Number,
+    token: String
+  },
   phone_number: Number,
   groups: [{type: Number, ref: 'Group'}],
   rsvps: [{type: Number, ref: 'Rsvp'}],
