@@ -2,10 +2,10 @@
 //// SEND JSON FOR POSTS
 app = angular.module('app', ['ngRoute']);
 app.config(function ($httpProvider, $routeProvider, $locationProvider) {
-  // $httpProvider.interceptors.push(interceptor);
+  $httpProvider.interceptors.push(interceptor);
   $locationProvider.html5Mode(true);
   $routeProvider
-    .when('/', { controller: 'UserController' })
+    .when('/', { templateUrl: '/templates/groups.jade', controller: 'UserController' })
     .when('/log_in', { templateUrl: '/templates/logIn.jade', controller: 'LogInController' })
     .when('/sign_up', { templateUrl: '/templates/signUp.jade', controller: 'SignUpController' })
     // .when('/groups/'+group.id+'/flashcards', { templateUrl: '/templates/flashcards.jade', controller: '' })
@@ -22,7 +22,8 @@ app.factory('interceptor',['$q','$location',function($q,$location){
     response: function(response){
       return promise.then(
         function success(response) {
-        return response;
+          console.log('success: ', response.data)
+          return response;
       },
       function error(response) {
         if(response.status === 401){ // 401 - unauthorized
@@ -46,8 +47,8 @@ app.controller('SignUpController', 'signUp', function($scope){
   $scope.schools = signUp.getSchools;
 })
 // if user exists
-app.controller('UserController', function($rootscope, $scope) {
-  $rootscope.groups = user.groups;
+app.controller('UserController', function($rootScope, $scope) {
+  $rootScope.groups = user.groups;
 });
 
 
