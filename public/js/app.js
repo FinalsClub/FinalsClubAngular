@@ -5,9 +5,9 @@ app.config(function ($httpProvider, $routeProvider, $locationProvider) {
   // $httpProvider.interceptors.push(interceptor);
   $locationProvider.html5Mode(true);
   $routeProvider
-    .when('/', { templateUrl: '/templates/index.jade', controller: 'UserController' })
-    .when('/log_in', { templateUrl: '../views/templates/logIn.jade', controller: 'LogInController' })
-    .when('/sign_up', { templateUrl: '../views/templates/signUp.jade', controller: 'SignUpController' })
+    .when('/', { controller: 'UserController' })
+    .when('/log_in', { templateUrl: '/templates/logIn.jade', controller: 'LogInController' })
+    .when('/sign_up', { templateUrl: '/templates/signUp.jade', controller: 'SignUpController' })
     // .when('/groups/'+group.id+'/flashcards', { templateUrl: '/templates/flashcards.jade', controller: '' })
     // .when('/groups/'+group.id+'/flashcards'+lecture.id+'', { templateUrl: '/templates/lectureFlashcards.jade', controller: '' })
     // .when('/groups/'+group.id+'/flashcards'+lecture.id+'/edit', { templateUrl: '/templates/editFlashcards.jade', controller: '' })
