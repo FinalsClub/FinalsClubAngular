@@ -15,8 +15,8 @@ html(lang="en" ng-app='app')
       .wrapper
         nav#g-nav-user
           ul
-            //- li.first
-            //-   a(href="#").username
+            li.first
+              a(href="#").username
             li
               a(href="/sign_up")#register_link Sign Up
             li.last
@@ -33,16 +33,13 @@ html(lang="en" ng-app='app')
           //-     | &nbsp;
           
           nav#g-nav-main
-            ul
-              li
-                a(href="/schools")#school_link Groups
+            span
+              a(href="/groups")#school_link Groups
                 //- span.icon(alt="paperclip") 
-              li
-                a(href="http://blog.finalsclub.org")#blog_link Blog
-                  //- span.icon(alt="align-lines")
-              //- li
-              //-   a(href="/archive")#archive_link.nav
-              //-     span.icon(alt="book") Library
+            span
+              a(href="http://blog.finalsclub.org")#blog_link Blog
+              //- span.icon(alt="align-lines") 
+              //- span.icon(alt="book") 
           hr#g-masthead-hr
     #topofcontent
       .wrapper
@@ -51,4 +48,3 @@ html(lang="en" ng-app='app')
       #g-page
         .wrapper  
     div(ng-view='')
-
