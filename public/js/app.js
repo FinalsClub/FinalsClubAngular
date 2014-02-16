@@ -1,22 +1,21 @@
-app = angular.module('app', ['ngRoute']);
-app.config(function ($httpProvider, $routeProvider, $locationProvider) {
-  $httpProvider.interceptors.push(interceptor);
-  $locationProvider.html5Mode(true);
-  $routeProvider
-    .when('/', { template: '/templates/index.jade', controller: 'UserController' })
-    .when('/log_in', { template: '/templates/logIn.jade', controller: 'LogInController' })
 // write GET request for login page, dropdown menu /schools
 //// SEND JSON FOR POSTS
-    .when('/sign_up', { template: '/templates/signUp.jade', controller: 'SignUpController' })
-    .when('/groups/'+group.id+'/flashcards', { template: '/templates/flashcards.jade', controller: '' })
-    .when('/groups/'+group.id+'/flashcards'+lecture.id+'', { template: '/templates/lectureFlashcards.jade', controller: '' })
-    .when('/groups/'+group.id+'/flashcards'+lecture.id+'/edit', { template: '/templates/editFlashcards.jade', controller: '' })
-    .when('/groups/search', { template: '/templates/searchGroups.jade', controller: '' })
-    .when('/groups/new', { template: '/templates/createGroups.jade', controller: '' })
-    .when('groups/'+group.id+'/communications', { template: '/templates/communications.jade', controller: '' })
+app = angular.module('app', ['ngRoute']);
+app.config(function ($httpProvider, $routeProvider, $locationProvider) {
+  // $httpProvider.interceptors.push(interceptor);
+  $locationProvider.html5Mode(true);
+  $routeProvider
+    .when('/', { templateUrl: '/templates/index.jade', controller: 'UserController' })
+    .when('/log_in', { templateUrl: '../views/templates/logIn.jade', controller: 'LogInController' })
+    .when('/sign_up', { templateUrl: '../views/templates/signUp.jade', controller: 'SignUpController' })
+    // .when('/groups/'+group.id+'/flashcards', { templateUrl: '/templates/flashcards.jade', controller: '' })
+    // .when('/groups/'+group.id+'/flashcards'+lecture.id+'', { templateUrl: '/templates/lectureFlashcards.jade', controller: '' })
+    // .when('/groups/'+group.id+'/flashcards'+lecture.id+'/edit', { templateUrl: '/templates/editFlashcards.jade', controller: '' })
+    // .when('/groups/search', { templateUrl: '/templates/searchGroups.jade', controller: '' })
+    // .when('/groups/new', { templateUrl: '/templates/createGroups.jade', controller: '' })
+    // .when('groups/'+group.id+'/communications', { templateUrl: '/templates/communications.jade', controller: '' })
     .otherwise({ redirectTo: '/' });
 });
-
 
 app.factory('interceptor',['$q','$location',function($q,$location){
   return {
@@ -44,7 +43,6 @@ app.controller('LogInController', 'logIn', function($scope){
 })
 
 app.controller('SignUpController', 'signUp', function($scope){
-  // run signup factory
   $scope.schools = signUp.getSchools;
 })
 // if user exists
@@ -54,6 +52,7 @@ app.controller('UserController', function($rootscope, $scope) {
 
 
 app.factory('logIn', function(){
+
 
 });
 
@@ -69,14 +68,14 @@ app.factory('signUp', function(){
         }).error(function(data, status, headers, config) {
           console.log(status, error)
       });   
-    };  
-  }   
+    }  
+  };   
 });
 
+// app.factory('')
 //// mygroups controller
 app.controller('allGroupsViewController', 'getUsersGroups', function($scope){
   $scope.usersGroups = getUsersGroups.getGroups;
-  // $scope.usersSubjects = ...
 })
 
 //// get User's groups
