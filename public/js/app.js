@@ -26,6 +26,7 @@ app.controller('LogInController', ['$scope', function($scope){
 app.controller('SignUpController', 'signUp', function($scope){
   $scope.schools = signUp.getSchools;
 })
+
 app.factory('getUserGroups', ['$http', function($http) {
   return function(user) {
       $http({
@@ -40,6 +41,7 @@ app.factory('getUserGroups', ['$http', function($http) {
       });
     } 
 }]);
+
 // if user exists
 app.controller('UserController', ['$scope', '$location', 'isUserLoggedIn', 'getUserGroups', function($scope, $location, isUserLoggedIn, getUserGroups) {
   if(isUserLoggedIn.checkLogIn()){
@@ -49,7 +51,6 @@ app.controller('UserController', ['$scope', '$location', 'isUserLoggedIn', 'getU
   } else {
     $location.path('/log_in');
   }
-  ////////////////////////////////////////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }]);
 
 app.factory('isUserLoggedIn', ['$http', function($http){
