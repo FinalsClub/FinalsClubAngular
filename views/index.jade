@@ -9,25 +9,46 @@ html(lang="en" ng-app='app')
     script(src="/bower_components/angular-route/angular-route.js") 
     script(src="/bower_components/jquery/dist/jquery.min.js") 
     script(src="/js/app.js")
-  //- mainController ? 
-  .masthead 
-    //- .loginstatus
-    //-   - if( user && user.loggedIn )
-    //-     | Currently logged in as 
-    //-     span.username
-    //-       | !{ user.displayName || user.name }
-    //-   - else
-    //-     | &nbsp;
-    .navbar
-      table
-        tr
-          td
-            a(href="/")
-          td.menu
-            a.nav(href="/sign_up") Create an Account
-            a.nav(href="/log_in") Login
-            a.nav( href='/logout' ) Logout
 
-
-  div(ng-view='')
+  body
+    header#g-masthead
+      .wrapper
+        nav#g-nav-user
+          ul
+            li.first
+              a(href="#").username
+            li
+              a(href="/sign_up")#register_link Sign Up
+            li.last
+              a(href="/log_in")#login_link Log in
+        #g-logo
+          a(href='/')
+            img(src='/img/logo-light.png' alt='Finals Club - social note taking')#logo 
+          //- .loginstatus
+          //-   - if( user && user.loggedIn )
+          //-     | Currently logged in as 
+          //-     span.username
+          //-       | !{ user.displayName || user.name }
+          //-   - else
+          //-     | &nbsp;
+          
+          nav#g-nav-main
+            ul
+              li
+                a(href="/schools")#school_link
+                  span.icon(alt="paperclip") Courses
+              li
+                a(href="http://blog.finalsclub.org")#blog_link
+                  span.icon(alt="align-lines") Blog
+              li
+                a(href="/archive")#archive_link.nav
+                  span.icon(alt="book") Library
+          hr#g-masthead-hr
+    #topofcontent
+      .wrapper
+        #messages.page
+          span#PROTO_message.__type__ __msg__
+      #g-page
+        .wrapper  
+    div(ng-view='')
 
