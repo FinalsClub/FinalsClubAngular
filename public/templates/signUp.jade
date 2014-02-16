@@ -1,0 +1,12 @@
+h1 Create an Account
+form
+  li.form School email*
+  input(type='text' name='school_email' required)#school_email
+  li.form Username
+  input(type='text' name='username')#username
+  li.form Password*
+  input(type='text' name='password' required)#password 
+  li.form School
+  select(ng-model='schools' ng-options='school.name for school in schools')#school
+    {{ school.name }}
+  input(type='submit') Register

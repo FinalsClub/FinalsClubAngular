@@ -1,10 +1,10 @@
 doctype html
-html(lang="en")
+html(lang="en" ng-app='app')
   head
-    ng-app='app'
     title Finals Club
-    script(type="text/css" src="/css/fonts.css")      
-    script(type="text/css" src="/css/style.css")      
+    link(type="text/css" rel="stylesheet" href="/css/fonts.css")      
+    link(type="text/css" rel="stylesheet" href="/css/style.css")      
+
     script(src="/bower_components/angular/angular.js") 
     script(src="/bower_components/angular-route/angular-route.js") 
     script(src="/bower_components/jquery/dist/jquery.min.js") 
@@ -24,18 +24,10 @@ html(lang="en")
           td
             a(href="/")
           td.menu
-            a(href="/groups") Groups
-            //- a(href="/archive") Archive
-            a(href="/press") Press
+            a.nav(href="/sign_up") Create an Account
+            a.nav(href="/log_in") Login
+            a.nav( href='/logout' ) Logout
 
-            - if( user && user.loggedIn )
-              a(href="/account") account settings
-              a.special( href='/logout' ) Logout
-            - else
-              a(href="/register") Create an Account
-              a.special(href="/login") Login
-    .logbar
-      //- &nbsp;
-  ng-view=''    
-//- place view here!
+
+  div(ng-view='')
 
