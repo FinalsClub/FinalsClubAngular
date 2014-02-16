@@ -1,0 +1,16 @@
+include index
+h1 Groups
+
+.groupDiv(ng-controller='allGroupsViewController' ng-repeat='group in user.groups')
+  
+  li.groupName {{ group.Name }}
+  
+  li.groupNav
+    a(href="'{{group.name}}'" + "/flashcards") | 
+    a(href="'{{group.name}}'" + "/communications") | 
+    a(href="'{{group.name}}'" + "/meetUp") 
+
+  .groupMembers(ng-repeat='member in group.members')
+    span.groupMember {{ member }}
+
+

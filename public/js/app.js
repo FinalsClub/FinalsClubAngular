@@ -1,22 +1,6 @@
 // write GET request for login page, dropdown menu /schools
 //// SEND JSON FOR POSTS
-app = angular.module('app', ['ngRoute']);
-
-app.config(function ($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode(true);
-  $routeProvider
-    .when('/', { templateUrl: '/templates/groups.jade', controller: 'UserController' })
-    .when('/log_in', { templateUrl: '/templates/logIn.jade', controller: 'LogInController' })
-    .when('/sign_up', { templateUrl: '/templates/signUp.jade', controller: 'SignUpController' })
-    // .when('/groups/'+group.id+'/flashcards', { templateUrl: '/templates/flashcards.jade', controller: '' })
-    // .when('/groups/'+group.id+'/flashcards'+lecture.id+'', { templateUrl: '/templates/lectureFlashcards.jade', controller: '' })
-    // .when('/groups/'+group.id+'/flashcards'+lecture.id+'/edit', { templateUrl: '/templates/editFlashcards.jade', controller: '' })
-    // .when('/groups/search', { templateUrl: '/templates/searchGroups.jade', controller: '' })
-    // .when('/groups/new', { templateUrl: '/templates/createGroups.jade', controller: '' })
-    // .when('groups/'+group.id+'/communications', { templateUrl: '/templates/communications.jade', controller: '' })
-    .otherwise({ redirectTo: '/' });
-});
-
+app = angular.module('app', []);
 
 // if user doesn't exist
 app.controller('LogInController', ['$scope', function($scope){
@@ -91,22 +75,21 @@ app.controller('allGroupsViewController', 'isUserLoggedIn', 'getUsersGroups', fu
 })
 
 
-
-// app.factory('getUsersGroups', function(){
-//   return {
-//     getGroups: function(option){
-//       $http({
-//         method : 'GET',
-//         url : '/getGroupsURL',
-//         params: { user_id: user.id }
-//         }).success(function(data, status, headers, config) {
-//           return data; // should be an array
-//         }).error(function(data, status, headers, config) {
-//           console.log(status, error)
-//       });    
-//     }
-//   }
-// });
+app.factory('getUsersGroups', function(){
+  return {
+    getGroups: function(option){
+      $http({
+        method : 'GET',
+        url : '/getGroupsURL',
+        params: { user_id: user.id }
+        }).success(function(data, status, headers, config) {
+          return data; // should be an array
+        }).error(function(data, status, headers, config) {
+          console.log(status, error)
+      });    
+    }
+  }
+});
 
 
 app.controller('groupController', 'getGroupsLectures', function($scope){

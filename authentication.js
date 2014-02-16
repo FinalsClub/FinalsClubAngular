@@ -19,7 +19,11 @@ module.exports = passport.use(new FacebookStrategy(
 
         // if the user is found, then log them in
         if (user) {
-          return done(null, user);
+          user.facebook.token = token;
+          user.save(function(err) {
+            if (err) {throw err; } 
+            return done(null, user);          
+          })
         } else {
           // if there is no user found with that facebook id, create them
           var newUser = new User();
