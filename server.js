@@ -1,7 +1,11 @@
 
 //require dependencies
 var express = require('express');
-var models = require("./models");
+var models = require('./models');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var config = require('./oauth.js');
+var auth = require('./authentication.js');
 
 //set up server
 var port = 8080;
@@ -15,6 +19,25 @@ app.engine('jade', require('jade').__express);
 //configures static asset delivery
 app.use(express.static(__dirname + '/public'));
 
+//configures passport js
+app.use(express.cookieParser());
+app.use(express.bodyParser());
+app.use(express.session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+ console.log('serializeUser: ' + user._id)
+ done(null, user._id);
+});
+passport.deserializeUser(function(id, done) {
+ models.User.findById(id, function(err, user){
+     console.log(user)
+     if(!err) done(null, user);
+     else done(err, null)
+ })
+});
+
 //defines routes for serving single page app
 var routes = [
   '/',
@@ -27,14 +50,29 @@ var routes = [
   '/groups/new',
   '/groups/:id/members',
   '/groups/:id/communications'
-];
+];  
 
 //goes through routes and serves layout page for each
 for(var i = 0; i < routes.length; i++) {
-  app.get(routes[i], function(req, res) {
-    res.render('layout.jade');
+  app.get(routes[i], isLoggedIn, function(req, res) {
+    res.render('index.jade');
   });
 }
+
+//FB login routes
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook'),
+  function(req, res) {
+   res.send("logged in!");
+  }
+);
+
+app.get('/log_out', function(req, res) {
+  req.logout();
+  res.send("logged out!");
+});
 
 //------------------ API --------------------//
 
@@ -89,7 +127,7 @@ app.get('/lectures', function(req, res) {
 app.get('/communications', function(req, res) {
   if (req.query['group_id']) {
     models.Communication.find({group_id: req.query['group_id']})
-                        .populate('user_id');
+                        .populate('user_id')
                         .exec(function(err, communications) {
                           res.send(200, JSON.stringify(communications));
                         });
@@ -101,7 +139,7 @@ app.get('/courses', function(req, res) {
     models.Course.find({ school_id: req.query['school_id'] })
                  .exec(function(err, courses) {
                    res.send(200, JSON.stringify(courses));
-                 });
+                 });e
   }
 });
 
@@ -111,6 +149,8 @@ app.get('/schools', function(req, res) {
                 res.send(200, JSON.stringify(schools));
                });
 });
+
+
 
 //POST routes
 
@@ -129,3 +169,13 @@ app.post('/requests', function(req, res){
 app.post('/new_member', function(req, res){
 
 });
+
+//helper functions
+
+function isLoggedIn(req, res, next) {
+
+  if (req.isAuthenticated())
+    return next();
+
+  res.send(401, "User must log in.");
+}
