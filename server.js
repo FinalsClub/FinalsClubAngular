@@ -27,8 +27,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
- console.log('serializeUser: ' + user._id)
- done(null, user._id);
+ console.log('serializeUser: ' + user)
+ done(null, user);
 });
 passport.deserializeUser(function(id, done) {
  models.User.findById(id, function(err, user){
