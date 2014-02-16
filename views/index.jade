@@ -13,11 +13,12 @@ html(lang="en" ng-app='app')
       .wrapper
         nav#login-nav
           ul
+
             if user
               li
-                a(href="#").username ---Logged in as #{user}---
+                a(href="#").username #{user}
                 img(src='#{image}')
-                a(href="/log_out") v
+                a(href="/log_out") Log out
             else
               li
                 a(href="/sign_up")#register_link Sign Up
@@ -30,3 +31,4 @@ html(lang="en" ng-app='app')
             a(href="/groups/new")#blog_link Create a Group
     .wrapper
       =yield
+

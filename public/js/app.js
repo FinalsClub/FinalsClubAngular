@@ -32,7 +32,6 @@ app.controller('UserController', ['$scope', '$location', 'isUserLoggedIn', 'getU
   }
 }]);
 
-
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------
 */
