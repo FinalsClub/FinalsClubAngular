@@ -196,6 +196,7 @@ a {
   -o-transition: color 0.25s ease-in-out;
   -ms-transition: color 0.25s ease-in-out;
   transition: color 0.25s ease-in-out;
+  text-decoration: none;
   color: #e8a200; }
   a:hover {
     color: #e8a200; }

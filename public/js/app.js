@@ -18,31 +18,20 @@ app.config(function ($routeProvider, $locationProvider) {
 });
 
 
-// if user doesn't exist
+/*
+-----------------------------CONTROLLERS----------------------------------------------------------------------------------
+*/
+
 app.controller('LogInController', ['$scope', function($scope){
 
 }])
 
 app.controller('SignUpController', 'signUp', function($scope){
-  $scope.schools = signUp.getSchools;
+  $scope.schools = signUp.getSchools();
+  // SEND POST REQUEST
+  $scope.newUser = signUp.createNewUser();
 })
 
-app.factory('getUserGroups', ['$http', function($http) {
-  return function(user) {
-      $http({
-        method : 'GET',
-        url : '/groups',
-        params : { user_id : user }
-      }).success(function(data, status){
-        console.log(data);
-        return data;
-      }).error(function(data, status){
-        console.log("ERROR: ", data);
-      });
-    } 
-}]);
-
-// if user exists
 app.controller('UserController', ['$scope', '$location', 'isUserLoggedIn', 'getUserGroups', function($scope, $location, isUserLoggedIn, getUserGroups) {
   if(isUserLoggedIn.checkLogIn()){
     console.log('in here')
@@ -53,12 +42,17 @@ app.controller('UserController', ['$scope', '$location', 'isUserLoggedIn', 'getU
   }
 }]);
 
+
+/*
+-----------------------------FACTORIES------------------------------------------------------------------------------------
+*/
+
 app.factory('isUserLoggedIn', ['$http', function($http){
     return {
-      checkLogIn : function(){
+      checkLogIn: function(){
         $http({
-          method : 'GET',
-          url : '/loggedin'
+          method: 'GET',
+          url: '/loggedin'
         }).success(function(data, status){
           console.log('is user logged in ', data)
           return data;
@@ -69,19 +63,48 @@ app.factory('isUserLoggedIn', ['$http', function($http){
     };
 }]);
 
+app.factory('getUserGroups', ['$http', function($http) {
+  return function(user) {
+      $http({
+        method: 'GET',
+        url: '/groups',
+        params: { user_id : user }
+      }).success(function(data, status){
+        console.log(data);
+        return data;
+      }).error(function(data, status){
+        console.log("ERROR: ", data);
+      });
+    } 
+}]);
+
+
 app.factory('signUp', function(){
   return {
     getSchools: function(option){
       $http({
-        method : 'GET',
-        url : '/schools',
-        }).success(function(data, status, headers, config) {
+        method: 'GET',
+        url: '/schools'
+        }).success(function(data, status, headers) {
           data = JSON.parse(data);
           return data; // array of school names
-        }).error(function(data, status, headers, config) {
+        }).error(function(data, status, headers) {
           console.log(status, error)
       });   
-    }  
+    },
+    createNewUser: function(){
+      $http({
+        method: 'POST',
+        url: '/users',
+        data: JSON.stringify(data)
+        }).success(function(data, status, headers){
+          console.log('new user created');
+        }).error(function(){
+          // if user exists
+          // else
+          console.log('error in creating new user: ', data)
+        })
+      }
   };   
 });
 
@@ -92,22 +115,6 @@ app.controller('allGroupsViewController', 'isUserLoggedIn', 'getUsersGroups', fu
 })
 
 
-
-// app.factory('getUsersGroups', function(){
-//   return {
-//     getGroups: function(option){
-//       $http({
-//         method : 'GET',
-//         url : '/getGroupsURL',
-//         params: { user_id: user.id }
-//         }).success(function(data, status, headers, config) {
-//           return data; // should be an array
-//         }).error(function(data, status, headers, config) {
-//           console.log(status, error)
-//       });    
-//     }
-//   }
-// });
 
 
 app.controller('groupController', 'getGroupsLectures', function($scope){
