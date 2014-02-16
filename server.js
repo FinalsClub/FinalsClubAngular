@@ -38,52 +38,57 @@ passport.deserializeUser(function(id, done) {
  })
 });
 
-//defines routes for serving single page app
-var routes = [
-  '/',
-  '/log_in',
-  '/sign_up',
-  '/groups/:id/flashcards',
-  '/groups/:id/flashcards/:lecture_id',
-  '/groups/:id/flashcards/:lecture_id/edit',
-  '/groups/search',
-  '/groups/new',
-  '/groups/:id/members',
-  '/groups/:id/communications'
-];  
+// var routes = [
+//   '/',
+//   '/log_in',
+//   '/sign_up',
+//   // '/groups/:id/flashcards',
+//   // '/groups/:id/flashcards/:lecture_id',
+//   // '/groups/:id/flashcards/:lecture_id/edit',
+//   // '/groups/search',
+//   // '/groups/new',
+//   // '/groups/:id/members',
+//   // '/groups/:id/communications'
+// ];  
 
-//goes through routes and serves layout page for each
-for(var i = 0; i < routes.length; i++) {
-  app.get(routes[i], function(req, res) {
-    res.render('index.jade');
-  });
-}
-
+//-------------------------LOG IN ROUTES -----------------------------//
 app.set('user', null);
 
-//FB login routes
-app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/log_in', function(req, res) {
+  res.render('log_in.jade');
+})
 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook'),
-  function(req, res) {
-    app.set('user', req.user);
-  }
-);
-
-app.get('/loggedin', function(req, res) {
-  console.log("LOOK HERE:  ", app.get('user'));
-  if (app.get('user')) {
-    res.send(200, app.get('user'));
-  } else {
-    res.send(200, 0);
-  }
-});
+app.get('/sign_up', function(req, res) {
+  res.render('sign_up.jade');
+})
 
 app.get('/log_out', function(req, res) {
   req.logout();
-  res.send(200);
+  res.redirect('/log_in');
 });
+
+//FB routes
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/log_in' }),
+  function(req, res) {
+    app.set('user', req.user);
+    res.redirect('/');
+  });
+
+//----------------------STATIC ROUTES--------------------------//
+
+
+app.get('/', isLoggedIn, function(req, res) {
+  res.render('groups.jade', {user: app.get('user')});
+});
+
+app.get('/groups/new', isLoggedIn, function(req, res) {
+  res.render('create-group.jade', {user: app.get('user')});
+});
+
+
 
 //--------------------------- API -----------------------------//
 
@@ -189,4 +194,5 @@ function isLoggedIn(req, res, next) {
     return next();
 
   res.send(401, "User must log in.");
+  res.redirect('/log_in');
 }

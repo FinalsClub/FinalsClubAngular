@@ -6,28 +6,21 @@ html(lang="en" ng-app='app')
     link(type="text/css" rel="stylesheet" href="/css/style.css")      
 
     script(src="/bower_components/angular/angular.js") 
-    script(src="/bower_components/angular-route/angular-route.js") 
     script(src="/bower_components/jquery/dist/jquery.min.js") 
     script(src="/js/app.js")
   //- mainController ? 
-  .masthead 
-    //- .loginstatus
-    //-   - if( user && user.loggedIn )
-    //-     | Currently logged in as 
-    //-     span.username
-    //-       | !{ user.displayName || user.name }
-    //-   - else
-    //-     | &nbsp;
-    .navbar
-      table
-        tr
-          td
-            a(href="/")
-          td.menu
-            a.nav(href="/sign_up") Create an Account
-            a.nav(href="/log_in") Login
-            a.nav( href='/logout' ) Logout
-
-
-  div(ng-view='')
-
+  body
+    .masthead 
+      .navbar
+        table
+          tr
+            td
+              a(href="/")
+            td.menu
+              if user             
+                a.nav Hello, #{user}
+                a.nav( href='/log_out' ) Log Out
+              else
+                a.nav(href="/sign_up") Sign Up
+                a.nav(href="/log_in") Log In                
+    yield
