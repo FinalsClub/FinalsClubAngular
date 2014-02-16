@@ -38,9 +38,9 @@ app.factory('interceptor',['$q','$location',function($q,$location){
 }]);
 
 // if user doesn't exist
-app.controller('LogInController', 'logIn', function($scope){
+app.controller('LogInController', ['$scope', 'logIn', function($scope){
 
-})
+}])
 
 app.controller('SignUpController', 'signUp', function($scope){
   $scope.schools = signUp.getSchools;
