@@ -1,18 +1,28 @@
 include index
   h1 Create an Account
   form
-    ul
-      li.form
-        label(for='email') Email*
-        input(type='email' name='email' required)
-      li.form
-        label(for='first_name') First name*
-        input(type='text' name='first_name' required)
-      li.form
-        label(for='password') Password*
-        input(type='password' name='password' required)
-      li.form 
-        label(for='school') School
-        select(ng-model='schools' ng-options='school.name for school in schools')
-      li
-        button Submit
+    table
+      tr
+        td 
+          label(for='email') Email*
+        td 
+          input(type='email' name='email' required size="100")
+      tr
+        td
+          label(for='first_name') First name*
+        td
+          input(type='text' name='first_name' required size="100")
+      tr
+        td
+          label(for='password') Password*
+        td
+          input(type='password' name='password' required size="100")
+      tr 
+        td
+          label(for='school') School
+        td
+          select(ng-model='schools' ng-options='school.name for school in schools')
+      tr
+        td
+        td
+          button Submit
