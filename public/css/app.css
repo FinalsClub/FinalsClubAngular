@@ -54,8 +54,8 @@ img {
 
 /*------------------------MASTHEAD AND NAV------------------------*/
 #login-nav {
-  padding: 0.375em 0.75em 0.75em;
-  text-align: right; 
+  padding: 10px 0.75em;
+  float: right;
 }
 
 #login-nav li {
@@ -69,13 +69,13 @@ img {
 }
 
 #logo {
-  float: left;
   zoom: 1.4;
   position: relative;
-  top: -25px;
+  top: 20px;
 }
 
 #main-nav {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   text-align: right;
   padding: 0 0.75em;
 }
@@ -88,7 +88,7 @@ img {
   position: relative;
   margin-left: 1.5em;
   color: #fff; 
-  font-size: 1.7em;
+  font-size: 1.8em;
 }
 
 /*-------------------FORM ELEMENTS-------------------------*/
@@ -134,4 +134,9 @@ button, .button, input[type='submit'] {
 
 .facebook {
   background-color: #7D7DAF;
+}
+
+.loginText {
+  position: relative;
+  top: -30px;
 }
