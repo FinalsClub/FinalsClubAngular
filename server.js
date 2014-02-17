@@ -81,11 +81,11 @@ app.get('/auth/facebook/callback',
 
 
 app.get('/', isLoggedIn, function(req, res) {
-  res.render('groups.jade', {user: app.get('user')});
+  res.render('groups.jade', {user: app.get('user').id});
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {
-  res.render('create-group.jade', {user: app.get('user')});
+  res.render('create-group.jade', {user: app.get('user').id});
 });
 
 

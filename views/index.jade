@@ -1,43 +1,31 @@
-doctype html
 html(lang="en" ng-app='app')
   head
     title Finals Club
     link(type="text/css" rel="stylesheet" href="/css/fonts.css")      
-    link(type="text/css" rel="stylesheet" href="/css/style.css")      
+    link(type="text/css" rel="stylesheet" href="/css/app.css")      
     script(src="/bower_components/jquery/dist/jquery.min.js") 
     script(src="/bower_components/angular/angular.js") 
     script(src="/bower_components/jquery/dist/jquery.min.js") 
     script(src="/bower_components/angular-route/angular-route.js") 
     script(src="/js/app.js")
-  //- mainController ? 
   body
-    header#g-masthead
+    header#masthead
       .wrapper
-        nav#g-nav-user
+        nav#login-nav
           ul
             if user
               li
-                a(href="#").username #{user}
+                a(href="#").username ---Logged in as #{user}---
                 a(href="/log_out") Log Out
             else
               li
                 a(href="/sign_up")#register_link Sign Up
               li
                 a(href="/log_in")#login_link Log in
-        #g-logo
-          a(href='/')
-            img(src='/img/logo-light.png' alt='Finals Club - social note taking')#logo 
-
-          nav#g-nav-main
-            span
-              a(href="/groups")#school_link Groups
-            span
-              a(href="http://blog.finalsclub.org")#blog_link Blog
-          hr#g-masthead-hr
-    #topofcontent
-      .wrapper
-        #messages.page
-          //- span#PROTO_message.__type__ __msg__
-      #g-page
-        .wrapper  
-    yield
+        a(href='/')
+          img(src='/img/logo-light.png' alt='Finals Club - social note taking')#logo
+        nav#main-nav
+            a(href="/groups/search")#school_link Find Groups
+            a(href="/groups/new")#blog_link Create a Group
+    .wrapper
+      =yield
