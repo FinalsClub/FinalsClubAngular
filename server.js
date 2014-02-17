@@ -196,7 +196,20 @@ app.post('/users', function(req, res){
 });
 
 app.post('/groups', function(req, res){
-
+  var group = new models.Group(req.body);
+  group.users.push(app.get('user')._id);
+  
+  group.save(function(){
+    models.User.findOne({
+      _id : app.get('user')._id
+    }).exec(function(err, user){
+      user.groups.push(group._id);
+      user.save(function() {
+        console.log(group)
+        res.send(201);
+      })
+    })
+  })
 });
 
 app.post('/requests', function(req, res){

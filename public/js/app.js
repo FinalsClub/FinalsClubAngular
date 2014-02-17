@@ -42,11 +42,21 @@ app.controller('UserController', ['$scope', '$location', 'isUserLoggedIn', 'getU
   }
 }]);
 
-app.controller('createGroupController', function($scope){
+app.controller('createGroupController', ['$scope', 'createGroup', function($scope, createGroup){
   $scope.intensities = ['low', 'medium', 'high'];
   $scope.courses = [];
-
-})
+  $scope.group = {
+    'name' : null,
+    'course_id' : null,
+    'motto' : null,
+    'description' : null,   
+    'intensity' : null,
+    'question' : null
+  };
+  $scope.submit = function(){
+    createGroup.createNewGroup($scope.group);
+  }
+}])
 
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------
@@ -83,7 +93,7 @@ app.factory('getUserGroups', ['$http', function($http) {
     } 
 }]);
 
-app.factory('signUp', ['$http', '$location', function($http, $location){
+app.factory('signUp', ['$http', function($http){
   return {
     createNewUser: function(data, id){
       $http({
@@ -94,6 +104,22 @@ app.factory('signUp', ['$http', '$location', function($http, $location){
           window.location.href = '/';
         }).error(function(){
           console.log('error in creating new user: ', data)
+        })
+      }
+  };   
+}]);
+
+app.factory('createGroup', ['$http', function($http){
+  return {
+    createNewGroup: function(data){
+      $http({
+        method: 'POST',
+        url: '/groups',
+        data: JSON.stringify(data)
+        }).success(function(data, status, headers){
+          window.location.href = '/';
+        }).error(function(){
+          console.log('error in creating new group: ', data)
         })
       }
   };   
