@@ -16,11 +16,21 @@ app.controller('LogInController', ['$scope', function($scope){
 
 }])
 
-app.controller('SignUpController', 'signUp', function($scope){
-  $scope.schools = signUp.getSchools();
-  // SEND POST REQUEST
-  $scope.newUser = signUp.createNewUser();
-})
+app.controller('SignUpController', ['$scope', '$location', 'signUp',  function($scope, $location, signUp){
+  $scope.location = $location.search().id;
+  $scope.newUser = {
+    'phone_number' : null,
+    'email' : null,
+    'school' : null,
+    'intensity' : null
+  };
+  $scope.schools = [];
+  $scope.intensities = ['low', 'medium', 'high']; 
+  $scope.submit = function() {
+    console.log($scope.location);
+    signUp.createNewUser($scope.newUser, $scope.location);
+  };
+}])
 
 app.controller('UserController', ['$scope', '$location', 'isUserLoggedIn', 'getUserGroups', function($scope, $location, isUserLoggedIn, getUserGroups) {
   if(isUserLoggedIn.checkLogIn()){
@@ -68,26 +78,16 @@ app.factory('getUserGroups', ['$http', function($http) {
 }]);
 
 
-app.factory('signUp', function(){
+app.factory('signUp', ['$http', '$location', function($http, $location){
   return {
-    getSchools: function(option){
+    createNewUser: function(data, id){
       $http({
-        method: 'GET',
-        url: '/schools'
-        }).success(function(data, status, headers) {
-          data = JSON.parse(data);
-          return data; // array of school names
-        }).error(function(data, status, headers) {
-          console.log(status, error)
-      });   
-    },
-    createNewUser: function(){
-      $http({
-        method: 'POST',
-        url: '/users',
+        method: 'PUT',
+        url: '/sign_up/' + id,
         data: JSON.stringify(data)
         }).success(function(data, status, headers){
           console.log('new user created');
+          // $location.url('');
         }).error(function(){
           // if user exists
           // else
@@ -95,7 +95,7 @@ app.factory('signUp', function(){
         })
       }
   };   
-});
+}]);
 
 // app.factory('')
 //// mygroups controller

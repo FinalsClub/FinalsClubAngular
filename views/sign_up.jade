@@ -1,28 +1,31 @@
 include index
-  h1 Create an Account
-  form
+  h1 Complete registration
+  form(ng-controller='SignUpController' ng-submit="submit()" ng-init='schools = #{schools}')
+    //- METHOD: PUT url sign_up/users_id
     table
       tr
         td 
           label(for='email') Email*
         td 
-          input(type='email' name='email' required size="100")
-      tr
-        td
-          label(for='first_name') First name*
-        td
-          input(type='text' name='first_name' required size="100")
-      tr
-        td
-          label(for='password') Password*
-        td
-          input(type='password' name='password' required size="100")
+          input(type='email' name='email' ng-model='newUser.email' required size="100")
       tr 
         td
           label(for='school') School
         td
-          select(ng-model='schools' ng-options='school.name for school in schools')
+          select(ng-model='newUser.school' ng-options='school.name for school in schools')
+            {{ newUser.school }}
+      tr 
+        td
+          label(for='phone_number') Phone number
+        td
+          input(type='tel' ng-model='newUser.phone_number' name='phone_number')
+      tr 
+        td
+          label(for='intensity') Intensity
+        td
+          select(ng-model='newUser.intensity' ng-options='intensity for intensity in intensities')
+
       tr
         td
         td
-          button Submit
+          input(type="submit" id="submit" value="Submit")

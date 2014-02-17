@@ -59,7 +59,9 @@ app.get('/log_in', function(req, res) {
 })
 
 app.get('/sign_up', function(req, res) {
-  res.render('sign_up.jade');
+  models.School.find().exec(function(err, schools) {
+    res.render('sign_up.jade', {schools: JSON.stringify(schools)});
+  });
 })
 
 app.get('/log_out', function(req, res) {
@@ -77,7 +79,7 @@ app.get('/auth/facebook/callback',
     if (req.user.first_name) {
       res.redirect('/');      
     } else {
-      res.redirect('/sign_up');
+      res.redirect('/sign_up?id='+req.user.id);
     }
   });
 
@@ -159,7 +161,7 @@ app.get('/courses', function(req, res) {
     models.Course.find({ school_id: req.query['school_id'] })
                  .exec(function(err, courses) {
                    res.send(200, JSON.stringify(courses));
-                 });e
+                 });
   }
 });
 
@@ -171,6 +173,18 @@ app.get('/schools', function(req, res) {
 });
 
 
+app.put('/sign_up/:id', function(req, res){
+  models.User.findOne({ _id: req.params.id }, function(err, user){
+    user.email = req.body.email;
+    user.school_id = req.body.school._id;
+    user.phone_number = req.body.phone_number;
+    user.intensity = req.body.intensity;
+    user.save(function(err, user){
+      console.log(user);
+      res.send({redirect : '/'});
+    });
+  });
+})
 
 //POST routes
 
