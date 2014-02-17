@@ -1,13 +1,29 @@
 include index
-
-h1 Create a Group
-form.createGroup(ng-submit='submit()' ng-controller='createGroupController')
-  label(ng-model='course') Course affiliation
-    input.createGroup(max=140)
-  label Group name
-    input.createGroup(max=140)
-  label Motto
-    input.createGroup(max=140)
-  label Description
-    input.createGroup(max=500)
-  input(type='submit' id='submit')
+  h1 Create a Group
+  hr
+  form.createGroup(ng-submit='submit()' ng-controller='createGroupController')
+    table
+      tr
+        td
+          label(ng-model='course') Course affiliation:
+        td
+          input.createGroup(size=100)
+      tr
+        td
+          label Group name:
+        td
+          input.createGroup(size=100)
+      tr
+        td
+          label Motto:
+        td
+          input.createGroup(size=100)
+      tr
+        td
+          label Description:
+        td
+          textarea.createGroup(cols=100, rows=10)
+      tr
+        td
+        td 
+          input(type='submit')
