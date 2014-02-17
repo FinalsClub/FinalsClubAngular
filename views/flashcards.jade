@@ -1,3 +1,5 @@
-div.flashcards(ng-controller='groupController')
-  div.eachFlashcard(ng-repeat='lecture in groupLectures')
-    {{ lecture }}
+include index
+
+  div.flashcards(ng-controller='groupController')
+    div.eachFlashcard(ng-repeat='lecture in groupLectures')
+      {{ lecture }}

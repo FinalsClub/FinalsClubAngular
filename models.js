@@ -53,6 +53,7 @@ var courseSchema = mongoose.Schema({
   name: String,
   term: String,
   instructor: String,
+  groups: [{type: Number, ref: 'Group'}],
   created_at: Date
 });
 

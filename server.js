@@ -59,7 +59,9 @@ app.get('/log_in', function(req, res) {
 })
 
 app.get('/sign_up', function(req, res) {
-  res.render('sign_up.jade');
+  models.School.find().exec(function(err, schools) {
+    res.render('sign_up.jade', {schools: JSON.stringify(schools)});
+  });
 })
 
 app.get('/log_out', function(req, res) {
@@ -77,7 +79,7 @@ app.get('/auth/facebook/callback',
     if (req.user.first_name) {
       res.redirect('/');      
     } else {
-      res.redirect('/sign_up');
+      res.redirect('/sign_up?id='+req.user.id);
     }
   });
 
@@ -85,12 +87,30 @@ app.get('/auth/facebook/callback',
 
 
 app.get('/', isLoggedIn, function(req, res) {
-  res.render('groups.jade', {user: app.get('user').first_name, image: app.get('user').image});
+  var name = app.get('user').first_name + " " + app.get('user').last_name;
+  res.render('groups.jade', {user: app.get('user').first_name, image: app.get('user').image, groups: app.get('user').groups});
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {
-  res.render('create-group.jade', {user: app.get('user').first_name, image: app.get('user').image});
+  models.Course.find({ school_id: app.get('user').school_id })
+              .exec(function(err, courses){
+                res.render('create-group.jade', {user: app.get('user').first_name, image: app.get('user').image, courses: JSON.stringify(courses) });
+              })
 });
+
+app.get('/groups/search', isLoggedIn, function(req, res) {
+  if (req.query['courses']) {
+    models.Course.find({ school_id: app.get('user').school_id })
+                .exec(function(err, courses){
+                  res.render('create-group.jade', {user: app.get('user').first_name, image: app.get('user').image, courses: JSON.stringify(courses) });
+                })
+  } else {
+    models.Group.find().exec(function(err, groups) {
+      res.render('find-group.jade', {user: app.get('user').first_name, image: app.get('user').image, groups: JSON.stringify(groups) });    
+    });    
+  }
+});
+
 
 
 
@@ -159,7 +179,7 @@ app.get('/courses', function(req, res) {
     models.Course.find({ school_id: req.query['school_id'] })
                  .exec(function(err, courses) {
                    res.send(200, JSON.stringify(courses));
-                 });e
+                 });
   }
 });
 
@@ -171,6 +191,18 @@ app.get('/schools', function(req, res) {
 });
 
 
+app.put('/sign_up/:id', function(req, res){
+  models.User.findOne({ _id: req.params.id }, function(err, user){
+    user.email = req.body.email;
+    user.school_id = req.body.school._id;
+    user.phone_number = req.body.phone_number;
+    user.intensity = req.body.intensity;
+    user.save(function(err, user){
+      console.log(user);
+      res.send(200);
+    });
+  });
+})
 
 //POST routes
 
@@ -179,7 +211,20 @@ app.post('/users', function(req, res){
 });
 
 app.post('/groups', function(req, res){
-
+  var group = new models.Group(req.body);
+  group.users.push(app.get('user')._id);
+  
+  group.save(function(){
+    models.User.findOne({
+      _id : app.get('user')._id
+    }).exec(function(err, user){
+      user.groups.push(group._id);
+      user.save(function() {
+        console.log(group)
+        res.send(201);
+      })
+    })
+  })
 });
 
 app.post('/requests', function(req, res){

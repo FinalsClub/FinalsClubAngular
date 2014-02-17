@@ -1,0 +1,21 @@
+include index
+  h1 FIND A GROUP
+  hr
+  .groupDiv(ng-controller='UserController' ng-repeat='group in groups')
+
+
+
+    form(name="findGroup" class="form-horizontal" novalidate ng-controller="findGroupController")
+        tabset
+          tab(heading="first")
+            ng-form="byName"
+              input(name="byName" class="input-xsmall" placeholder="From email address" ng-model="findGroup" required)
+              span(ng-show="byName.$dirty" class="help-inline")
+
+          tab(heading="second")
+            ng-form="byCourse"
+              input(name="byCourse" class="input-xsmall" placeholder="From email address" ng-model="findGroup" required)
+              span(ng-show="byCourse.$dirty" class="help-inline")
+
+    .groupMembers(ng-repeat='member in group.members')
+    li.groupName {{ group.name }}
