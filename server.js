@@ -87,7 +87,7 @@ app.get('/auth/facebook/callback',
 
 
 app.get('/', isLoggedIn, function(req, res) {
-  res.render('groups.jade', {user: app.get('user').first_name, image: app.get('user').image});
+  res.render('groups.jade', {user: app.get('user').first_name, image: app.get('user').image, groups: app.get('user').groups});
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {
@@ -96,6 +96,20 @@ app.get('/groups/new', isLoggedIn, function(req, res) {
                 res.render('create-group.jade', {user: app.get('user').first_name, image: app.get('user').image, courses: JSON.stringify(courses) });
               })
 });
+
+app.get('/groups/search', isLoggedIn, function(req, res) {
+  if (req.query['courses']) {
+    models.Course.find({ school_id: app.get('user').school_id })
+                .exec(function(err, courses){
+                  res.render('create-group.jade', {user: app.get('user').first_name, image: app.get('user').image, courses: JSON.stringify(courses) });
+                })
+  } else {
+    models.Group.find().exec(function(err, groups) {
+      res.render('find-group.jade', {user: app.get('user').first_name, image: app.get('user').image, groups: JSON.stringify(groups) });    
+    });    
+  }
+});
+
 
 
 
