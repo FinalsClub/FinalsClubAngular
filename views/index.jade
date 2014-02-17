@@ -16,7 +16,8 @@ html(lang="en" ng-app='app')
             if user
               li
                 a(href="#").username ---Logged in as #{user}---
-                a(href="/log_out") Log Out
+                img(src='#{image}')
+                a(href="/log_out") v
             else
               li
                 a(href="/sign_up")#register_link Sign Up

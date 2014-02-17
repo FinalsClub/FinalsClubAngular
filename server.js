@@ -74,18 +74,22 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/log_in' }),
   function(req, res) {
     app.set('user', req.user);
-    res.redirect('/');
+    if (req.user.first_name) {
+      res.redirect('/');      
+    } else {
+      res.redirect('/sign_up');
+    }
   });
 
 //----------------------STATIC ROUTES--------------------------//
 
 
 app.get('/', isLoggedIn, function(req, res) {
-  res.render('groups.jade', {user: app.get('user').id});
+  res.render('groups.jade', {user: app.get('user').first_name, image: app.get('user').image});
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {
-  res.render('create-group.jade', {user: app.get('user').id});
+  res.render('create-group.jade', {user: app.get('user').first_name, image: app.get('user').image});
 });
 
 
