@@ -86,11 +86,8 @@ app.factory('signUp', ['$http', '$location', function($http, $location){
         url: '/sign_up/' + id,
         data: JSON.stringify(data)
         }).success(function(data, status, headers){
-          console.log('new user created');
-          // $location.url('');
+          window.location.href = '/';
         }).error(function(){
-          // if user exists
-          // else
           console.log('error in creating new user: ', data)
         })
       }

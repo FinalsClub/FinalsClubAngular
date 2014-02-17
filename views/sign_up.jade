@@ -7,24 +7,24 @@ include index
         td 
           label(for='email') Email*
         td 
-          input(type='email' name='email' ng-model='newUser.email' required size="100")
+          input(type='email' name='email' ng-model='newUser.email' required size="60")
       tr 
         td
           label(for='school') School
         td
-          select(ng-model='newUser.school' ng-options='school.name for school in schools')
-            {{ newUser.school }}
+          select(ng-model='newUser.school' ng-options='school.name for school in schools').selectField
+            option(value="") select school 
       tr 
         td
           label(for='phone_number') Phone number
         td
-          input(type='tel' ng-model='newUser.phone_number' name='phone_number')
+          input(type='tel' ng-model='newUser.phone_number' name='phone_number' size="60")
       tr 
         td
           label(for='intensity') Intensity
         td
-          select(ng-model='newUser.intensity' ng-options='intensity for intensity in intensities')
-
+          select(ng-model='newUser.intensity' ng-options='intensity for intensity in intensities' value='low' ).selectField
+             option(value="") select intensity 
       tr
         td
         td

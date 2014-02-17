@@ -181,7 +181,7 @@ app.put('/sign_up/:id', function(req, res){
     user.intensity = req.body.intensity;
     user.save(function(err, user){
       console.log(user);
-      res.send({redirect : '/'});
+      res.send(200);
     });
   });
 })
