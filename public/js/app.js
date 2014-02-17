@@ -42,6 +42,12 @@ app.controller('UserController', ['$scope', '$location', 'isUserLoggedIn', 'getU
   }
 }]);
 
+app.controller('createGroupController', function($scope){
+  $scope.intensities = ['low', 'medium', 'high'];
+  $scope.courses = [];
+
+})
+
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------
 */
@@ -77,7 +83,6 @@ app.factory('getUserGroups', ['$http', function($http) {
     } 
 }]);
 
-
 app.factory('signUp', ['$http', '$location', function($http, $location){
   return {
     createNewUser: function(data, id){
@@ -94,11 +99,9 @@ app.factory('signUp', ['$http', '$location', function($http, $location){
   };   
 }]);
 
-// app.factory('')
-//// mygroups controller
-app.controller('allGroupsViewController', 'isUserLoggedIn', 'getUsersGroups', function($scope){
-  $scope.usersGroups = getUsersGroups.getGroups;
-})
+// app.controller('allGroupsViewController', 'isUserLoggedIn', 'getUsersGroups', function($scope){
+//   $scope.usersGroups = getUsersGroups.getGroups;
+// })
 
 app.controller('groupController', 'getGroupsLectures', function($scope){
   $scope.groupSubject = getGroupsLectures.getSubject;
@@ -130,8 +133,4 @@ app.factory('getGroupsLectures', function(){
       });    
     }
   }
-})
-
-app.controller('createGroupController', function($scope){
-
 })

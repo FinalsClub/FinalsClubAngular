@@ -1,45 +1,44 @@
 include index
   h1 Create a Group
   hr
-  form(name='createGroupForm' ng-controller='createGroupController' ng-submit='submit()')
+  form(name='createGroupForm' ng-controller='createGroupController' ng-submit='submit()' ng-init='courses = #{courses}')
     table
       tr
         td
-          label Course affiliation
+          label Course affiliation*
         td
-          input.createGroup(name='course_name' ng-model='courseName' ng-minlength='1' size='60')
+          select(ng-model='group.course_id' ng-options='course.name for course in courses').selectField
+            option(value="") select course 
+          span.input_error(ng-show="createGroupForm.group.course_id.$error.required") *required
+
       tr
         td
           label Group name*
         td
-          input.createGroup(name='group_name' ng-model='groupName' ng-minlength='1' size='60' ng-required="true")
-          span.input_error(ng-show="createGroupForm.group_name.$error.required") *required
+          input.createGroup(name='group_name' ng-model='group.name' ng-minlength='1' size='60' ng-required="true")
+          span.input_error(ng-show="createGroupForm.group.name.$error.required") *required
       tr
         td
           label Motto
         td
-          input.createGroup(size='60' ng-model='groupMotto')
+          input.createGroup(size='60' ng-model='group.motto')
       tr
         td
           label Description
         td
-          textarea.createGroup(cols='43', rows='10' ng-model='groupDescription')
+          textarea.createGroup(cols='43', rows='10' ng-model='group.description')
+      tr
+        td
+          label Entry Question
+        td
+          input.createGroup(size='60' ng-model='group.question')
+      tr 
+        td
+          label(for='intensity') Intensity
+        td
+          select(ng-model='group.intensity' ng-options='intensity for intensity in intensities' value='low' ).selectField
+             option(value="") select intensity 
       tr
         td
         td 
           input(type='submit' value="Submit")#submit
-
-
-    //- form(name="findGroup" class="form-horizontal" novalidate ng-controller="findGroupController")
-    //-     tabset
-    //-       tab(heading="first")
-    //-         ng-form="byName"
-    //-           input(name="byName" class="input-xsmall" placeholder="From email address" ng-model="findGroup" required)
-
-    //-       tab(heading="second"
-    //-         ng-form="byCourse"
-    //-           input(name="byCourse" class="input-xsmall" placeholder="From email address" ng-model="findGroup" required)
-
-    //- .groupMembers(ng-repeat='member in group.members')
-    //-   ul
-    //-     li.groupName {{ group.name }}

@@ -91,7 +91,10 @@ app.get('/', isLoggedIn, function(req, res) {
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {
-  res.render('create-group.jade', {user: app.get('user').first_name, image: app.get('user').image});
+  models.Course.find({ school_id: app.get('user').school_id })
+              .exec(function(err, courses){
+                res.render('create-group.jade', {user: app.get('user').first_name, image: app.get('user').image, courses: JSON.stringify(courses) });
+              })
 });
 
 
