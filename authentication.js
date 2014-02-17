@@ -19,7 +19,10 @@ module.exports = passport.use(new FacebookStrategy(
 
         // if the user is found, then log them in
         if (user) {
+          user.first_name = profile.name.givenName;
+          user.last_name = profile.name.familyName;
           user.facebook.token = token;
+          user.image = "https://graph.facebook.com/" + profile.id + "/picture";
           user.save(function(err) {
             if (err) {throw err; } 
             return done(null, user);          
@@ -29,6 +32,9 @@ module.exports = passport.use(new FacebookStrategy(
           var newUser = new User();
           
           // set all of the facebook information in our user model
+          newUser.first_name = profile.name.givenName;
+          newUser.last_name = profile.name.familyName;
+          newUser.image = "https://graph.facebook.com/" + profile.id + "/picture";
           newUser.facebook.id    = profile.id; // set the users facebook id                 
           newUser.facebook.token = token; // we will save the token that facebook provides to the user                  
 

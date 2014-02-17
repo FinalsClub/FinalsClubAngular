@@ -16,14 +16,15 @@ html(lang="en" ng-app='app')
             if user
               li
                 a(href="#").username ---Logged in as #{user}---
-                a(href="/log_out") Log Out
+                img(src='#{image}')
+                a(href="/log_out") v
             else
               li
                 a(href="/sign_up")#register_link Sign Up
               li
                 a(href="/log_in")#login_link Log in
         a(href='/')
-          img(src='/img/logo-light.png' alt='Finals Club - social note taking')#logo
+          img(src='/img/logo.png' alt='Finals Club - social note taking')#logo
         nav#main-nav
             a(href="/groups/search")#school_link Find Groups
             a(href="/groups/new")#blog_link Create a Group
