@@ -1,22 +1,23 @@
 include index
-  h1 My Groups
-  h2.gray Next Meeting: 
-  hr
-  .communicationsDiv
-    h3 Recent Communications
-    p Message 1
-    p Message 2
+  .groups(ng-controller='allGroupsViewController' ng-init='groups= #{groups}')
+    h1 My Groups
+    h2.gray Next Meeting: 
+    hr
+    .communicationsDiv
+      h3 Recent Communications
+      p Message 1
+      p Message 2
 
-  .groupDiv(ng-controller='allGroupsViewController' ng-init='groups= #{groups}' ng-repeat='group in #{groups}')
-    
-    a(href="/group/{{group._id}}/requests")
-      span.requests {{group.requests.length}} new member requests
-    h2 {{ group.name }}
-    
-    .groupNav
-      a(href="group/{{group._id}}/flashcards") Flashcards | 
-      a(href="groups/{{group._id}}/communications") Communications | 
-      a(href="groups/{{group._id}}/meetUp") Meet Up 
+    .groupDiv(ng-repeat='group in groups')
+      
+      a(href="/group/{{group._id}}/requests")
+        span.requests {{group.requests.length}} new member requests
+      h2 {{ group.name }}
+      
+      .groupNav
+        a(href="groups/{{group._id}}/flashcards") Flashcards | 
+        a(href="groups/{{group._id}}/communications") Communications | 
+        a(href="groups/{{group._id}}/meetUp") Meet Up 
 
 
       

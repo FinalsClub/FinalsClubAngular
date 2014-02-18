@@ -108,7 +108,7 @@ app.get('/groups/search', isLoggedIn, function(req, res) {
                 .populate('groups')
                 .exec(function(err, courses){
                   console.log(courses); 
-                  res.render('find-group.jade', {user: app.get('user').first_name, image: app.get('user').image, courses: JSON.stringify(courses) });
+                  res.send(JSON.stringify(courses));
                 })
   } else {
     models.Group.find().exec(function(err, groups) {

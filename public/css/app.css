@@ -212,3 +212,29 @@ a {
   font-weight: normal;
   color: black;
 }
+
+#searchForGroup {
+  width: 100%;
+  margin-top:0.2em;
+}
+
+.findGroupBox{
+  border: 1px solid #D8D8D8;
+  min-height: 10em;
+  max-height: 30em;
+  overflow: scroll;
+}
+
+.findGroupButton:active {
+  background-color: gray;
+}
+
+hr.smaller {
+  width: 98%;
+  border: 1px solid #D8D8D8;
+}
+
+.findGroupBox input[type='button'] {
+  position: relative;
+  bottom: 1em;
+} 
