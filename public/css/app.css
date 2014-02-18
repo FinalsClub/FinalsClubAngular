@@ -17,8 +17,10 @@ body {
   background-position: 20% 0; }
 
 #masthead {
-  background-color: #262626; }
- 
+  background-color: #262626; 
+  border: 2px solid green;
+}
+
 
 .wrapper {
   font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
@@ -75,7 +77,9 @@ button, .button, input[type='submit'] {
   background-color: #7D7DAF; }
 
 #login-nav {
-  padding: 1.2em 0.75em 0.75em;
+  background-color: black;
+  width: 100%;
+  padding: 0;
   text-align: right; }
 
 #login-nav li {
@@ -84,21 +88,19 @@ button, .button, input[type='submit'] {
 
 #login-nav a {
   padding: 0 0.75em;
-  color: #ffcd58; 
-  font-size: 1.5em; }
+  color: #ffcd58; }
 
 #logo {
-  zoom: 1.4;
+  float: left;
   position: relative;
-  top: 20px;
-}
+  bottom: 2.5em;}
 
 #main-nav {
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  top: -50px;
-  position: relative;
   float: right;
-  padding: 0 0.75em; }
+  padding: 0 0.75em; 
+  position: relative;
+  bottom: 1.5em; }
 
 #main-nav li {
   display: inline;
