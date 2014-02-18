@@ -18,24 +18,28 @@ body {
 
 #masthead {
   background-color: #262626; 
-  border: 2px solid green;
 }
 
 
-.wrapper {
+.wrapper, .contentWrapper {
   font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   position: relative;
   width: 60%;
   margin: 0 auto;
 }
 
+.contentWrapper {
+  margin-top: 2.3em;
+}
+
 #masthead .wrapper {
   border-bottom: 5px solid #e8a200; }
 
 h1 {
+  padding:0;
+  text-align: left;
   margin-left: 5%;
   position: relative;
-  /* FIGURE THIS OUT */
   font-size: 2em;
   font-weight: 300;
   text-transform: uppercase; }
@@ -77,9 +81,10 @@ button, .button, input[type='submit'] {
   background-color: #7D7DAF; }
 
 #login-nav {
+  min-height: 5%;
   background-color: black;
   width: 100%;
-  padding: 0;
+  padding-top: 0.25em;
   text-align: right; }
 
 #login-nav li {
@@ -93,7 +98,7 @@ button, .button, input[type='submit'] {
 #logo {
   float: left;
   position: relative;
-  bottom: 2.5em;}
+  bottom: 2.4em;}
 
 #main-nav {
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
