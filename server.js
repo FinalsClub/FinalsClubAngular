@@ -88,7 +88,11 @@ app.get('/auth/facebook/callback',
 
 app.get('/', isLoggedIn, function(req, res) {
   var name = app.get('user').first_name + " " + app.get('user').last_name;
-  res.render('groups.jade', {user: name, image: app.get('user').image, groups: app.get('user').groups});
+  models.User.find({ _id: app.get('user')._id})
+             .populate('groups')
+             .exec(function(err, userG) {              
+              res.render('groups.jade', {user: name, image: app.get('user').image, groups: JSON.stringify(userG[0].groups)});
+             })
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {

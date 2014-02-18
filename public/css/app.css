@@ -37,20 +37,27 @@ body {
 
 h1 {
   padding:0;
+  margin: 0;
   text-align: left;
-  margin-left: 5%;
   position: relative;
-  font-size: 2em;
+  font-size: 1.75em;
   font-weight: 300;
   text-transform: uppercase; }
 
 a {
+  color: gray;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+header a {
 /*  -webkit-transition: color 0.25s ease-in-out;
   -moz-transition: color 0.25s ease-in-out;
   -o-transition: color 0.25s ease-in-out;
   -ms-transition: color 0.25s ease-in-out;
   transition: color 0.25s ease-in-out;*/
   text-decoration: none;
+  font-weight: normal;
   color: #e8a200; }
   a:hover {
     color: #e8a200; }
@@ -82,7 +89,7 @@ button, .button, input[type='submit'] {
 
 #login-nav {
   min-height: 5%;
-  background-color: black;
+  background-color: #262626;
   width: 100%;
   padding-top: 0.25em;
   text-align: right; }
@@ -166,7 +173,33 @@ label {
   -webkit-appearance: none;
 }
 
-.loginText {
+.groupDiv {
+  width: 50%;
+}
+
+
+.gray {
+  color: gray; 
+  float: right;
+  font-weight: normal;
   position: relative;
-  top: -30px;
+  bottom: 1em;
+  margin: 0;
+}
+  
+hr {
+  width: 100%;
+}
+
+.communicationsDiv {
+  width: 35%;  
+  float: right;
+  background-color: #E9EAEB;
+  padding: 0.5em;
+  min-height: 400px;
+}
+
+h3 {
+  text-align :center;
+
 }
