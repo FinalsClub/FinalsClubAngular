@@ -124,7 +124,13 @@ app.get('/join_group', isLoggedIn, function(req, res) {
   });  
 });
 
-
+app.get('/groups/:id/requests', isLoggedIn, function(req, res) {
+  models.Request.find({group_id: req.params.id})
+                .populate('user_id group_id')
+                .exec(function(err, requests) {
+                  res.render('requests.jade', {user: app.get('user').first_name, image: app.get('user').image, requests: JSON.stringify(requests)});               
+                });
+});
 
 //--------------------------- API -----------------------------//
 
@@ -260,7 +266,19 @@ app.post('/requests', function(req, res){
 });
 
 app.post('/new_member', function(req, res){
-
+  models.Group.findOne({_id: req.body.group_id})
+              .exec(function(err, group){
+                group.users.push(req.body.user_id);
+                group.save(function(){
+                  models.User.findOne({_id: req.body.user_id})
+                             .exec(function(err, user){
+                                user.groups.push(req.body.group_id);
+                                user.save(function(){
+                                  res.send(201);
+                                });
+                             });
+                });
+              });
 });
 
 //----------------------helper functions-------------------------//

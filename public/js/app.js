@@ -92,6 +92,26 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
   }
 }]);
 
+app.controller('requestController', ['$scope', '$http', function($scope, $http){
+  $scope.requests = [];
+  $scope.approve = function(user){
+    console.log(user);
+    $http({
+      method: 'POST',
+      url: '/new_member',
+      data: JSON.stringify({
+        user_id: user,
+        group_id: window.location.pathname.split('/')[2]
+      })
+    }).success(function(){
+      console.log('user added!')
+      window.location.href = '/';
+    }).error(function(err){
+      console.log(err)
+    })
+  }
+}]);
+
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------
 */

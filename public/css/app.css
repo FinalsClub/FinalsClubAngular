@@ -69,6 +69,9 @@ li {
 p {
   margin: 20px;
   color: #444; }
+a {
+  text-decoration: none;
+}
 
 img {
   max-width: 100%; }
@@ -238,3 +241,11 @@ hr.smaller {
   position: relative;
   bottom: 1em;
 } 
+
+.bold {
+  font-weight: bold;
+}
+
+.approveMember {
+  zoom: 1.5;
+}

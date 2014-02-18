@@ -10,7 +10,7 @@ include index
 
     .groupDiv(ng-repeat='group in groups')
       
-      a(href="/group/{{group._id}}/requests")
+      a(href="/groups/{{group._id}}/requests")
         span.requests {{group.requests.length}} new member requests
       h2 {{ group.name }}
       
