@@ -11,44 +11,19 @@ html(lang="en" ng-app='app')
   body
     header#masthead
       nav#login-nav
-        ul
-<<<<<<< HEAD
           if user
-            li
-              a(href="#").username.loginText #{user}
-              img(src='#{image}')
-              a(href="/log_out").loginText X
+            a(href="#").username #{user}
+            img(src='#{image}')
+            a(href="/log_out") Log out
           else
-            li
-              a(href="/sign_up")#register_link Sign Up
-            li
-              a(href="/log_in")#login_link Log in
-=======
-
-          if user
-            li
-              a(href="#").username #{user}
-              img(src='#{image}')
-              a(href="/log_out") Log out
-          else
-            li
-              a(href="/log_in") Sign Up
-            li
-              a(href="/log_in") Log in
->>>>>>> b2eb1d32a67264f7663a1f8dd106fb12180c075b
-      .wrapper
-        a(href='/')
-          img(src='/img/logo.png' alt='Finals Club - social note taking')#logo
-        nav#main-nav
-<<<<<<< HEAD
-          if user
-            a(href="/") Groups
-            a(href="/") Meetings
-          else
-=======
->>>>>>> b2eb1d32a67264f7663a1f8dd106fb12180c075b
+            a(href="/log_in") Sign Up
+            a(href="/log_in") Log in
+        .wrapper
+          a(href='/')
+            img(src='/img/logo.png' alt='Finals Club - social note taking')#logo
+          nav#main-nav
             a(href="/groups/search") Find Groups
             a(href="/groups/new") Create a Group
-    .wrapper
+    .contentWrapper
       =yield
 

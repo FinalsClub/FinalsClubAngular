@@ -17,23 +17,29 @@ body {
   background-position: 20% 0; }
 
 #masthead {
-  background-color: #262626; }
- 
+  background-color: #262626; 
+}
 
-.wrapper {
+
+.wrapper, .contentWrapper {
   font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   position: relative;
   width: 60%;
   margin: 0 auto;
 }
 
+.contentWrapper {
+  margin-top: 2.3em;
+}
+
 #masthead .wrapper {
   border-bottom: 5px solid #e8a200; }
 
 h1 {
+  padding:0;
+  text-align: left;
   margin-left: 5%;
   position: relative;
-  /* FIGURE THIS OUT */
   font-size: 2em;
   font-weight: 300;
   text-transform: uppercase; }
@@ -75,7 +81,10 @@ button, .button, input[type='submit'] {
   background-color: #7D7DAF; }
 
 #login-nav {
-  padding: 1.2em 0.75em 0.75em;
+  min-height: 5%;
+  background-color: black;
+  width: 100%;
+  padding-top: 0.25em;
   text-align: right; }
 
 #login-nav li {
@@ -84,21 +93,19 @@ button, .button, input[type='submit'] {
 
 #login-nav a {
   padding: 0 0.75em;
-  color: #ffcd58; 
-  font-size: 1.5em; }
+  color: #ffcd58; }
 
 #logo {
-  zoom: 1.4;
+  float: left;
   position: relative;
-  top: 20px;
-}
+  bottom: 2.4em;}
 
 #main-nav {
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  top: -50px;
-  position: relative;
   float: right;
-  padding: 0 0.75em; }
+  padding: 0 0.75em; 
+  position: relative;
+  bottom: 1.5em; }
 
 #main-nav li {
   display: inline;
