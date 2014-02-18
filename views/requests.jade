@@ -8,4 +8,4 @@ include index
         span.bold {{ request.group_id.name }}
       p
         img(src="{{request.user_id.image}}").approveMember
-        a(href="" class="requests" ng-click='approve(request.user_id._id)') Approve Member
+        a(href="" class="requests" ng-click='approve(request.user_id._id, request._id)') Approve Member

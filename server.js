@@ -265,7 +265,7 @@ app.post('/requests', function(req, res){
   })
 });
 
-app.post('/new_member', function(req, res){
+app.post('/members', function(req, res){
   models.Group.findOne({_id: req.body.group_id})
               .exec(function(err, group){
                 group.users.push(req.body.user_id);
@@ -274,7 +274,12 @@ app.post('/new_member', function(req, res){
                              .exec(function(err, user){
                                 user.groups.push(req.body.group_id);
                                 user.save(function(){
-                                  res.send(201);
+                                   models.Request.findOne({_id: req.body.request_id})
+                                                 .remove()
+                                                 .exec(function(err) {
+                                                   group.requests.splice(group.requests.indexOf(req.body.request_id),1);
+                                                   res.send(201);
+                                                 }); 
                                 });
                              });
                 });

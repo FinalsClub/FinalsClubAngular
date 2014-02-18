@@ -52,6 +52,7 @@ app.controller('createGroupController', ['$scope', 'createGroup', function($scop
 
 app.controller('allGroupsViewController', [ '$scope', function($scope){
   $scope.groups = $scope.groups || [];
+  $scope.currentGroup = null;
 }]);
 
 
@@ -94,14 +95,15 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
 
 app.controller('requestController', ['$scope', '$http', function($scope, $http){
   $scope.requests = [];
-  $scope.approve = function(user){
+  $scope.approve = function(user, request_id){
     console.log(user);
     $http({
       method: 'POST',
-      url: '/new_member',
+      url: '/members',
       data: JSON.stringify({
         user_id: user,
-        group_id: window.location.pathname.split('/')[2]
+        group_id: window.location.pathname.split('/')[2],
+        request_id: request_id
       })
     }).success(function(){
       console.log('user added!')
