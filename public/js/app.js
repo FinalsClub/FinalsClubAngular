@@ -58,6 +58,13 @@ app.controller('createGroupController', ['$scope', 'createGroup', function($scop
   }
 }])
 
+app.controller('allGroupsViewController', function($scope){
+  $scope.groups = $scope.groups || [];
+  
+})
+
+
+
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------
 */
@@ -125,9 +132,6 @@ app.factory('createGroup', ['$http', function($http){
   };   
 }]);
 
-// app.controller('allGroupsViewController', 'isUserLoggedIn', 'getUsersGroups', function($scope){
-//   $scope.usersGroups = getUsersGroups.getGroups;
-// })
 
 app.controller('groupController', 'getGroupsLectures', function($scope){
   $scope.groupSubject = getGroupsLectures.getSubject;
