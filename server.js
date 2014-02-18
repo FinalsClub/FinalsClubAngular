@@ -105,8 +105,10 @@ app.get('/groups/new', isLoggedIn, function(req, res) {
 app.get('/groups/search', isLoggedIn, function(req, res) {
   if (req.query['courses']) {
     models.Course.find({ school_id: app.get('user').school_id })
+                .populate('groups')
                 .exec(function(err, courses){
-                  res.render('create-group.jade', {user: app.get('user').first_name, image: app.get('user').image, courses: JSON.stringify(courses) });
+                  console.log(courses); 
+                  res.render('find-group.jade', {user: app.get('user').first_name, image: app.get('user').image, courses: JSON.stringify(courses) });
                 })
   } else {
     models.Group.find().exec(function(err, groups) {
@@ -224,11 +226,17 @@ app.post('/groups', function(req, res){
     }).exec(function(err, user){
       user.groups.push(group._id);
       user.save(function() {
-        console.log(group)
-        res.send(201);
-      })
-    })
-  })
+        models.Course.findOne({_id: group.course_id})
+                     .exec(function(err, course) {
+                       course.groups.push(group._id);
+                       course.save(function() {
+                         console.log(course, group);
+                         res.send(201);                                                
+                       });
+                     });
+      });
+    });
+  });
 });
 
 app.post('/requests', function(req, res){

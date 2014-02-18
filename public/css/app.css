@@ -44,7 +44,7 @@ h1 {
   font-weight: 300;
   text-transform: uppercase; }
 
-a {
+.groupNav a {
   color: gray;
   font-weight: bold;
   text-decoration: none;
@@ -201,5 +201,14 @@ hr {
 
 h3 {
   text-align :center;
+}
 
+.requests {
+  padding: 0.5em;
+  background-color: #F3DD37;
+  float: right;}
+  
+a {
+  font-weight: normal;
+  color: black;
 }

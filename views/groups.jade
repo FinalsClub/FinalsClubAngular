@@ -9,6 +9,8 @@ include index
 
   .groupDiv(ng-controller='allGroupsViewController' ng-init='groups= #{groups}' ng-repeat='group in #{groups}')
     
+    a(href="/group/{{group._id}}/requests")
+      span.requests {{group.requests.length}} new member requests
     h2 {{ group.name }}
     
     .groupNav
