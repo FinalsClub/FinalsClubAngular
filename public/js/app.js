@@ -64,6 +64,17 @@ app.controller('allGroupsViewController', function($scope){
 })
 
 
+app.controller('findGroupController', ['$scope', '$location', 'getGroups', function($scope, $location, getGroups){
+  // $scope.searchByGroupName = [6, 7, 8, 9, 10]
+  // $scope.searchByCourseName = [ 1, 2, 3, 4, 5]
+  $scope.searchByCourseName = new getGroups.byCourse();
+  // console.log($scope.searchByCourseName)
+  $scope.searchByGroupName = new getGroups.byName();
+  // $scope.searchGroupQuery = 
+  $scope.submit = function() {
+
+  };
+}])
 
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------
@@ -113,7 +124,34 @@ app.factory('signUp', ['$http', function($http){
           console.log('error in creating new user: ', data)
         })
       }
-  };   
+    };   
+}]);
+
+app.factory('getGroups', ['$http', function($http){
+  return {
+    byCourse: function(data){
+      $http({
+        method: 'GET',
+        url: '/groups/search?=course'
+        }).success(function(data, status){
+          console.log(data.courses)
+          return data.courses;
+        }).error(function(){
+          console.log('error in finding group by course: ', data)
+        })
+      },
+    byName: function(data){
+      $http({
+        method: 'GET',
+        url: '/groups/search'
+        }).success(function(data, status){
+          console.log(data.groups)
+          return data.groups;
+        }).error(function(){
+          console.log('error in finding group by name: ', data)
+        })
+      }
+    };   
 }]);
 
 app.factory('createGroup', ['$http', function($http){
@@ -133,34 +171,8 @@ app.factory('createGroup', ['$http', function($http){
 }]);
 
 
-app.controller('groupController', 'getGroupsLectures', function($scope){
-  $scope.groupSubject = getGroupsLectures.getSubject;
-  $scope.groupLectures = getGroupsLectures.getLectures;
-})
 
-app.factory('getGroupsLectures', function(){
-  return {
-    getLectures: function(option){
-      $http({
-        method : 'GET',
-        url : '/someOtherURL',
-        params: { group_id: group.id } // or group name or whatever
-        }).success(function(data, status, headers, config) {
-          return data; // should be an array
-        }).error(function(data, status, headers, config) {
-          console.log(status, error)
-      });    
-    },
-    getSubject: function(option){ // necessary?
-      $http({
-        method : 'GET',
-        url : '/someOtherURL',
-        params: { group_id: group.id } // or group name or whatever
-        }).success(function(data, status, headers, config) {
-          return data; // should be an array
-        }).error(function(data, status, headers, config) {
-          console.log(status, error)
-      });    
-    }
-  }
-})
+// app.controller('groupController', 'getGroupsLectures', function($scope){
+//   $scope.groupSubject = getGroupsLectures.getSubject;
+//   $scope.groupLectures = getGroupsLectures.getLectures;
+// })

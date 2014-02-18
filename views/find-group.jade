@@ -1,21 +1,38 @@
 include index
-  h1 FIND A GROUP
+  h1(ng-controller="findGroupController") FIND A GROUP
   hr
-  .groupDiv(ng-controller='UserController' ng-repeat='group in groups')
+  input(type='button' ng-click='clicked = !clicked' value='Search by name' ).findGroupButton 
+  input(type='button' ng-click='clicked = !clicked' value='Search by course').findGroupButton 
+  
+  input(name='search_for_group' ng-model='searchForGroup')#searchForGroup
+  .findGroupBox(ng-class='info')
+    div(ng-repeat="group in searchByGroupName.groups | filter:searchForGroup" ng-show='!clicked')
+      li {{ group.name }}
+      li(ng-repeat='user in group.users')
+        span {{ user }}
+      a(href='/join_group' + '"{{group.name}}"')
+        input(type='button' model='joinGroup' value='Join Group') 
+    
+    div(ng-repeat="course in searchByCourseName.courses | filter:searchForGroup" ng-show='clicked')
+      li {{ course.name }}
+      li(ng-repeat='group in course.groups')
+      li {{ group.name }}
+      li(ng-repeat='user in group.users')
+        span {{ user }}
+      a(href='/join_group' + '"{{group.name}}"')
+        input(type='button' model='joinGroup' value='Join Group') 
 
+    div(ng-show='!clicked')
+      li hi
+      li hi1
+      li hi2
+      li hi3
 
+    div(ng-show='clicked')
+      li hi4
+      li hi5
+      li hi6
+      li hi7
 
-    form(name="findGroup" class="form-horizontal" novalidate ng-controller="findGroupController")
-        tabset
-          tab(heading="first")
-            ng-form="byName"
-              input(name="byName" class="input-xsmall" placeholder="From email address" ng-model="findGroup" required)
-              span(ng-show="byName.$dirty" class="help-inline")
-
-          tab(heading="second")
-            ng-form="byCourse"
-              input(name="byCourse" class="input-xsmall" placeholder="From email address" ng-model="findGroup" required)
-              span(ng-show="byCourse.$dirty" class="help-inline")
-
-    .groupMembers(ng-repeat='member in group.members')
-    li.groupName {{ group.name }}
+    //- filter:findByName"
+    //- | filter:findByCourse"

@@ -212,3 +212,17 @@ a {
   font-weight: normal;
   color: black;
 }
+
+#searchForGroup {
+  width: 100%;
+  margin-top:0.2em;
+}
+
+.findGroupBox{
+  border: 1px solid #D8D8D8;
+  height: 10em;
+}
+
+.findGroupButton:active {
+  background-color: gray;
+}
