@@ -51,6 +51,10 @@ h1 {
   text-decoration: none;
 }
 
+.groupNav {
+  padding-bottom: 1em;
+}
+
 header a {
   text-decoration: none;
   font-weight: normal;
@@ -70,6 +74,10 @@ a {
 
 img {
   max-width: 100%; }
+
+input[type='button']{
+  cursor: pointer;
+}
 
 button, .button, input[type='submit'] {
   cursor: pointer;
@@ -199,12 +207,17 @@ hr {
 
 h3 {
   text-align :center;
+  text-align :left;
 }
 
 .requests {
   padding: 0.5em;
   background-color: #F3DD37;
   float: right;}
+
+.requests.find {
+  left: -3em;
+}
   
 a {
   font-weight: normal;
@@ -213,7 +226,6 @@ a {
 
 #searchForGroup {
   width: 100%;
-  margin-top:0.2em;
 }
 
 .findGroupBox{
@@ -221,15 +233,25 @@ a {
   min-height: 10em;
   max-height: 30em;
   overflow: scroll;
+  padding-bottom: 2em;
 }
 
-.findGroupButton:active {
+.findGroupButton {
+  margin: 0;
+  border-radius: 10px 10px 0 0;
+}
+.findGroupButton.clicked{
   background-color: gray;
+}
+.findGroupButton:active {
 }
 
 hr.smaller {
   width: 98%;
-  border: 1px solid #D8D8D8;
+  border: thin solid #D8D8D8;
+}
+hr.smaller.mainPage {
+  width: 100%;
 }
 
 .findGroupBox input[type='button'] {
@@ -250,8 +272,28 @@ hr.smaller {
   font-size: 0.75em;
 }
 
+.grayed#intensity {
+  color: #333;
+  font-size: 0.8em;
+  padding-bottom: 0.3em;
+}
+
 .entry {
+  float: left;
   position: relative;
   padding: 1em;
   bottom: 2em;
+}
+
+.entry_answer {
+  position: relative;
+  bottom: 2em;
+  padding: 0 1em;
+}
+
+.ignore {
+  float: right;
+  position: relative;
+  bottom: 3em;
+  color: gray;
 }

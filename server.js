@@ -77,8 +77,8 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/log_in' }),
   function(req, res) {
     app.set('user', req.user);
-    if (req.user.email  ) {
-      res.redirect('/');      
+    if (req.user.email) {
+      res.redirect('/');
     } else {
       res.redirect('/sign_up?id='+req.user.id);
     }
@@ -87,7 +87,7 @@ app.get('/auth/facebook/callback',
 //----------------------STATIC ROUTES--------------------------//
 
 
-app.get('/', isLoggedIn, function(req, res) {
+app.get('/', isLoggedIn, function(req, res) {  
   var name = app.get('user').first_name + " " + app.get('user').last_name;
   models.User.find({ _id: app.get('user')._id})
              .populate('groups')
@@ -122,14 +122,50 @@ app.get('/join_group', isLoggedIn, function(req, res) {
   models.Group.findOne({_id: req.query['group_id']}).exec(function(err, group) {
     res.render('join-group.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group});    
   });  
-});
+}); 
 
 app.get('/groups/:id/requests', isLoggedIn, function(req, res) {
-  models.Request.find({group_id: req.params.id})
+  models.Request.find({group_id: req.params.id, ignored: false})
                 .populate('user_id group_id')
                 .exec(function(err, requests) {
                   res.render('requests.jade', {user: app.get('user').first_name, image: app.get('user').image, requests: JSON.stringify(requests)});               
                 });
+});
+
+app.get('/leave_group/:id', isLoggedIn, function(req, res) {
+  models.Group.findOne({_id: req.params.id}).exec(function(err, group) {
+    res.render('leave-group.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group});    
+  });  
+});
+
+app.get('/groups/:id/flashcards', isLoggedIn, function(req, res){
+  models.Group.findOne({_id: req.params.id})
+              .populate('lectures')
+              .exec(function(err, group){
+                res.render('lectures.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: group.name, group_id: group._id, lectures: JSON.stringify(group.lectures)});               
+              });
+});
+
+app.get('/groups/:id/lectures/new', isLoggedIn, function(req, res){
+  models.Group.findOne({_id: req.params.id}).exec(function(err, group){
+    res.render('lectures_new.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group.name});               
+  });
+});
+
+app.get('/groups/:group_id/flashcards/:lecture_id', isLoggedIn, function(req, res){
+  models.Lecture.findOne({_id: req.params.lecture_id})
+                .populate('group_id')
+                .exec(function(err, lecture){
+                  res.render('flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: lecture.group_id.name, lecture: JSON.stringify(lecture), flashcards: JSON.stringify(lecture.flashcards)});               
+                });
+});
+
+app.get('/groups/:group_id/flashcards/:lecture_id/edit', isLoggedIn, function(req, res) {
+  models.Lecture.findOne({_id: req.params.lecture_id})
+        .populate('group_id')
+        .exec(function(err, lecture) {
+          res.render('edit_flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: lecture.group_id.name, lecture: JSON.stringify(lecture), flashcards: JSON.stringify(lecture.flashcards)});
+        });
 });
 
 //--------------------------- API -----------------------------//
@@ -208,7 +244,7 @@ app.get('/schools', function(req, res) {
                });
 });
 
-app.put('/sign_up/', function(req, res){
+app.put('/sign_up', function(req, res){
   models.User.findOne({ _id: app.get('user')._id }, function(err, user){
     user.email = req.body.email;
     user.school_id = req.body.school._id;
@@ -221,7 +257,22 @@ app.put('/sign_up/', function(req, res){
   });
 })
 
-//POST routes
+app.put('/requests/:id', function(req, res) {
+  models.Request.findOne({ _id: req.params.id })
+                .exec(function(err, request) {
+                  request.ignored = true;
+                  request.save(function() {
+                    models.Group.findOne({ _id: request.group_id }).exec(function(err, group) {
+                     group.requests.splice(group.requests.indexOf(request._id),1);
+                     group.save(function() {
+                       res.send(200);      
+                     });
+                    });
+                  });
+                });
+});
+
+//------------------------POST routes-----------------------------//
 
 app.post('/users', function(req, res){
 
@@ -278,13 +329,46 @@ app.post('/members', function(req, res){
                                                  .remove()
                                                  .exec(function(err) {
                                                    group.requests.splice(group.requests.indexOf(req.body.request_id),1);
-                                                   console.log(group.requests);
-                                                   res.send(201);
+                                                   group.save(function() {
+                                                     res.send(201);                                                     
+                                                   });
                                                  }); 
                                 });
                              });
                 });
               });
+});
+
+
+app.post('/leave_group', function(req, res){
+  models.User.findOne({_id: app.get('user')._id })
+            .exec(function(err, user){
+              user.groups.splice(user.groups.indexOf(req.body.group_id), 1);
+              user.save(function(){
+                models.Group.findOne({_id: req.body.group_id})
+                            .exec(function(err, group){
+                                group.users.splice(group.users.indexOf(user._id));
+                                group.save(function(){
+                                  res.send(201)
+                                });
+                            })
+              });
+            })
+});
+
+app.post('/lectures', function(req, res){
+  var lecture = new models.Lecture(req.body);
+  lecture.save(function(){
+    models.Group.findOne({_id: lecture.group_id})
+                .exec(function(err, group){
+                  group.lectures.push(lecture._id);
+                  group.save(function(){
+                    console.log('NEW LECTURE: ', lecture)
+                    console.log('GROUP: ', group)
+                    res.send(201);
+                  });
+                });
+  });
 });
 
 //----------------------helper functions-------------------------//

@@ -1,6 +1,7 @@
 include index
   .requestDiv(ng-controller='requestController' ng-init='requests = #{requests}')
     h1 Approve New Members
+    hr
     .requestGroupDiv(ng-repeat='request in requests')
       p 
         span.bold {{ request.user_id.first_name }} {{ request.user_id.last_name }} 
@@ -8,5 +9,7 @@ include index
         span.bold {{ request.group_id.name }} 
         p
           img(src="{{request.user_id.image}}").approveMember
-          span {{ request.entry_answer }}
+          span.entry_answer {{ request.entry_answer }}
           a(href="" class="requests" ng-click='approve(request.user_id._id, request._id)') Approve Member        
+        a(href="" ng-click="ignoreRequest(request._id)").ignore Ignore
+      hr.smaller
