@@ -122,7 +122,7 @@ app.get('/join_group', isLoggedIn, function(req, res) {
   models.Group.findOne({_id: req.query['group_id']}).exec(function(err, group) {
     res.render('join-group.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group});    
   });  
-});
+}); 
 
 app.get('/groups/:id/requests', isLoggedIn, function(req, res) {
   models.Request.find({group_id: req.params.id})
@@ -221,7 +221,7 @@ app.put('/sign_up/', function(req, res){
   });
 })
 
-//POST routes
+//------------------------POST routes-----------------------------//
 
 app.post('/users', function(req, res){
 

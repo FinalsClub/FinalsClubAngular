@@ -251,7 +251,21 @@ hr.smaller {
 }
 
 .entry {
+  float: left;
   position: relative;
   padding: 1em;
   bottom: 2em;
+}
+
+.entry_answer {
+  position: relative;
+  bottom: 2em;
+  padding: 0 1em;
+}
+
+.ignore {
+  float: right;
+  position: relative;
+  bottom: 3em;
+  color: gray;
 }
