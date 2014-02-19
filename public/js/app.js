@@ -3,11 +3,6 @@
 
 app = angular.module('app', []);
 
-app.config(function ($locationProvider) {
-  $locationProvider.html5Mode(true);
-});
-
-
 /*
 -----------------------------CONTROLLERS----------------------------------------------------------------------------------
 */
@@ -16,8 +11,7 @@ app.controller('LogInController', ['$scope', function($scope){
 
 }])
 
-app.controller('SignUpController', ['$scope', '$location', 'signUp',  function($scope, $location, signUp){
-  $scope.location = $location.search().id;
+app.controller('SignUpController', ['$scope', 'signUp',  function($scope, signUp){
   $scope.newUser = {
     'phone_number' : null,
     'email' : null,
@@ -27,18 +21,16 @@ app.controller('SignUpController', ['$scope', '$location', 'signUp',  function($
   $scope.schools = [];
   $scope.intensities = ['low', 'medium', 'high']; 
   $scope.submit = function() {
-    console.log($scope.location);
-    signUp.createNewUser($scope.newUser, $scope.location);
+    signUp.createNewUser($scope.newUser);
   };
 }])
 
-app.controller('UserController', ['$scope', '$location', 'isUserLoggedIn', 'getUserGroups', function($scope, $location, isUserLoggedIn, getUserGroups) {
+app.controller('UserController', ['$scope', 'isUserLoggedIn', 'getUserGroups', function($scope, isUserLoggedIn, getUserGroups) {
   if(isUserLoggedIn.checkLogIn()){
-    console.log('in here')
     $scope.user = new isUserLoggedIn();
     $scope.groups = new getUserGroups($scope.user._id);  
   } else {
-    $location.path('/log_in');
+    window.location.href = '/log_in';
   }
 }]);
 
@@ -51,30 +43,77 @@ app.controller('createGroupController', ['$scope', 'createGroup', function($scop
     'motto' : null,
     'description' : null,   
     'intensity' : null,
-    'question' : null
+    'entry_question' : null
   };
   $scope.submit = function(){
     createGroup.createNewGroup($scope.group);
   }
 }])
 
-app.controller('allGroupsViewController', function($scope){
+app.controller('allGroupsViewController', [ '$scope', function($scope){
   $scope.groups = $scope.groups || [];
+  $scope.currentGroup = null;
+}]);
+
+
+app.controller('findGroupController', ['$scope', '$http', function($scope, $http){
+  $scope.groups = [];
+  $scope.location = window.location.search.split('=')[1]
+  $scope.request = {
+    entry_answer : null,
+    group_id : $scope.location,
+    ignored : false
+  }
   
-})
-
-
-app.controller('findGroupController', ['$scope', '$location', 'getGroups', function($scope, $location, getGroups){
-  // $scope.searchByGroupName = [6, 7, 8, 9, 10]
-  // $scope.searchByCourseName = [ 1, 2, 3, 4, 5]
-  $scope.searchByCourseName = new getGroups.byCourse();
-  // console.log($scope.searchByCourseName)
-  $scope.searchByGroupName = new getGroups.byName();
-  // $scope.searchGroupQuery = 
-  $scope.submit = function() {
-
+  $scope.getCourses = function() {
+    $http({
+      method: 'GET',
+      url: '/groups/search?courses=true'
+      }).success(function(data, status){
+        console.log(data);
+        $scope.courses = data;
+      }).error(function(){
+        console.log('error in finding group by course: ', data)
+      })
   };
-}])
+  
+  $scope.submit_answer = function(){
+    console.log($scope.request);
+    console.log($scope.location)
+    $http({
+      method: 'POST',
+      url: '/requests',
+      data: JSON.stringify($scope.request)
+    }).success(function() {
+      console.log('request sent');
+      window.location.href = '/';      
+    }).error(function(err){
+      console.log(err);
+    });
+  }
+}]);
+
+app.controller('requestController', ['$scope', '$http', function($scope, $http){
+  $scope.requests = [];
+  $scope.approve = function(user, request_id){
+    console.log(user);
+    $http({
+      method: 'POST',
+      url: '/members',
+      data: JSON.stringify({
+        user_id: user,
+        group_id: window.location.pathname.split('/')[2],
+        request_id: request_id
+      })
+    }).success(function(){
+      console.log('user added!')
+      window.location.href = '/';
+    }).error(function(err){
+      console.log(err)
+    })
+  }
+}]);
+
 
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------
@@ -113,42 +152,15 @@ app.factory('getUserGroups', ['$http', function($http) {
 
 app.factory('signUp', ['$http', function($http){
   return {
-    createNewUser: function(data, id){
+    createNewUser: function(data){
       $http({
         method: 'PUT',
-        url: '/sign_up/' + id,
+        url: '/sign_up/',
         data: JSON.stringify(data)
         }).success(function(data, status, headers){
           window.location.href = '/';
         }).error(function(){
           console.log('error in creating new user: ', data)
-        })
-      }
-    };   
-}]);
-
-app.factory('getGroups', ['$http', function($http){
-  return {
-    byCourse: function(data){
-      $http({
-        method: 'GET',
-        url: '/groups/search?=course'
-        }).success(function(data, status){
-          console.log(data.courses)
-          return data.courses;
-        }).error(function(){
-          console.log('error in finding group by course: ', data)
-        })
-      },
-    byName: function(data){
-      $http({
-        method: 'GET',
-        url: '/groups/search'
-        }).success(function(data, status){
-          console.log(data.groups)
-          return data.groups;
-        }).error(function(){
-          console.log('error in finding group by name: ', data)
         })
       }
     };   
@@ -170,9 +182,3 @@ app.factory('createGroup', ['$http', function($http){
   };   
 }]);
 
-
-
-// app.controller('groupController', 'getGroupsLectures', function($scope){
-//   $scope.groupSubject = getGroupsLectures.getSubject;
-//   $scope.groupLectures = getGroupsLectures.getLectures;
-// })
