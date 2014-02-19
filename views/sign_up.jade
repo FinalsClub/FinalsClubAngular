@@ -12,7 +12,7 @@ include index
         td
           label(for='school') School
         td
-          select(ng-model='newUser.school' ng-options='school.name for school in schools').selectField
+          select(ng-model='newUser.school' ng-options='school.name for school in schools' required).selectField
             option(value="") select school 
       tr 
         td

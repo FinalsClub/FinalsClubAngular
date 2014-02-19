@@ -77,7 +77,7 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/log_in' }),
   function(req, res) {
     app.set('user', req.user);
-    if (req.user.first_name) {
+    if (req.user.email  ) {
       res.redirect('/');      
     } else {
       res.redirect('/sign_up?id='+req.user.id);
@@ -278,6 +278,7 @@ app.post('/members', function(req, res){
                                                  .remove()
                                                  .exec(function(err) {
                                                    group.requests.splice(group.requests.indexOf(req.body.request_id),1);
+                                                   console.log(group.requests);
                                                    res.send(201);
                                                  }); 
                                 });

@@ -30,6 +30,7 @@ body {
 
 .contentWrapper {
   margin-top: 2.3em;
+  padding-bottom: 5em;
 }
 
 #masthead .wrapper {
@@ -67,7 +68,6 @@ header a {
 li {
   list-style: none; }
 p {
-  margin: 20px;
   color: #444; }
 a {
   text-decoration: none;
@@ -248,4 +248,15 @@ hr.smaller {
 
 .approveMember {
   zoom: 1.5;
+}
+
+.grayed {
+  color: gray;
+  font-size: 0.75em;
+}
+
+.entry {
+  position: relative;
+  padding: 1em;
+  bottom: 2em;
 }

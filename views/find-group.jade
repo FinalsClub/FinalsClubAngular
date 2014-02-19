@@ -18,8 +18,9 @@ include index
       div(ng-repeat="course in courses | filter:searchForGroup" ng-show='clicked')
         ul(ng-repeat='group in course.groups')
           li {{ group.name }}
-          li.gray {{ course.name }}
+          li.grayed {{ course.name }}
           li(ng-repeat='user in group.users')
             span {{ user }}
           a(href='/join_group?group_id={{group._id}}')
             input(type='button' model='joinGroup' value='request to join' class='requests') 
+          hr.smaller
