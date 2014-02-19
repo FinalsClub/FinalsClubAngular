@@ -245,4 +245,3 @@ app.factory('createGroup', ['$http', function($http){
       }
   };   
 }]);
-

@@ -10,7 +10,9 @@
 
 html, body {
   height: 100%;
-  margin: 0; }
+  margin: 0; 
+  /*font-family: sans-serif;*/
+}
 
 body {
   /*font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;*/
@@ -50,6 +52,9 @@ h1 {
   font-weight: bold;
   text-decoration: none;
 }
+.groupNav {
+  padding-bottom: 1em;
+}
 
 .groupNav {
   padding-bottom: 1em;
@@ -74,6 +79,9 @@ a {
 
 img {
   max-width: 100%; }
+input[type='button']{
+  cursor: pointer;
+}
 
 input[type='button']{
   cursor: pointer;
@@ -180,7 +188,7 @@ label {
 }
 
 .groupDiv {
-  width: 50%;
+  width: 60%;
 }
 
 
@@ -206,19 +214,31 @@ hr {
 }
 
 h3 {
+<<<<<<< HEAD
   text-align :center;
+=======
+  margin-top: .5em;
+>>>>>>> fixed styling issues on main groups page, find groups apge
   text-align :left;
 }
 
 .requests {
   padding: 0.5em;
   background-color: #F3DD37;
+<<<<<<< HEAD
   float: right;}
 
 .requests.find {
   left: -3em;
+=======
+  float: right;
+>>>>>>> fixed styling issues on main groups page, find groups apge
 }
   
+.requests.find {
+  left: -3em;
+}
+
 a {
   font-weight: normal;
   color: black;
@@ -226,6 +246,10 @@ a {
 
 #searchForGroup {
   width: 100%;
+<<<<<<< HEAD
+=======
+  /*margin-top:0.2em;*/
+>>>>>>> fixed styling issues on main groups page, find groups apge
 }
 
 .findGroupBox{
@@ -235,9 +259,15 @@ a {
   overflow: scroll;
   padding-bottom: 2em;
 }
+<<<<<<< HEAD
 
 .findGroupButton {
   margin: 0;
+=======
+.findGroupButton {
+  margin: 0;
+  /*margin-right: 0.7em;*/
+>>>>>>> fixed styling issues on main groups page, find groups apge
   border-radius: 10px 10px 0 0;
 }
 .findGroupButton.clicked{
@@ -249,9 +279,12 @@ a {
 hr.smaller {
   width: 98%;
   border: thin solid #D8D8D8;
+<<<<<<< HEAD
 }
 hr.smaller.mainPage {
   width: 100%;
+=======
+>>>>>>> fixed styling issues on main groups page, find groups apge
 }
 
 .findGroupBox input[type='button'] {
@@ -285,6 +318,7 @@ hr.smaller.mainPage {
   bottom: 2em;
 }
 
+<<<<<<< HEAD
 .entry_answer {
   position: relative;
   bottom: 2em;
@@ -296,4 +330,11 @@ hr.smaller.mainPage {
   position: relative;
   bottom: 3em;
   color: gray;
+=======
+.clicked-button {
+  background-color: red;
+}
+.unclicked-button {
+  background-color: blue;
+>>>>>>> fixed styling issues on main groups page, find groups apge
 }

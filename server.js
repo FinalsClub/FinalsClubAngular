@@ -124,6 +124,12 @@ app.get('/join_group', isLoggedIn, function(req, res) {
   });  
 }); 
 
+app.get('/leave_group/:id', isLoggedIn, function(req, res) {
+  models.Group.findOne({_id: req.params.id}).exec(function(err, group) {
+    res.render('leave-group.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group});    
+  });  
+});
+
 app.get('/groups/:id/requests', isLoggedIn, function(req, res) {
   models.Request.find({group_id: req.params.id, ignored: false})
                 .populate('user_id group_id')
@@ -277,6 +283,18 @@ app.put('/requests/:id', function(req, res) {
 app.post('/users', function(req, res){
 
 });
+
+app.post('/leave_group', function(req, res){
+  var group = new models.Group(req.body);
+  console.log(group)
+  models.User.findOne({_id: app.get('user')._id })
+            .exec(function(err, user){
+              user.groups.splice(groups.indexOf(group), 1)
+              console.log('removed group: ', group)
+              res.send(201);
+            })
+});
+
 
 app.post('/groups', function(req, res){
   var group = new models.Group(req.body);
