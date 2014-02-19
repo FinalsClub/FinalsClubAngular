@@ -30,6 +30,7 @@ body {
 
 .contentWrapper {
   margin-top: 2.3em;
+  padding-bottom: 5em;
 }
 
 #masthead .wrapper {
@@ -40,7 +41,7 @@ h1 {
   margin: 0;
   text-align: left;
   position: relative;
-  font-size: 1.75em;
+  font-size: 1.5em;
   font-weight: 300;
   text-transform: uppercase; }
 
@@ -51,11 +52,6 @@ h1 {
 }
 
 header a {
-/*  -webkit-transition: color 0.25s ease-in-out;
-  -moz-transition: color 0.25s ease-in-out;
-  -o-transition: color 0.25s ease-in-out;
-  -ms-transition: color 0.25s ease-in-out;
-  transition: color 0.25s ease-in-out;*/
   text-decoration: none;
   font-weight: normal;
   color: #e8a200; }
@@ -67,8 +63,10 @@ header a {
 li {
   list-style: none; }
 p {
-  margin: 20px;
   color: #444; }
+a {
+  text-decoration: none;
+}
 
 img {
   max-width: 100%; }
@@ -220,9 +218,40 @@ a {
 
 .findGroupBox{
   border: 1px solid #D8D8D8;
-  height: 10em;
+  min-height: 10em;
+  max-height: 30em;
+  overflow: scroll;
 }
 
 .findGroupButton:active {
   background-color: gray;
+}
+
+hr.smaller {
+  width: 98%;
+  border: 1px solid #D8D8D8;
+}
+
+.findGroupBox input[type='button'] {
+  position: relative;
+  bottom: 1em;
+} 
+
+.bold {
+  font-weight: bold;
+}
+
+.approveMember {
+  zoom: 1.5;
+}
+
+.grayed {
+  color: gray;
+  font-size: 0.75em;
+}
+
+.entry {
+  position: relative;
+  padding: 1em;
+  bottom: 2em;
 }

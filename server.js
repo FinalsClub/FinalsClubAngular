@@ -66,6 +66,7 @@ app.get('/sign_up', function(req, res) {
 
 app.get('/log_out', function(req, res) {
   req.logout();
+  app.set('user', null);
   res.redirect('/log_in');
 });
 
@@ -76,7 +77,7 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/log_in' }),
   function(req, res) {
     app.set('user', req.user);
-    if (req.user.first_name) {
+    if (req.user.email  ) {
       res.redirect('/');      
     } else {
       res.redirect('/sign_up?id='+req.user.id);
@@ -108,7 +109,7 @@ app.get('/groups/search', isLoggedIn, function(req, res) {
                 .populate('groups')
                 .exec(function(err, courses){
                   console.log(courses); 
-                  res.render('find-group.jade', {user: app.get('user').first_name, image: app.get('user').image, courses: JSON.stringify(courses) });
+                  res.send(JSON.stringify(courses));
                 })
   } else {
     models.Group.find().exec(function(err, groups) {
@@ -117,8 +118,19 @@ app.get('/groups/search', isLoggedIn, function(req, res) {
   }
 });
 
+app.get('/join_group', isLoggedIn, function(req, res) {
+  models.Group.findOne({_id: req.query['group_id']}).exec(function(err, group) {
+    res.render('join-group.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group});    
+  });  
+});
 
-
+app.get('/groups/:id/requests', isLoggedIn, function(req, res) {
+  models.Request.find({group_id: req.params.id})
+                .populate('user_id group_id')
+                .exec(function(err, requests) {
+                  res.render('requests.jade', {user: app.get('user').first_name, image: app.get('user').image, requests: JSON.stringify(requests)});               
+                });
+});
 
 //--------------------------- API -----------------------------//
 
@@ -196,9 +208,8 @@ app.get('/schools', function(req, res) {
                });
 });
 
-
-app.put('/sign_up/:id', function(req, res){
-  models.User.findOne({ _id: req.params.id }, function(err, user){
+app.put('/sign_up/', function(req, res){
+  models.User.findOne({ _id: app.get('user')._id }, function(err, user){
     user.email = req.body.email;
     user.school_id = req.body.school._id;
     user.phone_number = req.body.phone_number;
@@ -240,11 +251,40 @@ app.post('/groups', function(req, res){
 });
 
 app.post('/requests', function(req, res){
-
+  var request = new models.Request(req.body);
+  request.user_id = app.get('user')._id
+  request.save(function(){
+    models.Group.findOne({_id : request.group_id})
+                .exec(function(err, group){
+                  group.requests.push(request._id);
+                  console.log("Request: ", request);
+                  group.save(function() {
+                    res.send(201);                    
+                  });
+                });
+  })
 });
 
-app.post('/new_member', function(req, res){
-
+app.post('/members', function(req, res){
+  models.Group.findOne({_id: req.body.group_id})
+              .exec(function(err, group){
+                group.users.push(req.body.user_id);
+                group.save(function(){
+                  models.User.findOne({_id: req.body.user_id})
+                             .exec(function(err, user){
+                                user.groups.push(req.body.group_id);
+                                user.save(function(){
+                                   models.Request.findOne({_id: req.body.request_id})
+                                                 .remove()
+                                                 .exec(function(err) {
+                                                   group.requests.splice(group.requests.indexOf(req.body.request_id),1);
+                                                   console.log(group.requests);
+                                                   res.send(201);
+                                                 }); 
+                                });
+                             });
+                });
+              });
 });
 
 //----------------------helper functions-------------------------//
