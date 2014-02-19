@@ -87,7 +87,7 @@ app.get('/auth/facebook/callback',
 //----------------------STATIC ROUTES--------------------------//
 
 
-app.get('/', isLoggedIn, function(req, res) {
+app.get('/', isLoggedIn, function(req, res) {  
   var name = app.get('user').first_name + " " + app.get('user').last_name;
   models.User.find({ _id: app.get('user')._id})
              .populate('groups')
@@ -278,8 +278,9 @@ app.post('/members', function(req, res){
                                                  .remove()
                                                  .exec(function(err) {
                                                    group.requests.splice(group.requests.indexOf(req.body.request_id),1);
-                                                   console.log(group.requests);
-                                                   res.send(201);
+                                                   group.save(function() {
+                                                     res.send(201);                                                     
+                                                   });
                                                  }); 
                                 });
                              });
