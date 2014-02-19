@@ -174,6 +174,11 @@ app.controller('lectureController', ['$scope', '$http', function($scope, $http){
   }
 }]);
 
+app.controller('flashcardController', ['$scope', function($scope) {
+  $scope.flashcards = [];
+  $scope.lecture = null;
+}])
+
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------
 */

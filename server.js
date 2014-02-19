@@ -146,13 +146,27 @@ app.get('/groups/:id/flashcards', isLoggedIn, function(req, res){
               });
 });
 
-
-
 app.get('/groups/:id/lectures/new', isLoggedIn, function(req, res){
   models.Group.findOne({_id: req.params.id}).exec(function(err, group){
     res.render('lectures_new.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group.name});               
   });
-})
+});
+
+app.get('/groups/:group_id/flashcards/:lecture_id', isLoggedIn, function(req, res){
+  models.Lecture.findOne({_id: req.params.lecture_id})
+                .populate('group_id')
+                .exec(function(err, lecture){
+                  res.render('flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: lecture.group_id.name, lecture: JSON.stringify(lecture), flashcards: JSON.stringify(lecture.flashcards)});               
+                });
+});
+
+app.get('/groups/:group_id/flashcards/:lecture_id/edit', isLoggedIn, function(req, res) {
+  models.Lecture.findOne({_id: req.params.lecture_id})
+        .populate('group_id')
+        .exec(function(err, lecture) {
+          res.render('edit_flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: lecture.group_id.name, lecture: JSON.stringify(lecture), flashcards: JSON.stringify(lecture.flashcards)});
+        });
+});
 
 //--------------------------- API -----------------------------//
 
