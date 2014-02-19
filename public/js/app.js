@@ -50,11 +50,37 @@ app.controller('createGroupController', ['$scope', 'createGroup', function($scop
   }
 }])
 
-app.controller('allGroupsViewController', [ '$scope', function($scope){
+app.controller('allGroupsViewController', [ '$scope', '$http', function($scope, $http){
   $scope.groups = $scope.groups || [];
   $scope.currentGroup = null;
-}]);
+  $scope.sendLeaveGroupData = function(id){
+    console.log('clicked leave group: ', id)
+    $http({
+      method: 'GET', 
+      url: '/leave_group',
+      data: JSON.stringify(id)
+    }).success(function(data, status){
+      console.log('sending delete ', data);
+    }).error(function(){
+        console.log('error deleting: ', data)
+    })
+  }
 
+  $scope.leaveGroup = function(){
+    $scope.group_id = window.location.pathname.split('/')[2];
+    console.log($scope.group_id);
+    $http({
+      method: 'POST',
+      url: '/leave_group',
+      data: JSON.stringify({group_id: $scope.group_id})
+      }).success(function(data, status){
+        console.log('deleted group ', data);
+        window.location.href = '/';
+      }).error(function(){
+        console.log('error in deleting group: ', data)
+      })
+    }
+}]);
 
 app.controller('findGroupController', ['$scope', '$http', function($scope, $http){
   $scope.groups = [];
@@ -126,7 +152,27 @@ app.controller('requestController', ['$scope', '$http', function($scope, $http){
   };
   
 }]);
-
+app.controller('lectureController', ['$scope', '$http', function($scope, $http){
+  $scope.lectures = [];
+  $scope.lecture = {
+    lecture_date : null,
+    title : null,
+    group_id : window.location.pathname.split('/')[2],
+  };
+  
+  $scope.submitLecture= function(){
+    $http({
+      method: 'POST', 
+      url: '/lectures',
+      data: JSON.stringify($scope.lecture)
+    }).success(function(data, status){
+      window.location.href = '/groups/' + $scope.lecture.group_id + '/flashcards';
+      console.log($scope.lecture);
+    }).error(function(err, data){
+      console.log(err);
+    })
+  }
+}]);
 
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------

@@ -132,6 +132,28 @@ app.get('/groups/:id/requests', isLoggedIn, function(req, res) {
                 });
 });
 
+app.get('/leave_group/:id', isLoggedIn, function(req, res) {
+  models.Group.findOne({_id: req.params.id}).exec(function(err, group) {
+    res.render('leave-group.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group});    
+  });  
+});
+
+app.get('/groups/:id/flashcards', isLoggedIn, function(req, res){
+  models.Group.findOne({_id: req.params.id})
+              .populate('lectures')
+              .exec(function(err, group){
+                res.render('lectures.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: group.name, group_id: group._id, lectures: JSON.stringify(group.lectures)});               
+              });
+});
+
+
+
+app.get('/groups/:id/lectures/new', isLoggedIn, function(req, res){
+  models.Group.findOne({_id: req.params.id}).exec(function(err, group){
+    res.render('lectures_new.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group.name});               
+  });
+})
+
 //--------------------------- API -----------------------------//
 
 //GET routes
@@ -301,6 +323,38 @@ app.post('/members', function(req, res){
                              });
                 });
               });
+});
+
+
+app.post('/leave_group', function(req, res){
+  models.User.findOne({_id: app.get('user')._id })
+            .exec(function(err, user){
+              user.groups.splice(user.groups.indexOf(req.body.group_id), 1);
+              user.save(function(){
+                models.Group.findOne({_id: req.body.group_id})
+                            .exec(function(err, group){
+                                group.users.splice(group.users.indexOf(user._id));
+                                group.save(function(){
+                                  res.send(201)
+                                });
+                            })
+              });
+            })
+});
+
+app.post('/lectures', function(req, res){
+  var lecture = new models.Lecture(req.body);
+  lecture.save(function(){
+    models.Group.findOne({_id: lecture.group_id})
+                .exec(function(err, group){
+                  group.lectures.push(lecture._id);
+                  group.save(function(){
+                    console.log('NEW LECTURE: ', lecture)
+                    console.log('GROUP: ', group)
+                    res.send(201);
+                  });
+                });
+  });
 });
 
 //----------------------helper functions-------------------------//
