@@ -285,13 +285,18 @@ app.post('/users', function(req, res){
 });
 
 app.post('/leave_group', function(req, res){
-  var group = new models.Group(req.body);
-  console.log(group)
   models.User.findOne({_id: app.get('user')._id })
             .exec(function(err, user){
-              user.groups.splice(groups.indexOf(group), 1)
-              console.log('removed group: ', group)
-              res.send(201);
+              user.groups.splice(user.groups.indexOf(req.body.group_id), 1);
+              user.save(function(){
+                models.Group.findOne({_id: req.body.group_id})
+                            .exec(function(err, group){
+                                group.users.splice(group.users.indexOf(user._id));
+                                group.save(function(){
+                                  res.send(201)
+                                });
+                            })
+              });
             })
 });
 
