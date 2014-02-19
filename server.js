@@ -77,8 +77,8 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/log_in' }),
   function(req, res) {
     app.set('user', req.user);
-    if (req.user.email  ) {
-      res.redirect('/');      
+    if (req.user.email) {
+      res.redirect('/');
     } else {
       res.redirect('/sign_up?id='+req.user.id);
     }
@@ -125,7 +125,7 @@ app.get('/join_group', isLoggedIn, function(req, res) {
 }); 
 
 app.get('/groups/:id/requests', isLoggedIn, function(req, res) {
-  models.Request.find({group_id: req.params.id})
+  models.Request.find({group_id: req.params.id, ignored: false})
                 .populate('user_id group_id')
                 .exec(function(err, requests) {
                   res.render('requests.jade', {user: app.get('user').first_name, image: app.get('user').image, requests: JSON.stringify(requests)});               
@@ -208,7 +208,7 @@ app.get('/schools', function(req, res) {
                });
 });
 
-app.put('/sign_up/', function(req, res){
+app.put('/sign_up', function(req, res){
   models.User.findOne({ _id: app.get('user')._id }, function(err, user){
     user.email = req.body.email;
     user.school_id = req.body.school._id;
@@ -220,6 +220,21 @@ app.put('/sign_up/', function(req, res){
     });
   });
 })
+
+app.put('/requests/:id', function(req, res) {
+  models.Request.findOne({ _id: req.params.id })
+                .exec(function(err, request) {
+                  request.ignored = true;
+                  request.save(function() {
+                    models.Group.findOne({ _id: request.group_id }).exec(function(err, group) {
+                     group.requests.splice(group.requests.indexOf(request._id),1);
+                     group.save(function() {
+                       res.send(200);      
+                     });
+                    });
+                  });
+                });
+});
 
 //------------------------POST routes-----------------------------//
 

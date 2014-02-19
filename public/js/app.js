@@ -110,8 +110,21 @@ app.controller('requestController', ['$scope', '$http', function($scope, $http){
       window.location.href = '/';
     }).error(function(err){
       console.log(err)
-    })
-  }
+    });
+  };
+  
+  $scope.ignoreRequest = function(id) {
+    $http({
+      method: 'PUT',
+      url: '/requests/' + id
+    }).success(function() {
+      console.log('request ignored!');
+      window.location.href = window.location.pathname;
+    }).error(function(err) {
+      console.log(err);
+    });  
+  };
+  
 }]);
 
 
