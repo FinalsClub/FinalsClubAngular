@@ -177,6 +177,20 @@ app.controller('topicController', ['$scope', '$http', function($scope, $http){
 app.controller('flashcardController', ['$scope', function($scope) {
   $scope.flashcards = [];
   $scope.topic = null;
+  $scope.flipped = false;
+  $scope.currentCard = 0;
+  
+  $scope.goBack = function() {
+    if ($scope.currentCard > 0) {
+      $scope.currentCard--;
+    }
+  };
+  
+  $scope.goForward = function() {
+    if ($scope.currentCard < $scope.flashcards.length-1) {
+      $scope.currentCard++;
+    }
+  };
 }])
 
 /*
