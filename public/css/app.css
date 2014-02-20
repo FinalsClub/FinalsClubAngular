@@ -300,6 +300,20 @@ hr.smaller.mainPage {
   color: gray;
 }
 
+.flashcard {
+  position: relative;
+  float: left;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-weight: bold;
+  width: 16em;
+  height: 9em;
+  line-height: 9em;
+  margin-right: 3%;
+  margin-top: 2%;
+  -moz-box-shadow: 0 0 10px 2px #D8D8D8;
+  -webkit-box-shadow: 0 0 10px 2px #ddd;
+}
 .flashcardDiv {
   position: relative;
   bottom: 5em;

@@ -1,8 +1,7 @@
 include index
   .mainTopicDiv(ng-controller='topicController' ng-init='topics=#{topics}')
     h1 #{group_name}
+    a(href='/groups/#{group_id}/topics/new').grayed Create a new topic
     .topicDiv(ng-repeat='topic in topics')
-      a(href='/groups/#{group_id}/flashcards/{{topic._id}}') {{ topic.title }}
-    br
-    a(href='/groups/#{group_id}/topics/new') Create a new topic
-    
+      a(href='/groups/#{group_id}/flashcards/{{topic._id}}' ).flashcard
+        {{ topic.title }}
