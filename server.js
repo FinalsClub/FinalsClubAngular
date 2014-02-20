@@ -404,9 +404,9 @@ app.post('/topics', function(req, res){
 
 app.put('/topics', function(req, res) {
   models.Topic.findOne({_id: req.body.topic_id}).exec(function(err, topic) {
-    topic.flashcards[req.body.index][req.body.side] = req.body.text;
+    topic.flashcards = req.body.cards;
     topic.save(function() {
-      console.log("EDITED TOPIC: ", topic);
+      console.log("EDITED TOPIC: ", JSON.stringify(topic.flashcards));
       res.send(200);
     });
   });

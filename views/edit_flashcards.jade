@@ -4,5 +4,6 @@ include index
     .flashcardPad(ng-repeat="flashcard in flashcards")  
       textarea(id="pad{{$index}}-term")
       textarea(id="pad{{$index}}-def")
+    button(ng-click="saveText()") Save Flashcards
       
   
