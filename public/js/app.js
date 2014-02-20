@@ -152,22 +152,22 @@ app.controller('requestController', ['$scope', '$http', function($scope, $http){
   };
   
 }]);
-app.controller('lectureController', ['$scope', '$http', function($scope, $http){
-  $scope.lectures = [];
-  $scope.lecture = {
-    lecture_date : null,
+app.controller('topicController', ['$scope', '$http', function($scope, $http){
+  $scope.topics = [];
+  $scope.topic = {
+    topic_date : null,
     title : null,
     group_id : window.location.pathname.split('/')[2],
   };
   
-  $scope.submitLecture= function(){
+  $scope.submitTopic= function(){
     $http({
       method: 'POST', 
-      url: '/lectures',
-      data: JSON.stringify($scope.lecture)
+      url: '/topics',
+      data: JSON.stringify($scope.topic)
     }).success(function(data, status){
-      window.location.href = '/groups/' + $scope.lecture.group_id + '/flashcards';
-      console.log($scope.lecture);
+      window.location.href = '/groups/' + $scope.topic.group_id + '/flashcards';
+      console.log($scope.topic);
     }).error(function(err, data){
       console.log(err);
     })
@@ -176,7 +176,7 @@ app.controller('lectureController', ['$scope', '$http', function($scope, $http){
 
 app.controller('flashcardController', ['$scope', function($scope) {
   $scope.flashcards = [];
-  $scope.lecture = null;
+  $scope.topic = null;
 }])
 
 /*
