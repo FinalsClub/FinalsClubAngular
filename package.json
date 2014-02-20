@@ -11,6 +11,7 @@
     "passport": "~0.2.0",
     "passport-facebook": "~1.0.2",
     "connect": "~1.9.2",
-    "share": "~0.6.3"
+    "share": "~0.6.3",
+    "browserchannel": "~1.0.8"
   }
 }

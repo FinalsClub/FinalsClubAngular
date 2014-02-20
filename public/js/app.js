@@ -191,7 +191,24 @@ app.controller('flashcardController', ['$scope', function($scope) {
       $scope.currentCard++;
     }
   };
-}])
+}]);
+
+app.controller('shareController', ['$scope', function($scope) {
+  $scope.createPad = function() {  
+    console.log('called');
+    var elem = document.getElementById("pad");
+    // connect to the server
+    var connection = sharejs.open('test', 'text', function(error, doc) {
+        // this function is called once the connection is opened
+        if (error) {
+            console.log("ERROR:", error);
+        } else {
+            // attach the ShareJS document to the textarea
+            doc.attach_textarea(elem);
+        }
+    });
+  };
+}]);
 
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------

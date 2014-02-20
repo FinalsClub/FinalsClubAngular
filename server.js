@@ -6,12 +6,20 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var config = require('./oauth.js');
 var auth = require('./authentication.js');
+var sharejs = require('share').server;
+// var share = require('./share-server.js');
 
 //set up server
 var port = 8080;
 var app = express();
+
+var options = {db: {type: 'none'},  browserChannel: {cors: "*"}};
+sharejs.attach(app, options);
+
 app.listen(port);
 console.log('Listening on port ' + port);  
+
+
 
 //sets up templating engine as jade
 app.engine('jade', require('jade').__express);
@@ -173,6 +181,7 @@ app.get('/groups/:group_id/flashcards/:topic_id/edit', isLoggedIn, function(req,
           res.render('edit_flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: topic.group_id.name, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});
         });
 });
+
 
 //--------------------------- API -----------------------------//
 
