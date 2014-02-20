@@ -9,20 +9,20 @@ include index
     .findGroupBox(ng-class='info')
       div(ng-repeat="group in groups | filter:searchForGroup" ng-show='!clicked')
         ul
-          li {{ group.name }}
+          h3 {{ group.name }}
           li.grayed#intensity {{ group.intensity }} intensity
           li.grayed {{ group.motto }}
           li(ng-repeat='user in group.users')
             span {{ user }}
           a(href='/join_group?group_id={{group._id}}')
-            input(type='button' model='joinGroup' value='request to join' class='requests find') 
+            input(type='button' model='joinGroup' value='Request to join' class='requests find') 
         hr.smaller
       div(ng-repeat="course in courses | filter:searchForGroup" ng-show='clicked')
         ul(ng-repeat='group in course.groups')
-          li {{ group.name }}
+          h3 {{ group.name }}
           li.grayed {{ course.name }}
           li(ng-repeat='user in group.users')
             span {{ user }}
           a(href='/join_group?group_id={{group._id}}')
-            input(type='button' model='joinGroup' value='request to join' class='requests find') 
+            input(type='button' model='joinGroup' value='Request to join' class='requests find') 
           hr.smaller

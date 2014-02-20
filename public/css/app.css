@@ -207,8 +207,9 @@ hr {
 }
 
 h3 {
-  text-align :center;
-  text-align :left;
+  text-align: center;
+  text-align: left;
+  margin-bottom: 5px;
 }
 
 .requests {
@@ -347,3 +348,4 @@ hr.smaller.mainPage {
   border-bottom: 50px solid transparent;
   border-left: 50px solid yellow;
 }
+
