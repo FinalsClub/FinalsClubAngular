@@ -7,12 +7,14 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var config = require('./oauth.js');
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
+var redis = require('redis');
+var RedisStore = require('connect-redis')(express);
 
 //set up server
 var port = 8080;
 var app = express();
 
-var options = {db: {type: 'none'},  browserChannel: {cors: "*"}};
+var options = {db: {type: 'redis'},  browserChannel: {cors: "*"}};
 sharejs.attach(app, options);
 
 app.listen(port);
@@ -27,7 +29,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: 'keyboard cat' }));
+app.use(express.session({ secret: 'keyboard cat' , store: new RedisStore({ host: 'localhost', port: 6379 , cookie: { secure: false, maxAge:86400000 }})}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -416,9 +418,9 @@ app.put('/topics', function(req, res) {
 
 function isLoggedIn(req, res, next) {
 
-  if (req.isAuthenticated())
+  if (req.isAuthenticated()) {
     return next();
-
+  }
   res.send(401, "User must log in.");
   res.redirect('/log_in');
 }

@@ -214,10 +214,6 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
               // attach the ShareJS document to the textarea
               $scope.pads.push(doc);
               doc.attach_textarea(termElem);
-              // doc.on('change', function(op) {
-              //   $scope.saveText(counter, 'term', doc.getText());
-              //   console.log('doc changing!', doc.getText())
-              // });
               // doc.insert(0, $scope.flashcards[counter]['term']);
               var defID = "pad" + counter + "-def";
               var defElem = document.getElementById(defID);
@@ -230,9 +226,6 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
                       // attach the ShareJS document to the textarea
                       $scope.pads.push(doc2);
                       doc2.attach_textarea(defElem);
-                      // doc2.on('change', function(op) {
-                      //   $scope.saveText(counter, 'definition',  doc2.getText());
-                      // });
                       // doc2.insert(0, $scope.flashcards[counter]['definition']);
                       counter = counter + 1;      
                       iterate(counter);
@@ -247,7 +240,6 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
   
   $scope.saveText = function() {
     var cards = [];
-    console.log($scope.pads);
     for (var i = 0; i < $scope.pads.length; i+=2) {
       cards.push({term: $scope.pads[i].getText(), definition: $scope.pads[i+1].getText()})
     }

@@ -12,6 +12,8 @@
     "passport-facebook": "~1.0.2",
     "connect": "~1.9.2",
     "share": "~0.6.3",
-    "browserchannel": "~1.0.8"
+    "browserchannel": "~1.0.8",
+    "redis": "~0.10.1",
+    "connect-redis": "~1.4.7"
   }
 }
