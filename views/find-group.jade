@@ -2,7 +2,7 @@ include index
   .groupSearch(ng-controller="findGroupController" ng-init="groups = #{groups}")
     h1 FIND A GROUP
     hr
-    input(type='button' ng-click='clicked = !clicked' value='Search by name' ng-attr-class="{{clicked && 'clicked-button' || 'unclicked-button' }}").findGroupButton 
+    input(type='button' ng-click='clicked = !clicked' value='Search by name').findGroupButton 
     input(type='button' ng-click='clicked = !clicked; getCourses()' value='Search by course' ng-attr-class="{{clicked && 'clicked-button' || 'unclicked-button' }}").findGroupButton 
     
     input(name='search_for_group' ng-model='searchForGroup' placeholder='search for a group...')#searchForGroup
