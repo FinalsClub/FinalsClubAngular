@@ -1,8 +1,8 @@
 include index
   h1 #{group_name}
-  .allFlashcardsDiv(ng-controller='flashcardController' ng-init='flashcards=#{flashcards}; lecture=#{lecture}')
+  .allFlashcardsDiv(ng-controller='flashcardController' ng-init='flashcards=#{flashcards}; topic=#{topic}')
     h2 #{flashcards}
     .flashcardDiv(ng-repeat='flashcard in flashcards')
       {{flashcard}}
       
-    a(href='/groups/{{lecture.group_id._id}}/flashcards/{{lecture._id}}/edit') Edit flashcards
+    a(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit') Edit flashcards

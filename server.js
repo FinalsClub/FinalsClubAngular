@@ -43,8 +43,8 @@ passport.deserializeUser(function(id, done) {
 //   '/log_in',
 //   '/sign_up',
 //   // '/groups/:id/flashcards',
-//   // '/groups/:id/flashcards/:lecture_id',
-//   // '/groups/:id/flashcards/:lecture_id/edit',
+//   // '/groups/:id/flashcards/:topic_id',
+//   // '/groups/:id/flashcards/:topic_id/edit',
 //   // '/groups/search',
 //   // '/groups/new',
 //   // '/groups/:id/members',
@@ -124,6 +124,12 @@ app.get('/join_group', isLoggedIn, function(req, res) {
   });  
 }); 
 
+app.get('/leave_group/:id', isLoggedIn, function(req, res) {
+  models.Group.findOne({_id: req.params.id}).exec(function(err, group) {
+    res.render('leave-group.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group});    
+  });  
+});
+
 app.get('/groups/:id/requests', isLoggedIn, function(req, res) {
   models.Request.find({group_id: req.params.id, ignored: false})
                 .populate('user_id group_id')
@@ -140,31 +146,31 @@ app.get('/leave_group/:id', isLoggedIn, function(req, res) {
 
 app.get('/groups/:id/flashcards', isLoggedIn, function(req, res){
   models.Group.findOne({_id: req.params.id})
-              .populate('lectures')
+              .populate('topics')
               .exec(function(err, group){
-                res.render('lectures.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: group.name, group_id: group._id, lectures: JSON.stringify(group.lectures)});               
+                res.render('topics.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: group.name, group_id: group._id, topics: JSON.stringify(group.topics)});               
               });
 });
 
-app.get('/groups/:id/lectures/new', isLoggedIn, function(req, res){
+app.get('/groups/:id/topics/new', isLoggedIn, function(req, res){
   models.Group.findOne({_id: req.params.id}).exec(function(err, group){
-    res.render('lectures_new.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group.name});               
+    res.render('topics_new.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group.name});               
   });
 });
 
-app.get('/groups/:group_id/flashcards/:lecture_id', isLoggedIn, function(req, res){
-  models.Lecture.findOne({_id: req.params.lecture_id})
+app.get('/groups/:group_id/flashcards/:topic_id', isLoggedIn, function(req, res){
+  models.Topic.findOne({_id: req.params.topic_id})
                 .populate('group_id')
-                .exec(function(err, lecture){
-                  res.render('flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: lecture.group_id.name, lecture: JSON.stringify(lecture), flashcards: JSON.stringify(lecture.flashcards)});               
+                .exec(function(err, topic){
+                  res.render('flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: topic.group_id.name, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});               
                 });
 });
 
-app.get('/groups/:group_id/flashcards/:lecture_id/edit', isLoggedIn, function(req, res) {
-  models.Lecture.findOne({_id: req.params.lecture_id})
+app.get('/groups/:group_id/flashcards/:topic_id/edit', isLoggedIn, function(req, res) {
+  models.Topic.findOne({_id: req.params.topic_id})
         .populate('group_id')
-        .exec(function(err, lecture) {
-          res.render('edit_flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: lecture.group_id.name, lecture: JSON.stringify(lecture), flashcards: JSON.stringify(lecture.flashcards)});
+        .exec(function(err, topic) {
+          res.render('edit_flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: topic.group_id.name, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});
         });
 });
 
@@ -199,21 +205,21 @@ app.get('/users', function(req, res) {
   }
 });
 
-app.get('/lectures', function(req, res) {
+app.get('/topics', function(req, res) {
   if (req.query['id']) {
-    //return lecture with its parent group name
-    models.Lecture.findOne({ _id: req.query['id'] })
+    //return topic with its parent group name
+    models.Topic.findOne({ _id: req.query['id'] })
                   .populate('group_id', 'name')
-                  .exec(function(err, lecture) {
-                    res.send(200, JSON.stringify(lecture));
+                  .exec(function(err, topic) {
+                    res.send(200, JSON.stringify(topic));
                   });
 
   } else if (req.query['group_id']) {
-    //return lectures with their parent group name
-    models.Lecture.find({ group_id: req.query['group_id'] })
+    //return topic with their parent group name
+    models.Topic.find({ group_id: req.query['group_id'] })
                   .populate('group_id', 'name')
-                  .exec(function(err, lectures) {
-                    res.send(200, JSON.stringify(lectures));
+                  .exec(function(err, topics) {
+                    res.send(200, JSON.stringify(topics));
                   });      
   }
 });
@@ -277,6 +283,23 @@ app.put('/requests/:id', function(req, res) {
 app.post('/users', function(req, res){
 
 });
+
+app.post('/leave_group', function(req, res){
+  models.User.findOne({_id: app.get('user')._id })
+            .exec(function(err, user){
+              user.groups.splice(user.groups.indexOf(req.body.group_id), 1);
+              user.save(function(){
+                models.Group.findOne({_id: req.body.group_id})
+                            .exec(function(err, group){
+                                group.users.splice(group.users.indexOf(user._id));
+                                group.save(function(){
+                                  res.send(201)
+                                });
+                            })
+              });
+            })
+});
+
 
 app.post('/groups', function(req, res){
   var group = new models.Group(req.body);
@@ -356,14 +379,14 @@ app.post('/leave_group', function(req, res){
             })
 });
 
-app.post('/lectures', function(req, res){
-  var lecture = new models.Lecture(req.body);
-  lecture.save(function(){
-    models.Group.findOne({_id: lecture.group_id})
+app.post('/topics', function(req, res){
+  var topic = new models.Topic(req.body);
+  topic.save(function(){
+    models.Group.findOne({_id: topic.group_id})
                 .exec(function(err, group){
-                  group.lectures.push(lecture._id);
+                  group.topics.push(topic._id);
                   group.save(function(){
-                    console.log('NEW LECTURE: ', lecture)
+                    console.log('NEW TOPIC: ', topic)
                     console.log('GROUP: ', group)
                     res.send(201);
                   });
