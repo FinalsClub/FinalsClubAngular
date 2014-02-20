@@ -162,7 +162,7 @@ app.get('/groups/:group_id/flashcards/:topic_id', isLoggedIn, function(req, res)
   models.Topic.findOne({_id: req.params.topic_id})
                 .populate('group_id')
                 .exec(function(err, topic){
-                  res.render('flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: topic.group_id.name, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});               
+                  res.render('flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: topic.group_id.name, group_id: topic.group_id._id, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});               
                 });
 });
 

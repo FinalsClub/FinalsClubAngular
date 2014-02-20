@@ -1,11 +1,14 @@
 include index
-  h1 Flashcards
+  h1
+   a(href='/groups/#{group_id}/flashcards') Flashcards
   hr
   h2 #{group_name}
+
   .allFlashcardsDiv(ng-controller='flashcardController' ng-init='flashcards=#{flashcards}; topic=#{topic};')
+    a(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit').gray Edit flashcards
     h3 {{ topic.title }}
-    .arrowDiv(ng-click="goBack(); flipped=false")
-    .arrowDiv(ng-click="goForward(); flipped=false") 
+    .leftArrow(ng-click="goBack(); flipped=false")
+    .rightArrow(ng-click="goForward(); flipped=false") 
     .flashcardDiv(ng-repeat='flashcard in flashcards')
       .flashcardTerm(ng-show="currentCard===$index && flipped===false" ng-click="flipped = !flipped")
         p
@@ -13,4 +16,3 @@ include index
       .flashcardDef(ng-show="currentCard===$index && flipped===true" ng-click="flipped = !flipped")
         p
           {{flashcard.definition}}
-    a(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit') Edit flashcards
