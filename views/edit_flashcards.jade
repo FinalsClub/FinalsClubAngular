@@ -1,5 +1,7 @@
 include index
   h1 #{group_name}
-  .shareDiv(ng-controller="shareController" ng-init="createPad()")
-    textarea(id="pad")
+  .shareDiv(ng-controller="shareController" ng-init="flashcards = #{flashcards}")
+    .flashcardPad(ng-repeat="flashcard in flashcards")  
+      textarea(id="pad{{$index}}")
+    
   

@@ -7,7 +7,6 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var config = require('./oauth.js');
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
-// var share = require('./share-server.js');
 
 //set up server
 var port = 8080;

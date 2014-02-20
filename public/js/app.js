@@ -194,11 +194,13 @@ app.controller('flashcardController', ['$scope', function($scope) {
 }]);
 
 app.controller('shareController', ['$scope', function($scope) {
+  $scope.flashcards = [];
   $scope.createPad = function() {  
-    console.log('called');
-    var elem = document.getElementById("pad");
+    var id = "pad0";
+    var elem = document.getElementById(id);
+
     // connect to the server
-    var connection = sharejs.open('test', 'text', function(error, doc) {
+    var connection = sharejs.open(id, 'text', function(error, doc) {
         // this function is called once the connection is opened
         if (error) {
             console.log("ERROR:", error);
@@ -206,8 +208,35 @@ app.controller('shareController', ['$scope', function($scope) {
             // attach the ShareJS document to the textarea
             doc.attach_textarea(elem);
         }
-    });
+    });      
+    
+    var elem2 = document.getElementById("pad1");
+    var connection = sharejs.open("pad1", 'text', function(error, doc) {
+        // this function is called once the connection is opened
+        if (error) {
+            console.log("ERROR:", error);
+        } else {
+            // attach the ShareJS document to the textarea
+            doc.attach_textarea(elem2);
+        }
+    });       
+
+    var elem3 = document.getElementById("pad2");
+    var connection = sharejs.open("pad2", 'text', function(error, doc) {
+        // this function is called once the connection is opened
+        if (error) {
+            console.log("ERROR:", error);
+        } else {
+            // attach the ShareJS document to the textarea
+            doc.attach_textarea(elem3);
+        }
+    });       
   };
+  
+  angular.element(document).ready(function() {
+    $scope.createPad();
+  });
+  
 }]);
 
 /*
