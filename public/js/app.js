@@ -193,46 +193,72 @@ app.controller('flashcardController', ['$scope', function($scope) {
   };
 }]);
 
-app.controller('shareController', ['$scope', function($scope) {
+app.controller('shareController', ['$scope', '$http', function($scope, $http) {
   $scope.flashcards = [];
+  $scope.topic = null;
   $scope.createPad = function() {  
-    var id = "pad0";
-    var elem = document.getElementById(id);
+    var iterate = function(counter) {
+      if (counter === $scope.flashcards.length) {
+        return;
+      }
+      //grab textarea for this flashcard
+      var termID = "pad" + counter + "-term";
+      var termElem = document.getElementById(termID);
 
-    // connect to the server
-    var connection = sharejs.open(id, 'text', function(error, doc) {
-        // this function is called once the connection is opened
-        if (error) {
-            console.log("ERROR:", error);
-        } else {
-            // attach the ShareJS document to the textarea
-            doc.attach_textarea(elem);
-        }
-    });      
-    
-    var elem2 = document.getElementById("pad1");
-    var connection = sharejs.open("pad1", 'text', function(error, doc) {
-        // this function is called once the connection is opened
-        if (error) {
-            console.log("ERROR:", error);
-        } else {
-            // attach the ShareJS document to the textarea
-            doc.attach_textarea(elem2);
-        }
-    });       
+      // connect to the share js server
+      var connection = sharejs.open(termID, 'text', function(error, doc) {
+          if (error) {
+              console.log("ERROR:", error);
+          } else {
+              // attach the ShareJS document to the textarea
+              doc.attach_textarea(termElem);
+              doc.on('change', function(op) {
+                $scope.saveText(counter, 'term', doc.getText());
+              });
+              // doc.insert(0, $scope.flashcards[counter]['term']);
+              var defID = "pad" + counter + "-def";
+              var defElem = document.getElementById(defID);
 
-    var elem3 = document.getElementById("pad2");
-    var connection = sharejs.open("pad2", 'text', function(error, doc) {
-        // this function is called once the connection is opened
-        if (error) {
-            console.log("ERROR:", error);
-        } else {
-            // attach the ShareJS document to the textarea
-            doc.attach_textarea(elem3);
-        }
-    });       
+              // connect to the share js server
+              var connection2 = sharejs.open(defID, 'text', function(error, doc2) {
+                  if (error) {
+                      console.log("ERROR:", error);
+                  } else {
+                      // attach the ShareJS document to the textarea
+                      doc2.attach_textarea(defElem);
+                      doc2.on('change', function(op) {
+                        $scope.saveText(counter, 'definition',  doc2.getText());
+                      });
+                      // doc2.insert(0, $scope.flashcards[counter]['definition']);
+                      counter = counter + 1;      
+                      iterate(counter);
+                  }
+              });
+          }
+      });
+    };
+     
+    iterate(0);
   };
   
+  $scope.saveText = function(index, side, text) {
+    var body = {
+      topic_id:  $scope.topic._id,
+      index: index,
+      side: side,
+      text: text
+    };
+    
+    $http({
+      method: 'PUT',
+      url: '/topics',
+      data: JSON.stringify(body)
+    }).success(function() {
+      console.log('saved!');
+    });
+  };
+  
+  //create pads once DOM has loaded
   angular.element(document).ready(function() {
     $scope.createPad();
   });
