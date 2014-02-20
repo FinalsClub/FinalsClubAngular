@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <textarea id="editor  "></textarea>
+  <script src="http://ajaxorg.github.com/ace/build/src/ace.js"></script>  
+  <script src="bcsocket.js"></script> 
+  <script src="share.js"></script>
+  <script src="textarea.js"></script>
+  <script>
+  var connect = require('connect'),
+    sharejs = require('share').server;
+
+  var server = connect(
+        connect.logger(),
+        connect.static(__dirname + '/public')
+      );
+  var options = {db: {type: 'none'}}; // See docs for options. {type: 'redis'} to enable persistance.
+
+  // Attach the sharejs REST and Socket.io interfaces to the server
+  sharejs.attach(server, options);
+
+  server.listen(8000, function(){
+      console.log('Server running at http://127.0.0.1:8000/');
+  });
+
+
+  var elem = document.getElementById('editor');
+
+  sharejs.open('hello', 'text', function(error, doc) {
+    if (error) {
+      console.log(error);
+    } else {
+      elem.disabled = false;
+      doc.attach_textarea(elem);
+    }
+  });
+    
+
+  </script>
+</body>
+</html>
+

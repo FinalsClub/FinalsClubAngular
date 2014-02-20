@@ -297,3 +297,41 @@ hr.smaller.mainPage {
   bottom: 3em;
   color: gray;
 }
+
+.flashcardTerm, .flashcardDef {
+  margin: 0 auto;
+  border: 1px solid gray;
+  box-shadow: 2px 2px 2px #000;
+  height: 50%;
+  width: 70%;
+  text-align: center;
+}
+
+.flashcardTerm p {
+  margin-top: 25%;
+  font-size: 3em;
+}
+
+.flashcardDef p {
+  margin-top: 25%;
+  font-size: 2em;
+}
+
+.arrowDiv {
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: yellow;
+}
+
+.arrowDiv:nth-of-type(1) {
+  position: relative;
+  top: 12em;
+}
+
+.arrowDiv:nth-of-type(2) {
+  float: right;
+  position: relative;
+  top: 10em;
+}

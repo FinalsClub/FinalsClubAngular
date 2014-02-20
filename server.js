@@ -108,7 +108,7 @@ app.get('/groups/search', isLoggedIn, function(req, res) {
     models.Course.find({ school_id: app.get('user').school_id })
                 .populate('groups')
                 .exec(function(err, courses){
-                  console.log(courses); 
+                  console.log("COURSES: ", courses); 
                   res.send(JSON.stringify(courses));
                 })
   } else {
