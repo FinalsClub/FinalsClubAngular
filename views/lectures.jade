@@ -1,8 +1,0 @@
-include index
-  .mainLectureDiv(ng-controller='lectureController' ng-init='lectures=#{lectures}')
-    h1 #{group_name}
-    .lectureDiv(ng-repeat='lecture in lectures')
-      a(href='/groups/#{group_id}/flashcards/{{lecture._id}}') {{ lecture.title }}
-    br
-    a(href='/groups/#{group_id}/lectures/new') Create a new lecture
-    
