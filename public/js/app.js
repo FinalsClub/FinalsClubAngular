@@ -150,8 +150,8 @@ app.controller('requestController', ['$scope', '$http', function($scope, $http){
       console.log(err);
     });  
   };
-  
 }]);
+
 app.controller('topicController', ['$scope', '$http', function($scope, $http){
   $scope.topics = [];
   $scope.topic = {
@@ -236,9 +236,27 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
                   }
               });
           }
+          var defID = "pad" + counter + "-def";
+          var defElem = document.getElementById(defID);
+
+          // connect to the share js server
+          var connection2 = sharejs.open(defID, 'text', function(error, doc2) {
+              if (error) {
+                console.log("ERROR:", error);
+              } else {
+                // attach the ShareJS document to the textarea
+                $scope.pads.push(doc2);
+                doc2.attach_textarea(defElem);
+                if (doc2.getText() === "") {
+                  doc2.insert(0, $scope.flashcards[counter]['definition']);                      
+                }
+                counter = counter + 1;      
+                iterate(counter);
+              }
+          });
+        }
       });
     };
-     
     iterate(0);
   };
   

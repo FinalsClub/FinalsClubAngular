@@ -1,0 +1,7 @@
+include index
+  #editor
+    script(type='text/javascript').
+      var editor = ace.edit("editor");
+      sharejs.open('hello', 'text', function(error, doc) {
+        doc.attach_ace(editor);
+      });
