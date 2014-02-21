@@ -1,11 +1,12 @@
 include index
   h1 #{group_name}
   .shareDiv(ng-controller="shareController" ng-init="flashcards = #{flashcards}; topic = #{topic}")
-    .flashcardPad(ng-repeat="flashcard in flashcards")  
-      textarea(id="{{topic._id}}-pad{{$index}}-term")
-      textarea(id="{{topic._id}}-pad{{$index}}-def")
-    button(ng-click="saveText()") Save Flashcards
+    a(href="#" ng-click="addFlashcard()").requests + Add flashcard
+    h3 {{topic.title}}
     p
-      a(href="#" ng-click="addFlashcard()") + Add flashcard
+    .flashcardPad(ng-repeat="flashcard in flashcards")  
+      textarea(id="{{topic._id}}-pad{{$index}}-term", cols="50", rows="10")
+      textarea(id="{{topic._id}}-pad{{$index}}-def", cols="50", rows="10")
+    button(ng-click="saveText()") Save Flashcards
       
   

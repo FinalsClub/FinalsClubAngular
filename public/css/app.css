@@ -89,6 +89,7 @@ button, .button, input[type='submit'] {
   color: #fff;
   height: 2em; 
   font-size: 1.1em;
+  margin-top: 20px;
   margin-bottom: 20px; }
 
 .facebook {
@@ -363,3 +364,13 @@ hr.smaller.mainPage {
   border-left: 50px solid yellow;
 }
 
+.shareDiv {
+  text-align: center;
+}
+
+.shareDiv span {
+  margin: 5px;
+  font-size: 0.75em;
+  font-weight: normal;
+  color: green;
+}

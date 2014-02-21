@@ -233,12 +233,14 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
                 if (error) {
                     console.log("ERROR:", error);
                 } else {
+                  
                   // attach the ShareJS document to the textarea for the def
                   $scope.pads.push(doc2);
                   doc2.attach_textarea(defElem);
                   if (doc2.getText() === "") {
                     doc2.insert(0, $scope.flashcards[index]['definition']);                      
                   }
+                  
                   if (!iterating) {
                     $scope.saveText();
                   }
@@ -263,7 +265,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
       url: '/topics',
       data: JSON.stringify(body)
     }).success(function() {
-      angular.element('.shareDiv').append('<span>Saved!</span>');
+      angular.element('.shareDiv h3').append('<span>Saved!</span>');
       angular.element('.shareDiv span').fadeOut(2000);
       console.log('saved!');
     });
@@ -271,24 +273,18 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     
   $scope.addFlashcard = function() {    
     $scope.flashcards.push({term: "", definition: ""});   
-    
-    var tempFunc = function() {
-      $scope.openConnections($scope.flashcards.length-1, false);
-    };
-    
-    $timeout(tempFunc, 1000);
+        
+    $timeout($scope.openConnections.bind(null,$scope.flashcards.length-1, false), 1000);
   };
   
-  $scope.checkDB = function() {
+  $scope.syncDB = function() {
     $http({
       method: 'GET',
       url: '/topics?id=' + $scope.topic._id
     }).success(function(data) {
       if (data.flashcards.length > $scope.flashcards.length) {
         $scope.addFlashcard();
-      }
-      console.log("db: ", data.flashcards.length);
-      console.log("scope: ", $scope.flashcards.length);
+      } 
     });
   };
   
@@ -296,10 +292,15 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   angular.element(document).ready(function() {
     $scope.createPads();
     
+    //auto-sync DB every 2 seconds
     setInterval(function() {
-      // $scope.saveText();
-      $scope.checkDB();
+      $scope.syncDB();
     }, 2000);
+    
+    //auto-save every ten seconds
+    setInterval(function() {
+      $scope.saveText();
+    },10000);
     
   });
   
