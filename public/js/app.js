@@ -273,8 +273,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
       url: '/topics',
       data: JSON.stringify(body)
     }).success(function() {
-      angular.element('.shareDiv h3').append('<span>Saved!</span>');
-      angular.element('.shareDiv span').fadeOut(2000);
+      angular.element('.shareDiv span').fadeIn(1000).fadeOut(2000);
       console.log('saved!');
     });
   };
@@ -283,6 +282,26 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     $scope.flashcards.push({term: "", definition: ""});   
         
     $timeout($scope.openConnections.bind(null,$scope.flashcards.length-1, false), 1000);
+  };
+  
+  $scope.removeFlashcard = function(index){
+    var body = {
+      topic_id: $scope.topic._id,
+      index: index
+    };
+
+    var flashcardDivToRemove = $scope.topic._id + '-pad' + index;
+    var confirmDelete = confirm('Are you sure you want to delete this flashcard?')
+    if(confirmDelete === true){
+      $http({
+        method: 'PUT',
+        url: '/delete_flashcards',
+        data: JSON.stringify(body)
+      }).success(function(){
+        angular.element(document.getElementById(flashcardDivToRemove)).remove();
+        console.log('flashcard deleted');
+      });
+    }
   };
   
   $scope.syncDB = function() {

@@ -418,6 +418,14 @@ app.put('/requests/:id', function(req, res) {
                 });
 });
 
+app.put('/delete_flashcards', function(req, res){
+  models.Topic.findOne({_id: req.body.topic_id}).exec(function(err, topic) {
+    topic.flashcards.splice(req.body.index, 1);
+    topic.save(function(){
+      res.send(200);
+    });
+  });
+});
 
 //----------------------helper functions-------------------------//
 
