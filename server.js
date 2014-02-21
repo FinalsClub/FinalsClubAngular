@@ -37,6 +37,7 @@ passport.serializeUser(function(user, done) {
  console.log('serializeUser: ' + user)
  done(null, user._id);
 });
+
 passport.deserializeUser(function(id, done) {
  models.User.findById(id, function(err, user){
      console.log(user)
@@ -45,18 +46,6 @@ passport.deserializeUser(function(id, done) {
  })
 });
 
-// var routes = [
-//   '/',
-//   '/log_in',
-//   '/sign_up',
-//   // '/groups/:id/flashcards',
-//   // '/groups/:id/flashcards/:topic_id',
-//   // '/groups/:id/flashcards/:topic_id/edit',
-//   // '/groups/search',
-//   // '/groups/new',
-//   // '/groups/:id/members',
-//   // '/groups/:id/communications'
-// ];  
 
 //-------------------------LOG IN ROUTES -----------------------------//
 app.set('user', null);
@@ -112,18 +101,11 @@ app.get('/groups/new', isLoggedIn, function(req, res) {
 });
 
 app.get('/groups/search', isLoggedIn, function(req, res) {
-  if (req.query['courses']) {
-    models.Course.find({ school_id: app.get('user').school_id })
-                .populate('groups')
-                .exec(function(err, courses){
-                  console.log("COURSES: ", courses); 
-                  res.send(JSON.stringify(courses));
-                })
-  } else {
-    models.Group.find().exec(function(err, groups) {
-      res.render('find-group.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups) });    
-    });    
-  }
+  models.Group.find()
+              .populate('users course_id')
+              .exec(function(err, groups) {
+                res.render('find-group.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});    
+              });    
 });
 
 app.get('/join_group', isLoggedIn, function(req, res) {
@@ -229,15 +211,6 @@ app.get('/groups', function(req, res) {
   }
 });
 
-app.get('/users', function(req, res) {
-  if (req.query['id']) {
-    //return user
-    models.User.findOne({_id: req.query['id']}, function(err, user) {
-      res.send(200, JSON.stringify(user));
-    });
-  }
-});
-
 app.get('/topics', function(req, res) {
   if (req.query['id']) {
     //return topic with its parent group name
@@ -283,7 +256,6 @@ app.get('/schools', function(req, res) {
                 res.send(200, JSON.stringify(schools));
                });
 });
-
 
 //------------------------POST routes-----------------------------//
 
@@ -348,25 +320,30 @@ app.post('/requests', function(req, res){
 });
 
 app.post('/members', function(req, res){
+
   models.Group.findOne({_id: req.body.group_id})
               .exec(function(err, group){
-                group.users.push(req.body.user_id);
-                group.save(function(){
-                  models.User.findOne({_id: req.body.user_id})
-                             .exec(function(err, user){
-                                user.groups.push(req.body.group_id);
-                                user.save(function(){
-                                   models.Request.findOne({_id: req.body.request_id})
-                                                 .remove()
-                                                 .exec(function(err) {
-                                                   group.requests.splice(group.requests.indexOf(req.body.request_id),1);
-                                                   group.save(function() {
-                                                     res.send(201);                                                     
-                                                   });
-                                                 }); 
-                                });
-                             });
-                });
+                if (group.users.indexOf(req.body.user_id) === -1) {
+                  group.users.push(req.body.user_id);
+                  group.save(function(){
+                    models.User.findOne({_id: req.body.user_id})
+                               .exec(function(err, user){
+                                  user.groups.push(req.body.group_id);
+                                  user.save(function(){
+                                     models.Request.findOne({_id: req.body.request_id})
+                                                   .remove()
+                                                   .exec(function(err) {
+                                                     group.requests.splice(group.requests.indexOf(req.body.request_id),1);
+                                                     group.save(function() {
+                                                       res.send(201);                                                     
+                                                     });
+                                                   }); 
+                                  });
+                               });
+                  });
+                } else {
+                  res.send(401);
+                }
               });
 });
 

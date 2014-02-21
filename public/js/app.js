@@ -90,19 +90,7 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
     group_id : $scope.location,
     ignored : false
   }
-  
-  $scope.getCourses = function() {
-    $http({
-      method: 'GET',
-      url: '/groups/search?courses=true'
-      }).success(function(data, status){
-        console.log(data);
-        $scope.courses = data;
-      }).error(function(){
-        console.log('error in finding group by course: ', data)
-      })
-  };
-  
+    
   $scope.submit_answer = function(){
     console.log($scope.request);
     console.log($scope.location)
@@ -137,6 +125,7 @@ app.controller('requestController', ['$scope', '$http', function($scope, $http){
       window.location.href = '/';
     }).error(function(err){
       console.log(err)
+      angular.element('.contentWrapper').prepend("<span class='error'>The user is already a member of the group.</span>");
     });
   };
   

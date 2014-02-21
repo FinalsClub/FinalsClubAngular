@@ -1,28 +1,17 @@
 include index
   .groupSearch(ng-controller="findGroupController" ng-init="groups = #{groups}")
     h1 FIND A GROUP
-    hr
-    input(type='button' ng-click='clicked = !clicked' value='Search by name').findGroupButton 
-    input(type='button' ng-click='clicked = !clicked; getCourses()' value='Search by course' ng-attr-class="{{clicked && 'clicked-button' || 'unclicked-button' }}").findGroupButton 
-    
+    hr    
     input(name='search_for_group' ng-model='searchForGroup' placeholder='search for a group...')#searchForGroup
     .findGroupBox(ng-class='info')
-      div(ng-repeat="group in groups | filter:searchForGroup" ng-show='!clicked')
+      div(ng-repeat="group in groups | filter:searchForGroup")
         ul
           h3 {{ group.name }}
           li.grayed#intensity {{ group.intensity }} intensity
           li.grayed {{ group.motto }}
+          li.grayed {{ group.course_id.name }}
           li(ng-repeat='user in group.users')
-            span {{ user }}
+            img(src="{{ user.image }}") 
           a(href='/join_group?group_id={{group._id}}')
             input(type='button' model='joinGroup' value='Request to join' class='requests find') 
         hr.smaller
-      div(ng-repeat="course in courses | filter:searchForGroup" ng-show='clicked')
-        ul(ng-repeat='group in course.groups')
-          h3 {{ group.name }}
-          li.grayed {{ course.name }}
-          li(ng-repeat='user in group.users')
-            span {{ user }}
-          a(href='/join_group?group_id={{group._id}}')
-            input(type='button' model='joinGroup' value='Request to join' class='requests find') 
-          hr.smaller
