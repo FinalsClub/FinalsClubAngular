@@ -6,10 +6,17 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var config = require('./oauth.js');
 var auth = require('./authentication.js');
+var sharejs = require('share').server;
+var redis = require('redis');
+var RedisStore = require('connect-redis')(express);
 
 //set up server
 var port = 8080;
 var app = express();
+
+var options = {db: {type: 'redis'},  browserChannel: {cors: "*"}};
+sharejs.attach(app, options);
+
 app.listen(port);
 console.log('Listening on port ' + port);  
 
@@ -22,8 +29,8 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: 'keyboard cat' }));
-app.use(passport.initialize());
+app.use(express.session({ secret: 'keyboard cat' , store: new RedisStore({ host: 'localhost', port: 6379 })}));
+app.use(passport.initialize())
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
@@ -67,6 +74,7 @@ app.get('/sign_up', function(req, res) {
 app.get('/log_out', function(req, res) {
   req.logout();
   app.set('user', null);
+  app.set('name', null);
   res.redirect('/log_in');
 });
 
@@ -77,6 +85,7 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/log_in' }),
   function(req, res) {
     app.set('user', req.user);
+    app.set('name', app.get('user').first_name + " " + app.get('user').last_name);
     if (req.user.email) {
       res.redirect('/');
     } else {
@@ -88,18 +97,17 @@ app.get('/auth/facebook/callback',
 
 
 app.get('/', isLoggedIn, function(req, res) {  
-  var name = app.get('user').first_name + " " + app.get('user').last_name;
   models.User.find({ _id: app.get('user')._id})
              .populate('groups')
              .exec(function(err, userG) {              
-              res.render('groups.jade', {user: name, image: app.get('user').image, groups: JSON.stringify(userG[0].groups)});
+              res.render('groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(userG[0].groups)});
              })
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {
   models.Course.find({ school_id: app.get('user').school_id })
               .exec(function(err, courses){
-                res.render('create-group.jade', {user: app.get('user').first_name, image: app.get('user').image, courses: JSON.stringify(courses) });
+                res.render('create-group.jade', {user: app.get('name'), image: app.get('user').image, courses: JSON.stringify(courses) });
               })
 });
 
@@ -113,20 +121,20 @@ app.get('/groups/search', isLoggedIn, function(req, res) {
                 })
   } else {
     models.Group.find().exec(function(err, groups) {
-      res.render('find-group.jade', {user: app.get('user').first_name, image: app.get('user').image, groups: JSON.stringify(groups) });    
+      res.render('find-group.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups) });    
     });    
   }
 });
 
 app.get('/join_group', isLoggedIn, function(req, res) {
   models.Group.findOne({_id: req.query['group_id']}).exec(function(err, group) {
-    res.render('join-group.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group});    
+    res.render('join-group.jade', {user: app.get('name'), image: app.get('user').image, group: group});    
   });  
 }); 
 
 app.get('/leave_group/:id', isLoggedIn, function(req, res) {
   models.Group.findOne({_id: req.params.id}).exec(function(err, group) {
-    res.render('leave-group.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group});    
+    res.render('leave-group.jade', {user: app.get('name'), image: app.get('user').image, group: group});    
   });  
 });
 
@@ -134,13 +142,14 @@ app.get('/groups/:id/requests', isLoggedIn, function(req, res) {
   models.Request.find({group_id: req.params.id, ignored: false})
                 .populate('user_id group_id')
                 .exec(function(err, requests) {
-                  res.render('requests.jade', {user: app.get('user').first_name, image: app.get('user').image, requests: JSON.stringify(requests)});               
+                  res.render('requests.jade', {user: app.get('name'), image: app.get('user').image, requests: JSON.stringify(requests)});               
                 });
 });
 
 app.get('/leave_group/:id', isLoggedIn, function(req, res) {
+
   models.Group.findOne({_id: req.params.id}).exec(function(err, group) {
-    res.render('leave-group.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group});    
+    res.render('leave-group.jade', {user: app.get('name'), image: app.get('user').image, group: group});    
   });  
 });
 
@@ -148,13 +157,13 @@ app.get('/groups/:id/flashcards', isLoggedIn, function(req, res){
   models.Group.findOne({_id: req.params.id})
               .populate('topics')
               .exec(function(err, group){
-                res.render('topics.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: group.name, group_id: group._id, topics: JSON.stringify(group.topics)});               
+                res.render('topics.jade', {user: app.get('name'), image: app.get('user').image, group_name: group.name, group_id: group._id, topics: JSON.stringify(group.topics)});               
               });
 });
 
 app.get('/groups/:id/topics/new', isLoggedIn, function(req, res){
   models.Group.findOne({_id: req.params.id}).exec(function(err, group){
-    res.render('topics_new.jade', {user: app.get('user').first_name, image: app.get('user').image, group: group.name});               
+    res.render('topics_new.jade', {user: app.get('name'), image: app.get('user').image, group: group.name});               
   });
 });
 
@@ -162,7 +171,7 @@ app.get('/groups/:group_id/flashcards/:topic_id', isLoggedIn, function(req, res)
   models.Topic.findOne({_id: req.params.topic_id})
                 .populate('group_id')
                 .exec(function(err, topic){
-                  res.render('flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: topic.group_id.name, group_id: topic.group_id._id, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});               
+                  res.render('flashcards.jade', {user: app.get('name'), image: app.get('user').image, group_name: topic.group_id.name, group_id: topic.group_id._id, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});               
                 });
 });
 
@@ -170,9 +179,10 @@ app.get('/groups/:group_id/flashcards/:topic_id/edit', isLoggedIn, function(req,
   models.Topic.findOne({_id: req.params.topic_id})
         .populate('group_id')
         .exec(function(err, topic) {
-          res.render('edit_flashcards.jade', {user: app.get('user').first_name, image: app.get('user').image, group_name: topic.group_id.name, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});
+          res.render('edit_flashcards.jade', {user: app.get('name'), image: app.get('user').image, group_name: topic.group_id.name, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});
         });
 });
+
 
 //--------------------------- API -----------------------------//
 
@@ -394,13 +404,25 @@ app.post('/topics', function(req, res){
   });
 });
 
+app.put('/topics', function(req, res) {
+  models.Topic.findOne({_id: req.body.topic_id}).exec(function(err, topic) {
+    topic.flashcards = req.body.cards;
+    topic.save(function() {
+      console.log("EDITED TOPIC: ", JSON.stringify(topic.flashcards));
+      res.send(200);
+    });
+  });
+});
+
 //----------------------helper functions-------------------------//
 
 function isLoggedIn(req, res, next) {
 
-  if (req.isAuthenticated())
+  if (req.isAuthenticated()) {
+    app.set('user', req.user);
+    app.set('name', app.get('user').first_name + " " + app.get('user').last_name);
     return next();
-
+  }
   res.send(401, "User must log in.");
   res.redirect('/log_in');
 }

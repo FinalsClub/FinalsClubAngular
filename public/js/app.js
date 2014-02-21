@@ -191,7 +191,85 @@ app.controller('flashcardController', ['$scope', function($scope) {
       $scope.currentCard++;
     }
   };
-}])
+}]);
+
+app.controller('shareController', ['$scope', '$http', function($scope, $http) {
+  $scope.flashcards = [];
+  $scope.pads = [];
+  $scope.topic = null;
+  $scope.createPad = function() {  
+    var iterate = function(counter) {
+      if (counter === $scope.flashcards.length) {
+        return;
+      }
+      //grab textarea for this flashcard
+      var termID = "pad" + counter + "-term";
+      var termElem = document.getElementById(termID);
+
+      // connect to the share js server
+      var connection = sharejs.open(termID, 'text', function(error, doc) {
+          if (error) {
+              console.log("ERROR:", error);
+          } else {
+              // attach the ShareJS document to the textarea
+              $scope.pads.push(doc);
+              doc.attach_textarea(termElem);
+              if (doc.getText() === "") {
+                doc.insert(0, $scope.flashcards[counter]["term"]);                
+              }
+              var defID = "pad" + counter + "-def";
+              var defElem = document.getElementById(defID);
+
+              // connect to the share js server
+              var connection2 = sharejs.open(defID, 'text', function(error, doc2) {
+                  if (error) {
+                      console.log("ERROR:", error);
+                  } else {
+                    // attach the ShareJS document to the textarea
+                    $scope.pads.push(doc2);
+                    doc2.attach_textarea(defElem);
+                    if (doc2.getText() === "") {
+                      doc2.insert(0, $scope.flashcards[counter]['definition']);                      
+                    }
+                      counter = counter + 1;      
+                      iterate(counter);
+                  }
+              });
+          }
+      });
+    };
+     
+    iterate(0);
+  };
+  
+  $scope.saveText = function() {
+    var cards = [];
+    for (var i = 0; i < $scope.pads.length; i+=2) {
+      cards.push({term: $scope.pads[i].getText(), definition: $scope.pads[i+1].getText()})
+    }
+    
+    var body = {
+      topic_id:  $scope.topic._id,
+      cards: cards
+    };
+    
+    $http({
+      method: 'PUT',
+      url: '/topics',
+      data: JSON.stringify(body)
+    }).success(function() {
+      angular.element('.shareDiv').append('<span>Saved!</span>');
+      angular.element('.shareDiv span').fadeOut(2000);
+      console.log('saved!');
+    });
+  };
+  
+  //create pads once DOM has loaded
+  angular.element(document).ready(function() {
+    $scope.createPad();
+  });
+  
+}]);
 
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------
@@ -259,3 +337,4 @@ app.factory('createGroup', ['$http', function($http){
       }
   };   
 }]);
+    var pads = angular.element('textarea');
