@@ -193,53 +193,60 @@ app.controller('flashcardController', ['$scope', function($scope) {
   };
 }]);
 
-app.controller('shareController', ['$scope', '$http', function($scope, $http) {
+app.controller('shareController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
   $scope.flashcards = [];
   $scope.pads = [];
   $scope.topic = null;
-  $scope.createPad = function() {  
-    var iterate = function(counter) {
+  
+  $scope.createPads = function() {  
+    var iterateFlashcards = function(counter) {
       if (counter === $scope.flashcards.length) {
         return;
       }
-      //grab textarea for this flashcards
-      var termID = $scope.topic._id + "-pad" + counter + "-term";
-      var termElem = document.getElementById(termID);
-
-      // connect to the share js server
-      var connection = sharejs.open(termID, 'text', function(error, doc) {
-          if (error) {
-              console.log("ERROR:", error);
-          } else {
-              // attach the ShareJS document to the textarea
-              $scope.pads.push(doc);
-              doc.attach_textarea(termElem);
-              if (doc.getText() === "") {
-                doc.insert(0, $scope.flashcards[counter]["term"]);                
-              }
-              var defID = $scope.topic._id + "-pad" + counter + "-def";
-              var defElem = document.getElementById(defID);
-
-              // connect to the share js server
-              var connection2 = sharejs.open(defID, 'text', function(error, doc2) {
-                  if (error) {
-                      console.log("ERROR:", error);
-                  } else {
-                    // attach the ShareJS document to the textarea
-                    $scope.pads.push(doc2);
-                    doc2.attach_textarea(defElem);
-                    if (doc2.getText() === "") {
-                      doc2.insert(0, $scope.flashcards[counter]['definition']);                      
-                    }
-                      counter = counter + 1;      
-                      iterate(counter);
-                  }
-              });
-          }
-      });
+      $scope.openConnections(counter, true);
+      counter = counter + 1;      
+      iterateFlashcards(counter);
     };
      
-    iterate(0);
+    iterateFlashcards(0);
+  };
+  
+  $scope.openConnections = function(index, iterating) {
+    var termID = $scope.topic._id + "-pad" + index + "-term";
+    var termElem = document.getElementById(termID);
+    // connect to the share js server
+    var connection = sharejs.open(termID, 'text', function(error, doc) {
+        if (error) {
+            console.log("ERROR:", error);
+        } else {
+            // attach the ShareJS document to the textarea for the term
+            $scope.pads.push(doc);
+            doc.attach_textarea(termElem);
+            if (doc.getText() === "") {
+              doc.insert(0, $scope.flashcards[index]["term"]);                
+            }
+            var defID = $scope.topic._id + "-pad" + index + "-def";
+            var defElem = document.getElementById(defID);
+
+            // connect to the share js server
+            var connection2 = sharejs.open(defID, 'text', function(error, doc2) {
+                if (error) {
+                    console.log("ERROR:", error);
+                } else {
+                  // attach the ShareJS document to the textarea for the def
+                  $scope.pads.push(doc2);
+                  doc2.attach_textarea(defElem);
+                  if (doc2.getText() === "") {
+                    doc2.insert(0, $scope.flashcards[index]['definition']);                      
+                  }
+                  if (!iterating) {
+                    $scope.saveText();
+                  }
+                  return;
+                }
+            });
+        }
+    });
   };
   
   $scope.saveText = function() {
@@ -247,12 +254,10 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
     for (var i = 0; i < $scope.pads.length; i+=2) {
       cards.push({term: $scope.pads[i].getText(), definition: $scope.pads[i+1].getText()})
     }
-    
     var body = {
       topic_id:  $scope.topic._id,
       cards: cards
     };
-    
     $http({
       method: 'PUT',
       url: '/topics',
@@ -265,16 +270,37 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
   };
     
   $scope.addFlashcard = function() {    
-    $scope.flashcards.push({term: "", definition: ""});    
+    $scope.flashcards.push({term: "", definition: ""});   
+    
+    var tempFunc = function() {
+      $scope.openConnections($scope.flashcards.length-1, false);
+    };
+    
+    $timeout(tempFunc, 1000);
+  };
+  
+  $scope.checkDB = function() {
+    $http({
+      method: 'GET',
+      url: '/topics?id=' + $scope.topic._id
+    }).success(function(data) {
+      if (data.flashcards.length > $scope.flashcards.length) {
+        $scope.addFlashcard();
+      }
+      console.log("db: ", data.flashcards.length);
+      console.log("scope: ", $scope.flashcards.length);
+    });
   };
   
   //create pads once DOM has loaded
   angular.element(document).ready(function() {
-    $scope.createPad();
+    $scope.createPads();
     
     setInterval(function() {
-      $scope.saveText();
-    }, 5000);
+      // $scope.saveText();
+      $scope.checkDB();
+    }, 2000);
+    
   });
   
 }]);

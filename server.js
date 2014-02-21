@@ -407,6 +407,7 @@ app.post('/topics', function(req, res){
 
 app.put('/topics', function(req, res) {
   models.Topic.findOne({_id: req.body.topic_id}).exec(function(err, topic) {
+    console.log("CARDS: ", req.body.cards);
     topic.flashcards = req.body.cards;
     topic.save(function() {
       console.log("EDITED TOPIC: ", JSON.stringify(topic.flashcards));
