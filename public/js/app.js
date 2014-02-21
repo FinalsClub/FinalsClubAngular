@@ -214,7 +214,9 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
               // attach the ShareJS document to the textarea
               $scope.pads.push(doc);
               doc.attach_textarea(termElem);
-              // doc.insert(0, $scope.flashcards[counter]['term']);
+              if (doc.getText() === "") {
+                doc.insert(0, $scope.flashcards[counter]["term"]);                
+              }
               var defID = "pad" + counter + "-def";
               var defElem = document.getElementById(defID);
 
@@ -223,10 +225,12 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
                   if (error) {
                       console.log("ERROR:", error);
                   } else {
-                      // attach the ShareJS document to the textarea
-                      $scope.pads.push(doc2);
-                      doc2.attach_textarea(defElem);
-                      // doc2.insert(0, $scope.flashcards[counter]['definition']);
+                    // attach the ShareJS document to the textarea
+                    $scope.pads.push(doc2);
+                    doc2.attach_textarea(defElem);
+                    if (doc2.getText() === "") {
+                      doc2.insert(0, $scope.flashcards[counter]['definition']);                      
+                    }
                       counter = counter + 1;      
                       iterate(counter);
                   }
@@ -254,6 +258,8 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
       url: '/topics',
       data: JSON.stringify(body)
     }).success(function() {
+      angular.element('.shareDiv').append('<span>Saved!</span>');
+      angular.element('.shareDiv span').fadeOut(2000);
       console.log('saved!');
     });
   };
