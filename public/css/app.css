@@ -374,3 +374,7 @@ hr.smaller.mainPage {
   font-weight: normal;
   color: green;
 }
+
+.error {
+  color: red;
+}

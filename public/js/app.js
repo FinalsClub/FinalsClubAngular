@@ -115,6 +115,7 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
       window.location.href = '/';      
     }).error(function(err){
       console.log(err);
+      angular.element('.contentWrapper').prepend("<span class='error'>You are already in that group.</span>");
     });
   }
 }]);
@@ -209,6 +210,23 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     };
      
     iterateFlashcards(0);
+    // $scope.addEditors();
+  };
+  
+  $scope.addEditors = function() {
+    var id = $scope.topic._id + "-editors";
+    var elem = document.getElementById(id); 
+    
+    var connection = sharejs.open(id, 'text', function(error, doc) {
+      if (error) {
+        console.log("ERROR:", error);
+      } else {
+        doc.attach_textarea(elem);
+        var elemNode = angular.element('#' + id);
+        console.log(elemNode.data("user"));
+        doc.insert(0, elemNode.data("user") + "\n");
+      }
+    });
   };
   
   $scope.openConnections = function(index, iterating) {
@@ -237,6 +255,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
                   // attach the ShareJS document to the textarea for the def
                   $scope.pads.push(doc2);
                   doc2.attach_textarea(defElem);
+                  
                   if (doc2.getText() === "") {
                     doc2.insert(0, $scope.flashcards[index]['definition']);                      
                   }
