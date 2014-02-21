@@ -386,3 +386,13 @@ hr.smaller.mainPage {
   margin-top: -13em;
   background-color: #fff;
 }
+
+.editTerm, .editDef {
+  border: 1px solid #666;
+  padding: 1em;
+}
+
+.editDef {
+  border-left: 0;
+  background-color: #d8d8d8;
+}

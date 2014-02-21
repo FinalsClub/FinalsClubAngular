@@ -229,7 +229,8 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
             // attach the ShareJS document to the textarea for the term
             $scope.pads.push(doc);
             doc.attach_textarea(termElem);
-            if (doc.getText() === "") {
+            
+            if (doc.getText() === "" && iterating) {
               doc.insert(0, $scope.flashcards[index]["term"]);                
             }
             var defID = $scope.topic._id + "-pad" + index + "-def";
@@ -244,14 +245,13 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
                   // attach the ShareJS document to the textarea for the def
                   $scope.pads.push(doc2);
                   doc2.attach_textarea(defElem);
-                  
-                  if (doc2.getText() === "") {
-                    doc2.insert(0, $scope.flashcards[index]['definition']);                      
-                  }
-                  
+                  if (doc2.getText() === "" && iterating) {
+                      doc2.insert(0, $scope.flashcards[index]['definition']);                      
+                    }
+                
                   if (!iterating) {
                     $scope.saveText();
-                  }
+                  } 
                   return;
                 }
             });
