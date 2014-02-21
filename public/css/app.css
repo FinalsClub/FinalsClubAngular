@@ -372,34 +372,35 @@ hr.smaller.mainPage {
   margin-top: 0em;
 }
 .flashcardEditDiv {
-/*  margin-left: auto;
-  margin-right: auto;*/
   width: 90%;
   height: 100%;
-  /*border: 1px solid black;*/
+  margin-top: 100px;
   background-color: #fff;
 }
 .editing {
-  width: 50%;
+  width: 45%;
   height: 13em;
-  /*margin: 0 0 2% 0;*/
-  /*border: 0;*/
   border: 1px solid #666;
   padding: 1em;
-  /*-moz-box-shadow: 0 0 0px 1px #ddd;*/
-  /*-webkit-box-shadow: 0 0 0px 1px #ddd;*/
-}
-.vr {
-  width: 0.05em;
-  height: 90%;
-  background-color:#000;
-  position:relative;
-  top:0px;
-  margin-left:auto;
-  margin-right:auto;
-  z-index:10;
 }
 
+.right {
+  border-left: 0;
+  background-color: #d8d8d8;
+}
 .saveFlashcards {
   margin-top: 1em;
 }
+
+.flashcardDiv {
+  margin-left: 0;
+  margin-top: 0;
+}
+
+#removeButton {
+  color: gray;
+  border: 0;
+  margin-top: -13em;
+  background-color: #fff;
+}
+

@@ -407,9 +407,10 @@ app.post('/topics', function(req, res){
 
 app.put('/topics', function(req, res) {
   models.Topic.findOne({_id: req.body.topic_id}).exec(function(err, topic) {
+    console.log('INSIDE PUT')
     topic.flashcards = req.body.cards;
     topic.save(function() {
-      console.log("EDITED TOPIC: ", JSON.stringify(topic.flashcards));
+      console.log("EDITED TOPIC: ", JSON.stringify(topic.title), JSON.stringify(topic.flashcards));
       res.send(200);
     });
   });
@@ -424,6 +425,20 @@ app.post('/flashcards', function(req, res) {
   });
 });
 
+// deleting flashcards!
+app.put('/delete_flashcards', function(req, res){
+  models.Topic.findOne({_id: req.body.topic_id}).exec(function(err, topic) {
+    for(var i = 0; i < topic.flashcards.length; i++){
+      if(topic.flashcards[i] === req.body.card){
+        console.log("deleting card ", topic.flashcards[i]);
+        topic.flashcards.splice(i, 1);
+      }
+    }
+    topic.save(function(){
+      res.send(200);
+    });
+  });
+});
 //----------------------helper functions-------------------------//
 
 function isLoggedIn(req, res, next) {

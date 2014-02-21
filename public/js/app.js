@@ -275,8 +275,7 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
       url: '/topics',
       data: JSON.stringify(body)
     }).success(function() {
-      angular.element('.shareDiv').append('<span>Saved!</span>');
-      angular.element('.shareDiv span').fadeOut(2000);
+      document.getElementById('savingSpan').fadeOut(2000); // doesn't get removed from DOM
       console.log('saved!');
     });
   };
@@ -285,6 +284,34 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
     $scope.flashcards.push({term: "", definition: ""});    
   };
   
+  $scope.removeFlashcard = function(index){
+    var term = $scope.topic._id + "-pad" + index + "-term";
+    var def = $scope.topic._id + "-pad" + index + "-def";
+    console.log(document.getElementById(def))
+    
+    var body = {
+      topic_id: $scope.topic._id,
+      card: {term: document.getElementById(term).innerHTML, definition:  document.getElementById(def).innerHTML}
+    };
+
+    var flashcardDivToRemove = $scope.topic._id + '-pad' + index;
+    if(document.getElementById(term).innerHTML === '' && document.getElementById(def).innerHTML === ''){
+      angular.element(document.getElementById(flashcardDivToRemove)).remove();
+    } else {
+      var confirmDelete = confirm('Are you sure you want to delete ' + document.getElementById(term).innerHTML + ': ' +  document.getElementById(def).innerHTML+'?')
+      if(confirmDelete === true){
+        $http({
+          method: 'PUT',
+          url: '/delete_flashcards',
+          data: JSON.stringify(body)
+        }).success(function(){
+          angular.element(document.getElementById(flashcardDivToRemove)).remove();
+          console.log('flashcard deleted');
+        });
+      }
+    }
+  }
+
   //create pads once DOM has loaded
   angular.element(document).ready(function() {
     $scope.createPad();
