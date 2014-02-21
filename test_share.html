@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+    <script src="http://ajaxorg.github.com/ace/build/src/ace.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/channel/bcsocket.js"></script>
+    <script src="/share/share.js"></script>
+    <script src="/share/ace.js"></script>
+    <script>
+        $(document).ready(function() {
+            var editor = ace.edit("editor");
+
+            sharejs.open('hello', 'text', 'http://localhost:8000/channel', function (error, doc) {
+                doc.attach_ace(editor);
+            });
+        });
+    </script>
+    <style>
+        #editor {
+            width: 200px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="editor"></div>
+</body>
+</html>

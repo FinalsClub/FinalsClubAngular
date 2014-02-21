@@ -311,7 +311,7 @@ hr.smaller.mainPage {
   line-height: 9em;
   margin-right: 3%;
   margin-top: 2%;
-  -moz-box-shadow: 0 0 10px 2px #D8D8D8;
+  -moz-box-shadow: 0 0 10px 2px #ddd;
   -webkit-box-shadow: 0 0 10px 2px #ddd;
 }
 .flashcardDiv {
@@ -362,4 +362,44 @@ hr.smaller.mainPage {
   border-bottom: 50px solid transparent;
   border-left: 50px solid yellow;
 }
+.shareDiv {
+  /*background-color: #ddd;*/
+}
+.subtitle {
+  color: #666;
+  font-weight: lighter;
+  font-size: 100%;
+  margin-top: 0em;
+}
+.flashcardEditDiv {
+/*  margin-left: auto;
+  margin-right: auto;*/
+  width: 90%;
+  height: 100%;
+  /*border: 1px solid black;*/
+  background-color: #fff;
+}
+.editing {
+  width: 50%;
+  height: 13em;
+  /*margin: 0 0 2% 0;*/
+  /*border: 0;*/
+  border: 1px solid #666;
+  padding: 1em;
+  /*-moz-box-shadow: 0 0 0px 1px #ddd;*/
+  /*-webkit-box-shadow: 0 0 0px 1px #ddd;*/
+}
+.vr {
+  width: 0.05em;
+  height: 90%;
+  background-color:#000;
+  position:relative;
+  top:0px;
+  margin-left:auto;
+  margin-right:auto;
+  z-index:10;
+}
 
+.saveFlashcards {
+  margin-top: 1em;
+}
