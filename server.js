@@ -221,6 +221,7 @@ app.get('/topics', function(req, res) {
     models.Topic.findOne({ _id: req.query['id'] })
                   .populate('group_id', 'name')
                   .exec(function(err, topic) {
+                    console.log("TOPIC: ", JSON.stringify(topic));
                     res.send(200, JSON.stringify(topic));
                   });
 

@@ -263,14 +263,18 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
       console.log('saved!');
     });
   };
-  
+    
   $scope.addFlashcard = function() {    
+    $scope.flashcards.push({term: "", definition: ""});    
   };
-
   
   //create pads once DOM has loaded
   angular.element(document).ready(function() {
     $scope.createPad();
+    
+    setInterval(function() {
+      $scope.saveText();
+    }, 5000);
   });
   
 }]);
