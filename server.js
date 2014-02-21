@@ -221,6 +221,7 @@ app.get('/topics', function(req, res) {
     models.Topic.findOne({ _id: req.query['id'] })
                   .populate('group_id', 'name')
                   .exec(function(err, topic) {
+                    console.log("TOPIC: ", JSON.stringify(topic));
                     res.send(200, JSON.stringify(topic));
                   });
 
@@ -409,6 +410,15 @@ app.put('/topics', function(req, res) {
     topic.flashcards = req.body.cards;
     topic.save(function() {
       console.log("EDITED TOPIC: ", JSON.stringify(topic.flashcards));
+      res.send(200);
+    });
+  });
+});
+
+app.post('/flashcards', function(req, res) {
+  models.Topic.findOne({_id: req.body.topic_id}).exec(function(err, topic) {
+    topic.flashcards.push({term: "", definition: ""});
+    topic.save(function() {
       res.send(200);
     });
   });

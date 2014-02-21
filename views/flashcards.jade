@@ -5,14 +5,18 @@ include index
   h2 #{group_name}
 
   .allFlashcardsDiv(ng-controller='flashcardController' ng-init='flashcards=#{flashcards}; topic=#{topic};')
-    a(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit').gray Edit flashcards
-    h3 {{ topic.title }}
-    .leftArrow(ng-click="goBack(); flipped=false")
-    .rightArrow(ng-click="goForward(); flipped=false") 
-    .flashcardDiv(ng-repeat='flashcard in flashcards')
-      .flashcardTerm(ng-show="currentCard===$index && flipped===false" ng-click="flipped = !flipped")
-        p
-          {{flashcard.term}}
-      .flashcardDef(ng-show="currentCard===$index && flipped===true" ng-click="flipped = !flipped")
-        p
-          {{flashcard.definition}}
+    if JSON.parse(flashcards).length
+      a(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit').gray Edit flashcards
+      h3 {{ topic.title }} 
+      .leftArrow(ng-click="goBack(); flipped=false")
+      .rightArrow(ng-click="goForward(); flipped=false") 
+      .flashcardDiv(ng-repeat='flashcard in flashcards')
+        .flashcardTerm(ng-show="currentCard===$index && flipped===false" ng-click="flipped = !flipped")
+          p
+            {{flashcard.term}}
+        .flashcardDef(ng-show="currentCard===$index && flipped===true" ng-click="flipped = !flipped")
+          p
+            {{flashcard.definition}}
+    else
+      p You don't have any flashcards yet!
+      a(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit').button Add flashcards
