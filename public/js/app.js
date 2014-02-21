@@ -202,8 +202,8 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
       if (counter === $scope.flashcards.length) {
         return;
       }
-      //grab textarea for this flashcard
-      var termID = "pad" + counter + "-term";
+      //grab textarea for this flashcards
+      var termID = $scope.topic._id + "-pad" + counter + "-term";
       var termElem = document.getElementById(termID);
 
       // connect to the share js server
@@ -217,7 +217,7 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
               if (doc.getText() === "") {
                 doc.insert(0, $scope.flashcards[counter]["term"]);                
               }
-              var defID = "pad" + counter + "-def";
+              var defID = $scope.topic._id + "-pad" + counter + "-def";
               var defElem = document.getElementById(defID);
 
               // connect to the share js server
@@ -263,6 +263,10 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
       console.log('saved!');
     });
   };
+  
+  $scope.addFlashcard = function() {    
+  };
+
   
   //create pads once DOM has loaded
   angular.element(document).ready(function() {

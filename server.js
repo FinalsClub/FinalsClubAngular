@@ -414,6 +414,15 @@ app.put('/topics', function(req, res) {
   });
 });
 
+app.post('/flashcards', function(req, res) {
+  models.Topic.findOne({_id: req.body.topic_id}).exec(function(err, topic) {
+    topic.flashcards.push({term: "", definition: ""});
+    topic.save(function() {
+      res.send(200);
+    });
+  });
+});
+
 //----------------------helper functions-------------------------//
 
 function isLoggedIn(req, res, next) {
