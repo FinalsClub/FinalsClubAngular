@@ -254,8 +254,7 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
                 iterate(counter);
               }
           });
-        }
-      });
+        });
     };
     iterate(0);
   };
