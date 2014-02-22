@@ -2,7 +2,13 @@
 var mongoose = require('mongoose');
 var autoIncrement = require('mongoose-auto-increment');
 
-mongoose.connect('mongodb://localhost/test');
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+'mongodb://localhost/test';
+
+
+mongoose.connect(uristring);
 
 var db = mongoose.connection;
 

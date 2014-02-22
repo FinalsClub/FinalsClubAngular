@@ -1,0 +1,18 @@
+include ../index
+  .mainTopicDiv(ng-controller='topicController')
+    h1 #{group}
+    form(ng-submit='submitTopic()')
+      table
+        tr
+          td
+            label(for='name') Topic name
+          td
+            input(type='text' placeholder='Name your topic here...' name='name' size=60 ng-model='topic.title')
+        tr
+          td
+            label(for='date') Topic date
+          td
+            input(type='date' name='date' ng-model='topic.topic_date')
+        tr
+          td
+            input(type='submit' value='Submit')
