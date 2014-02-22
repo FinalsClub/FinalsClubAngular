@@ -32,7 +32,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: 'cats4life' , store: new RedisStore({ host: redisUrl.hostname, port: redisUrl.port })}));
+app.use(express.session({ secret: 'cats4life' , store: new RedisStore({ host: redisUrl.host, port: redisUrl.port })}));
 app.use(passport.initialize())
 app.use(passport.session());
 
