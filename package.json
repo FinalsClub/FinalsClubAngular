@@ -16,5 +16,8 @@
     "redis": "~0.10.1",
     "connect-redis": "~1.4.7",
     "redis-url": "~0.2.0"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }

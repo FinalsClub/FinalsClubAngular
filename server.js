@@ -13,7 +13,7 @@ var redisUrl =  url.parse(process.env.REDISTOGO_URL);
 var RedisStore = require('connect-redis')(express);
 
 //set up server
-var port = Number(process.env.PORT || 8080);;
+var port = Number(process.env.PORT || 5000);;
 var app = express();
 
 //attach share JS server to app
@@ -65,14 +65,14 @@ app.get('/log_out', function(req, res) {
   req.logout();
   app.set('user', null);
   app.set('name', null);
-  res.redirect('users/log_in');
+  res.redirect('/log_in');
 });
 
 //FB routes
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: 'users/log_in' }),
+  passport.authenticate('facebook', { failureRedirect: '/log_in' }),
   function(req, res) {
     app.set('user', req.user);
     app.set('name', app.get('user').first_name + " " + app.get('user').last_name);
@@ -346,7 +346,7 @@ function isLoggedIn(req, res, next) {
     return next();
   }
   res.send(401, "User must log in.");
-  res.redirect('users/log_in');
+  res.redirect('/log_in');
 };
 
 function isGroupMember(req, res, next) {
