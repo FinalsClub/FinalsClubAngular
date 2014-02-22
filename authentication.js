@@ -4,9 +4,9 @@ var User = require('./models').User;
 
 module.exports = passport.use(new FacebookStrategy(
   {
-   clientID: ENV['clientID'],
-   clientSecret: ENV['clientSecret'],
-   callbackURL: ENV['callbackURL']
+   clientID: process.env.clientID,
+   clientSecret: process.env.clientSecret,
+   callbackURL: process.env.callbackURL
   },
   // facebook will send back the token and profile
   function(token, refreshToken, profile, done) {
