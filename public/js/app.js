@@ -90,19 +90,7 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
     group_id : $scope.location,
     ignored : false
   }
-  
-  $scope.getCourses = function() {
-    $http({
-      method: 'GET',
-      url: '/groups/search?courses=true'
-      }).success(function(data, status){
-        console.log(data);
-        $scope.courses = data;
-      }).error(function(){
-        console.log('error in finding group by course: ', data)
-      })
-  };
-  
+    
   $scope.submit_answer = function(){
     console.log($scope.request);
     console.log($scope.location)
@@ -115,6 +103,7 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
       window.location.href = '/';      
     }).error(function(err){
       console.log(err);
+      angular.element('.contentWrapper').prepend("<span class='error'>You are already in that group.</span>");
     });
   }
 }]);
@@ -136,6 +125,7 @@ app.controller('requestController', ['$scope', '$http', function($scope, $http){
       window.location.href = '/';
     }).error(function(err){
       console.log(err)
+      angular.element('.contentWrapper').prepend("<span class='error'>The user is already a member of the group.</span>");
     });
   };
   
@@ -193,70 +183,80 @@ app.controller('flashcardController', ['$scope', function($scope) {
   };
 }]);
 
-app.controller('shareController', ['$scope', '$http', function($scope, $http) {
+app.controller('shareController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
   $scope.flashcards = [];
   $scope.pads = [];
   $scope.topic = null;
-  $scope.createPad = function() {  
-    var iterate = function(counter) {
+  
+  $scope.createPads = function() {  
+    var iterateFlashcards = function(counter) {
       if (counter === $scope.flashcards.length) {
         return;
       }
-      //grab textarea for this flashcards
-      var termID = $scope.topic._id + "-pad" + counter + "-term";
-      var termElem = document.getElementById(termID);
-
-      // connect to the share js server
-      var connection = sharejs.open(termID, 'text', function(error, doc) {
-          if (error) {
-              console.log("ERROR:", error);
-          } else {
-              // attach the ShareJS document to the textarea
-              $scope.pads.push(doc);
-              doc.attach_textarea(termElem);
-              if (doc.getText() === "") {
-                doc.insert(0, $scope.flashcards[counter]["term"]);                
-              }
-              var defID = $scope.topic._id + "-pad" + counter + "-def";
-              var defElem = document.getElementById(defID);
-
-              // connect to the share js server
-              var connection2 = sharejs.open(defID, 'text', function(error, doc2) {
-                  if (error) {
-                      console.log("ERROR:", error);
-                  } else {
-                    // attach the ShareJS document to the textarea
-                    $scope.pads.push(doc2);
-                    doc2.attach_textarea(defElem);
-                    if (doc2.getText() === "") {
-                      doc2.insert(0, $scope.flashcards[counter]['definition']);                      
-                    }
-                      counter = counter + 1;      
-                      iterate(counter);
-                  }
-              });
-          }
-          var defID = "pad" + counter + "-def";
-          var defElem = document.getElementById(defID);
-
-          // connect to the share js server
-          var connection2 = sharejs.open(defID, 'text', function(error, doc2) {
-              if (error) {
-                console.log("ERROR:", error);
-              } else {
-                // attach the ShareJS document to the textarea
-                $scope.pads.push(doc2);
-                doc2.attach_textarea(defElem);
-                if (doc2.getText() === "") {
-                  doc2.insert(0, $scope.flashcards[counter]['definition']);                      
-                }
-                counter = counter + 1;      
-                iterate(counter);
-              }
-          });
-        });
+      $scope.openConnections(counter, true);
+      counter = counter + 1;      
+      iterateFlashcards(counter);
     };
-    iterate(0);
+     
+    iterateFlashcards(0);
+    // $scope.addEditors();
+  };
+  
+  $scope.addEditors = function() {
+    var id = $scope.topic._id + "-editors";
+    var elem = document.getElementById(id); 
+    
+    var connection = sharejs.open(id, 'text', function(error, doc) {
+      if (error) {
+        console.log("ERROR:", error);
+      } else {
+        doc.attach_textarea(elem);
+        var elemNode = angular.element('#' + id);
+        console.log(elemNode.data("user"));
+        doc.insert(0, elemNode.data("user") + "\n");
+      }
+    });
+  };
+  
+  $scope.openConnections = function(index, iterating) {
+    var termID = $scope.topic._id + "-pad" + index + "-term";
+    var termElem = document.getElementById(termID);
+    // connect to the share js server
+    var connection = sharejs.open(termID, 'text', function(error, doc) {
+        if (error) {
+            console.log("ERROR:", error);
+        } else {
+            // attach the ShareJS document to the textarea for the term
+            $scope.pads.push(doc);
+            doc.attach_textarea(termElem);
+            
+            if (doc.getText() === "" && iterating) {
+              doc.insert(0, $scope.flashcards[index]["term"]);                
+            }
+            var defID = $scope.topic._id + "-pad" + index + "-def";
+            var defElem = document.getElementById(defID);
+
+            // connect to the share js server
+            var connection2 = sharejs.open(defID, 'text', function(error, doc2) {
+                if (error) {
+                    console.log("ERROR:", error);
+                } else {
+                  
+                  // attach the ShareJS document to the textarea for the def
+                  $scope.pads.push(doc2);
+                  doc2.attach_textarea(defElem);
+                  if (doc2.getText() === "" && iterating) {
+                      doc2.insert(0, $scope.flashcards[index]['definition']);                      
+                    }
+                
+                  if (!iterating) {
+                    $scope.saveText();
+                  } 
+                  return;
+                }
+            });
+        }
+    });
   };
   
   $scope.saveText = function() {
@@ -264,24 +264,55 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
     for (var i = 0; i < $scope.pads.length; i+=2) {
       cards.push({term: $scope.pads[i].getText(), definition: $scope.pads[i+1].getText()})
     }
-    
     var body = {
       topic_id:  $scope.topic._id,
       cards: cards
     };
-    
     $http({
       method: 'PUT',
       url: '/topics',
       data: JSON.stringify(body)
     }).success(function() {
-      document.getElementById('savingSpan').fadeOut(2000); // doesn't get removed from DOM
+      angular.element('.shareDiv span').fadeIn(1000).fadeOut(2000);
       console.log('saved!');
     });
   };
     
   $scope.addFlashcard = function() {    
-    $scope.flashcards.push({term: "", definition: ""});    
+    $scope.flashcards.push({term: "", definition: ""});   
+        
+    $timeout($scope.openConnections.bind(null,$scope.flashcards.length-1, false), 1000);
+  };
+  
+  $scope.removeFlashcard = function(index){
+    var body = {
+      topic_id: $scope.topic._id,
+      index: index
+    };
+
+    var flashcardDivToRemove = $scope.topic._id + '-pad' + index;
+    var confirmDelete = confirm('Are you sure you want to delete this flashcard?')
+    if(confirmDelete === true){
+      $http({
+        method: 'PUT',
+        url: '/delete_flashcards',
+        data: JSON.stringify(body)
+      }).success(function(){
+        angular.element(document.getElementById(flashcardDivToRemove)).remove();
+        console.log('flashcard deleted');
+      });
+    }
+  };
+  
+  $scope.syncDB = function() {
+    $http({
+      method: 'GET',
+      url: '/topics?id=' + $scope.topic._id
+    }).success(function(data) {
+      if (data.flashcards.length > $scope.flashcards.length) {
+        $scope.addFlashcard();
+      } 
+    });
   };
   
   $scope.removeFlashcard = function(index){
@@ -314,11 +345,18 @@ app.controller('shareController', ['$scope', '$http', function($scope, $http) {
 
   //create pads once DOM has loaded
   angular.element(document).ready(function() {
-    $scope.createPad();
+    $scope.createPads();
     
+    //auto-sync DB every 2 seconds
+    setInterval(function() {
+      $scope.syncDB();
+    }, 2000);
+    
+    //auto-save every ten seconds
     setInterval(function() {
       $scope.saveText();
-    }, 5000);
+    },10000);
+    
   });
   
 }]);

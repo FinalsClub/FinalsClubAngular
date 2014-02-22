@@ -89,6 +89,7 @@ button, .button, input[type='submit'] {
   color: #fff;
   height: 2em; 
   font-size: 1.1em;
+  margin-top: 20px;
   margin-bottom: 20px; }
 
 .facebook {
@@ -404,3 +405,35 @@ hr.smaller.mainPage {
   background-color: #fff;
 }
 
+.shareDiv {
+  text-align: center;
+}
+
+.shareDiv span {
+  margin: 5px;
+  font-size: 0.75em;
+  font-weight: normal;
+  color: green;
+  display: none;
+}
+
+.error {
+  color: red;
+}
+
+#removeButton {
+  color: gray;
+  border: 0;
+  margin-top: -13em;
+  background-color: #fff;
+}
+
+.editTerm, .editDef {
+  border: 1px solid #666;
+  padding: 1em;
+}
+
+.editDef {
+  border-left: 0;
+  background-color: #d8d8d8;
+}
