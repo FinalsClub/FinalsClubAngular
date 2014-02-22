@@ -34,13 +34,11 @@ app.use(passport.initialize())
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
- console.log('serializeUser: ' + user)
  done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
  models.User.findById(id, function(err, user){
-     console.log(user)
      if(!err) done(null, user);
      else done(err, null)
  })
@@ -344,30 +342,29 @@ app.post('/requests', function(req, res){
 
 app.post('/members', function(req, res){
 
-  models.Group.findOne({_id: req.body.group_id})
-              .exec(function(err, group){
-                if (group.users.indexOf(req.body.user_id) === -1) {
-                  group.users.push(req.body.user_id);
-                  group.save(function(){
-                    models.User.findOne({_id: req.body.user_id})
-                               .exec(function(err, user){
-                                  user.groups.push(req.body.group_id);
-                                  user.save(function(){
-                                     models.Request.findOne({_id: req.body.request_id})
-                                                   .remove()
-                                                   .exec(function(err) {
-                                                     group.requests.splice(group.requests.indexOf(req.body.request_id),1);
-                                                     group.save(function() {
-                                                       res.send(201);                                                     
-                                                     });
-                                                   }); 
-                                  });
-                               });
-                  });
-                } else {
-                  res.send(401);
-                }
-              });
+  models.Group.findOne({_id: req.body.group_id}).exec(function(err, group){
+    if (group.users.indexOf(req.body.user_id) === -1) {
+      group.users.push(req.body.user_id);
+      group.save(function(){
+        models.User.findOne({_id: req.body.user_id})
+                   .exec(function(err, user){
+                      user.groups.push(req.body.group_id);
+                      user.save(function(){
+                         models.Request.findOne({_id: req.body.request_id})
+                                       .remove()
+                                       .exec(function(err) {
+                                         group.requests.splice(group.requests.indexOf(req.body.request_id),1);
+                                         group.save(function() {
+                                           res.send(201);                                                     
+                                         });
+                                       }); 
+                      });
+                   });
+      });
+    } else {
+      res.send(401);
+    }
+  });
 });
 
 

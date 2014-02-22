@@ -187,37 +187,15 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   $scope.flashcards = [];
   $scope.pads = [];
   $scope.topic = null;
-  
-  $scope.createPads = function() {  
-    var iterateFlashcards = function(counter) {
-      if (counter === $scope.flashcards.length) {
-        return;
-      }
-      $scope.openConnections(counter, true);
-      counter = counter + 1;      
-      iterateFlashcards(counter);
-    };
-     
-    iterateFlashcards(0);
-    // $scope.addEditors();
-  };
-  
-  $scope.addEditors = function() {
-    var id = $scope.topic._id + "-editors";
-    var elem = document.getElementById(id); 
     
-    var connection = sharejs.open(id, 'text', function(error, doc) {
-      if (error) {
-        console.log("ERROR:", error);
-      } else {
-        doc.attach_textarea(elem);
-        var elemNode = angular.element('#' + id);
-        console.log(elemNode.data("user"));
-        doc.insert(0, elemNode.data("user") + "\n");
-      }
-    });
+  $scope.createPads = function(counter) {
+    if (counter === $scope.flashcards.length) {
+      return;
+    }
+        
+    $scope.openConnections(counter, true);
   };
-  
+    
   $scope.openConnections = function(index, iterating) {
     var termID = $scope.topic._id + "-pad" + index + "-term";
     var termElem = document.getElementById(termID);
@@ -243,10 +221,11 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
                   $scope.pads.push(doc2);
                   doc2.attach_textarea(defElem);
                 
-                  if (!iterating) {
+                  if (iterating) {
+                    $scope.createPads(index + 1);
+                  }  else {
                     $scope.saveText();
-                  } 
-                  return;
+                  }
                 }
             });
         }
@@ -299,7 +278,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   
   //create pads once DOM has loaded
   angular.element(document).ready(function() {
-    $scope.createPads();
+    $scope.createPads(0);
     
     //auto-sync DB every 2 seconds
     setInterval(function() {
