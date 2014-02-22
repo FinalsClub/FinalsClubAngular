@@ -292,9 +292,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     }).success(function(data) {
       if (data.flashcards.length > $scope.flashcards.length) {
         $scope.addFlashcard();
-      } else if (data.flashcards.length < $scope.flashcards.length) {
-        window.location.reload();        
-      }
+      } 
     });
   };
   
