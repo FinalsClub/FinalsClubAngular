@@ -1,54 +1,32 @@
-doctype html
 html(lang="en" ng-app='app')
   head
     title Finals Club
     link(type="text/css" rel="stylesheet" href="/css/fonts.css")      
-    link(type="text/css" rel="stylesheet" href="/css/style.css")      
-
-    script(src="/bower_components/angular/angular.js") 
-    script(src="/bower_components/angular-route/angular-route.js") 
+    link(type="text/css" rel="stylesheet" href="/css/app.css")      
     script(src="/bower_components/jquery/dist/jquery.min.js") 
+    script(src="/bower_components/angular/angular.js") 
+    script(src="/bower_components/jquery/dist/jquery.min.js") 
+    script(src="/bower_components/angular-route/angular-route.js") 
+    script(src="/browserchannel/dist/bcsocket.js") 
+    script(src="/share/webclient/share.js") 
+    script(src="/share/webclient/textarea.js") 
     script(src="/js/app.js")
-
   body
-    header#g-masthead
-      .wrapper
-        nav#g-nav-user
-          ul
-            //- li.first
-            //-   a(href="#").username
-            li
-              a(href="/sign_up")#register_link Sign Up
-            li.last
-              a(href="/log_in")#login_link Log in
-        #g-logo
+    header#masthead
+      nav#login-nav
+          if user
+            a(href="#").username #{user}
+            img(src='#{image}')
+            a(href="/log_out") Log out
+          else
+            a(href="/log_in") Sign Up
+            a(href="/log_in") Log in
+        .wrapper
           a(href='/')
-            img(src='/img/logo-light.png' alt='Finals Club - social note taking')#logo 
-          //- .loginstatus
-          //-   - if( user && user.loggedIn )
-          //-     | Currently logged in as 
-          //-     span.username
-          //-       | !{ user.displayName || user.name }
-          //-   - else
-          //-     | &nbsp;
-          
-          nav#g-nav-main
-            ul
-              li
-                a(href="/schools")#school_link Groups
-                //- span.icon(alt="paperclip") 
-              li
-                a(href="http://blog.finalsclub.org")#blog_link Blog
-                  //- span.icon(alt="align-lines")
-              //- li
-              //-   a(href="/archive")#archive_link.nav
-              //-     span.icon(alt="book") Library
-          hr#g-masthead-hr
-    #topofcontent
-      .wrapper
-        #messages.page
-          span#PROTO_message.__type__ __msg__
-      #g-page
-        .wrapper  
-    div(ng-view='')
+            img(src='/img/logo.png' alt='Finals Club - social note taking')#logo
+          nav#main-nav
+            a(href="/groups/search") Find Groups
+            a(href="/groups/new") Create a Group
+    .contentWrapper
+      =yield
 

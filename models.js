@@ -53,6 +53,7 @@ var courseSchema = mongoose.Schema({
   name: String,
   term: String,
   instructor: String,
+  groups: [{type: Number, ref: 'Group'}],
   created_at: Date
 });
 
@@ -70,7 +71,7 @@ var groupSchema = mongoose.Schema({
   next_meeting: Date, 
   created_at: Date,
   users: [{type: Number, ref: 'User'}],
-  lectures: [{type: Number, ref: 'Lecture'}],
+  topics: [{type: Number, ref: 'Topic'}],
   communications: [{type: Number, ref: 'Communication'}],
   rsvps: [{type: Number, ref: "Rsvp"}],
   requests: [{type: Number, ref: "Request"}]
@@ -78,16 +79,16 @@ var groupSchema = mongoose.Schema({
 
 groupSchema.plugin(autoIncrement.plugin, 'Group');
   
-  //creates lecture schema
-var lectureSchema = mongoose.Schema({
+  //creates topic schema
+var topicSchema = mongoose.Schema({
   group_id: {type: Number, ref: 'Group'},
   title: String,
-  lecture_date: Date,
+  topic_date: Date,
   updated_at: Date,
   flashcards: []
 });
 
-lectureSchema.plugin(autoIncrement.plugin, 'Lecture');
+topicSchema.plugin(autoIncrement.plugin, 'Topic');
   
 //creates communication schema
 var communicationSchema = mongoose.Schema({
@@ -129,7 +130,7 @@ var self = module.exports = {
   School: mongoose.model('School', schoolSchema),
   Course: mongoose.model('Course', courseSchema),
   Group: mongoose.model('Group', groupSchema),
-  Lecture: mongoose.model('Lecture', lectureSchema),
+  Topic: mongoose.model('Topic', topicSchema),
   Communication: mongoose.model('Communication', communicationSchema),
   Rsvp: mongoose.model('Rsvp', rsvpSchema),
   Request: mongoose.model('Request', requestSchema)

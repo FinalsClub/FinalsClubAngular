@@ -1,0 +1,21 @@
+include index
+  .groups(ng-controller='allGroupsViewController' ng-init='groups= #{groups}')
+    h1 My Groups
+    h2.gray Next Meeting: 
+    hr
+    .communicationsDiv
+      h3 Recent Communications
+      p Message 1
+      p Message 2
+
+    .groupDiv(ng-repeat='group in groups')
+      p(ng-init='currentGroup = group.requests.length')
+        a(href="/groups/{{group._id}}/requests" ng-show='currentGroup > 0')
+          span.requests {{group.requests.length}} new member requests
+      h2 {{ group.name }}
+      .groupNav
+        a(href="groups/{{group._id}}/flashcards") Flashcards | 
+        a(href="groups/{{group._id}}/communications") Communications | 
+        a(href="groups/{{group._id}}/meet_up") Meet Up | 
+        a(href="leave_group/{{group._id}}" ng-click='leaveGroup').grayed Leave Group
+        hr.smaller.mainPage

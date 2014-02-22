@@ -19,12 +19,19 @@ module.exports = passport.use(new FacebookStrategy(
 
         // if the user is found, then log them in
         if (user) {
-          return done(null, user);
+          user.facebook.token = token;
+          user.save(function(err) {
+            if (err) {throw err; } 
+            return done(null, user);          
+          })
         } else {
           // if there is no user found with that facebook id, create them
           var newUser = new User();
           
           // set all of the facebook information in our user model
+          newUser.first_name = profile.name.givenName;
+          newUser.last_name = profile.name.familyName;
+          newUser.image = "https://graph.facebook.com/" + profile.id + "/picture";
           newUser.facebook.id    = profile.id; // set the users facebook id                 
           newUser.facebook.token = token; // we will save the token that facebook provides to the user                  
 
