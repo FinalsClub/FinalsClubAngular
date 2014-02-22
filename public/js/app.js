@@ -293,6 +293,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
       if (data.flashcards.length > $scope.flashcards.length) {
         $scope.addFlashcard();
       } 
+      //add something to allow removal of flashcards
     });
   };
   

@@ -7,16 +7,14 @@ include index
         td
           label Course affiliation*
         td
-          select(ng-model='group.course_id' ng-options='course._id as course.name for course in courses').selectField
-            option(value="") select course 
-          span.input_error(ng-show="createGroupForm.group.course_id.$error.required") *required
-
+          datalist(id="courseList")
+            option(ng-repeat="course in courses" value="{{course.name}}")
+          input(name="courseList" list="courseList", size='60' ng-model="group.course_id" required)
       tr
         td
           label Group name*
         td
-          input.createGroup(name='group_name' ng-model='group.name' ng-minlength='1' size='60' ng-required="true" required)
-          span.input_error(ng-show="createGroupForm.group.name.$error.required") *required
+          input.createGroup(name='group_name' ng-model='group.name' ng-minlength='1' size='60' required)
       tr
         td
           label Motto
