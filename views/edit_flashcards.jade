@@ -7,8 +7,8 @@ include index
     p
     .flashcardPad(ng-repeat="flashcard in flashcards")  
       .cardPads(id="{{topic._id}}-pad{{$index}}")
-        textarea(id="{{topic._id}}-pad{{$index}}-term", cols="50", rows="10" placeholder="Enter term here...").editTerm
-        textarea(id="{{topic._id}}-pad{{$index}}-def", cols="50", rows="10" placeholder="Enter definition here...").editDef
+        textarea(id="{{topic._id}}-pad{{$index}}-term" placeholder="Enter term here...").editTerm
+        textarea(id="{{topic._id}}-pad{{$index}}-def" placeholder="Enter definition here...").editDef
         button(ng-click="removeFlashcard($index)" id='removeButton') x
     button(ng-click="saveText()") Save Flashcards
       

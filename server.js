@@ -277,26 +277,49 @@ app.post('/leave_group', function(req, res){
 
 
 app.post('/groups', function(req, res){
-  var group = new models.Group(req.body);
-  group.users.push(app.get('user')._id);
-  
-  group.save(function(){
-    models.User.findOne({
-      _id : app.get('user')._id
-    }).exec(function(err, user){
-      user.groups.push(group._id);
-      user.save(function() {
-        models.Course.findOne({_id: group.course_id})
-                     .exec(function(err, course) {
-                       course.groups.push(group._id);
-                       course.save(function() {
-                         console.log(course, group);
-                         res.send(201);                                                
-                       });
-                     });
+  models.Course.findOne({name: req.body.course_id}).exec(function(err, course) {
+    if (course === null) {
+      var newCourse = new models.Course({
+        school_id: app.get('user').school_id,
+        name: req.body.course_id
       });
-    });
-  });
+      newCourse.save(function() {
+       req.body.course_id = newCourse._id;
+       var group = new models.Group(req.body);
+        group.users.push(app.get('user')._id);
+        group.save(function(){
+          models.User.findOne({
+            _id : app.get('user')._id
+          }).exec(function(err, user){
+            user.groups.push(group._id);
+            user.save(function() {
+              newCourse.groups.push(group._id);
+              newCourse.save(function() {
+               res.send(201);                                                                            
+              });
+            });
+          });
+        });
+      });
+    } else {
+      req.body.course_id = course._id;
+      var group = new models.Group(req.body);
+      group.users.push(app.get('user')._id);
+      group.save(function(){
+        models.User.findOne({
+          _id : app.get('user')._id
+        }).exec(function(err, user){
+          user.groups.push(group._id);
+          user.save(function() {
+            course.groups.push(group._id);
+            course.save(function() {
+              res.send(201);
+            });
+          });
+        });
+      });
+    }
+ });             
 });
 
 app.post('/requests', function(req, res){
