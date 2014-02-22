@@ -8,7 +8,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
 var url = require('url');
-var redis = require('redis');
+var redis = require('redis-url').connect(process.env.REDISTOGO_URL);
 var redisUrl =  url.parse(process.env.REDISTOGO_URL);
 var RedisStore = require('connect-redis')(express);
 
