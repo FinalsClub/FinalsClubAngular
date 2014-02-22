@@ -1,0 +1,18 @@
+include ../index
+  .groupSearch(ng-controller="findGroupController" ng-init="groups = #{groups}")
+    h1 FIND A GROUP
+    hr    
+    input(name='search_for_group' ng-model='searchForGroup' placeholder='search for a group...')#searchForGroup
+    .findGroupBox(ng-class='info')
+      div(ng-repeat="group in groups | filter:searchForGroup")
+        ul
+          h3 {{ group.name }}
+          li.grayed#intensity {{ group.intensity }} intensity
+          li.grayed {{ group.motto }}
+          li.grayed {{ group.course_id.name  }}
+          li
+            span(ng-repeat='user in group.users')
+              img(src="{{ user.image }}") 
+          a(href='/join_group?group_id={{group._id}}')
+            input(type='button' model='joinGroup' value='Request to join' class='requests find') 
+        hr.smaller
