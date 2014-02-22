@@ -157,7 +157,7 @@ app.get('/groups/:group_id/flashcards/:topic_id/edit', isLoggedIn, isGroupMember
 
 //GET routes
 
-app.get('/topics', function(req, res) {
+app.get('/topics', isLoggedIn, function(req, res) {
   if (req.query['id']) {
     //return topic with its parent group name
     models.Topic.findOne({ _id: req.query['id'] })
@@ -172,7 +172,7 @@ app.get('/topics', function(req, res) {
 
 //POST routes
 
-app.put('/sign_up', function(req, res){
+app.put('/sign_up', isLoggedIn, function(req, res){
   models.User.findOne({ _id: app.get('user')._id }, function(err, user){
     user.email = req.body.email;
     user.school_id = req.body.school._id;
@@ -186,7 +186,7 @@ app.put('/sign_up', function(req, res){
   });
 });
 
-app.post('/leave_group', function(req, res){
+app.post('/leave_group', isLoggedIn, function(req, res){
   models.User.findOne({_id: app.get('user')._id })
             .exec(function(err, user){
               user.groups.splice(user.groups.indexOf(req.body.group_id), 1);
@@ -203,7 +203,7 @@ app.post('/leave_group', function(req, res){
 });
 
 
-app.post('/groups', function(req, res){
+app.post('/groups', isLoggedIn, function(req, res){
   models.Course.findOne({name: req.body.course_id}).exec(function(err, course) {
     if (course === null) {
       var newCourse = new models.Course({
@@ -221,7 +221,7 @@ app.post('/groups', function(req, res){
  });             
 });
 
-app.post('/requests', function(req, res){
+app.post('/requests', isLoggedIn, function(req, res){
   if (app.get('user').groups.indexOf(req.body.group_id) === -1) {
     var request = new models.Request(req.body);
     request.user_id = app.get('user')._id
@@ -241,7 +241,7 @@ app.post('/requests', function(req, res){
   
 });
 
-app.post('/members', function(req, res){
+app.post('/members', isLoggedIn, function(req, res){
 
   models.Group.findOne({_id: req.body.group_id}).exec(function(err, group){
     if (group.users.indexOf(req.body.user_id) === -1) {
@@ -269,7 +269,7 @@ app.post('/members', function(req, res){
 });
 
 
-app.post('/leave_group', function(req, res){
+app.post('/leave_group', isLoggedIn, function(req, res){
   models.User.findOne({_id: app.get('user')._id })
             .exec(function(err, user){
               user.groups.splice(user.groups.indexOf(req.body.group_id), 1);
@@ -285,7 +285,7 @@ app.post('/leave_group', function(req, res){
             })
 });
 
-app.post('/topics', function(req, res){
+app.post('/topics', isLoggedIn, function(req, res){
   var topic = new models.Topic(req.body);
   topic.save(function(){
     models.Group.findOne({_id: topic.group_id})
@@ -300,7 +300,7 @@ app.post('/topics', function(req, res){
   });
 });
 
-app.put('/topics', function(req, res) {
+app.put('/topics', isLoggedIn, function(req, res) {
   models.Topic.findOne({_id: req.body.topic_id}).exec(function(err, topic) {
     console.log("CARDS: ", req.body.cards);
     topic.flashcards = req.body.cards;
@@ -311,7 +311,7 @@ app.put('/topics', function(req, res) {
   });
 });
 
-app.put('/requests/:id', function(req, res) {
+app.put('/requests/:id', isLoggedIn, function(req, res) {
   models.Request.findOne({ _id: req.params.id })
                 .exec(function(err, request) {
                   request.ignored = true;
@@ -326,7 +326,7 @@ app.put('/requests/:id', function(req, res) {
                 });
 });
 
-app.put('/delete_flashcards', function(req, res){
+app.put('/delete_flashcards', isLoggedIn, function(req, res){
   models.Topic.findOne({_id: req.body.topic_id}).exec(function(err, topic) {
     topic.flashcards.splice(req.body.index, 1);
     topic.save(function(){
