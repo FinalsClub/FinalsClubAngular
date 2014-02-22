@@ -14,6 +14,7 @@
     "share": "~0.6.3",
     "browserchannel": "~1.0.8",
     "redis": "~0.10.1",
-    "connect-redis": "~1.4.7"
+    "connect-redis": "~1.4.7",
+    "redis-url": "~0.2.0"
   }
 }
