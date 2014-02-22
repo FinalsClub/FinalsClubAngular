@@ -1,8 +1,16 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var User = require('./models').User;
+// var config = require('./oauth.js')
 
 module.exports = passport.use(new FacebookStrategy(
+
+  // {
+  //  clientID: config.clientID,
+  //  clientSecret: config.clientSecret,
+  //  callbackURL: config.callbackURL
+  // },
+
   {
    clientID: process.env.clientID,
    clientSecret: process.env.clientSecret,
