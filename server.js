@@ -85,7 +85,7 @@ app.get('/', isLoggedIn, function(req, res) {
               .exec(function(err, groups) {
                 res.render('groups/groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});                
               });
-  });
+});
 
 app.get('/groups/new', isLoggedIn, function(req, res) {
   models.Course.find({ school_id: app.get('user').school_id })
@@ -178,13 +178,13 @@ app.put('/sign_up', function(req, res){
     user.school_id = req.body.school._id;
     user.phone_number = req.body.phone_number;
     user.intensity = req.body.intensity;
+    
     user.save(function(err, user){
       console.log(user);
       res.send(200);
     });
   });
 });
-
 
 app.post('/leave_group', function(req, res){
   models.User.findOne({_id: app.get('user')._id })
@@ -197,9 +197,9 @@ app.post('/leave_group', function(req, res){
                                 group.save(function(){
                                   res.send(201)
                                 });
-                            })
+                            });
               });
-            })
+            });
 });
 
 
@@ -212,39 +212,11 @@ app.post('/groups', function(req, res){
       });
       newCourse.save(function() {
        req.body.course_id = newCourse._id;
-       var group = new models.Group(req.body);
-        group.users.push(app.get('user')._id);
-        group.save(function(){
-          models.User.findOne({
-            _id : app.get('user')._id
-          }).exec(function(err, user){
-            user.groups.push(group._id);
-            user.save(function() {
-              newCourse.groups.push(group._id);
-              newCourse.save(function() {
-               res.send(201);                                                                            
-              });
-            });
-          });
-        });
+       createNewGroup(req.body, res, newCourse);
       });
     } else {
       req.body.course_id = course._id;
-      var group = new models.Group(req.body);
-      group.users.push(app.get('user')._id);
-      group.save(function(){
-        models.User.findOne({
-          _id : app.get('user')._id
-        }).exec(function(err, user){
-          user.groups.push(group._id);
-          user.save(function() {
-            course.groups.push(group._id);
-            course.save(function() {
-              res.send(201);
-            });
-          });
-        });
-      });
+      createNewGroup(req.body, res, course);
     }
  });             
 });
@@ -383,3 +355,20 @@ function isGroupMember(req, res, next) {
     return next();  
   }
 }
+
+function createNewGroup(data, response, course) {
+  var group = new models.Group(data);
+  group.users.push(app.get('user')._id);
+  group.save(function(){
+    models.User.findOne({_id : app.get('user')._id})
+               .exec(function(err, user){
+                 user.groups.push(group._id);
+                 user.save(function() {
+                   course.groups.push(group._id);
+                   course.save(function() {
+                     response.send(201);                                                                            
+                   });
+                 });
+               });
+  });
+};
