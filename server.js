@@ -7,8 +7,9 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
-// var rtg   = require("url").parse(process.env.REDISTOGO_URL);
-// var redis = require("redis").createClient(rtg.port, rtg.hostname);
+var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+var redis = require("redis").createClient(rtg.port, rtg.hostname);
+redis.client.auth(rtg.auth.split(":")[1]);
 // var RedisStore = require('connect-redis')(express);
 
 //set up server
@@ -81,21 +82,11 @@ app.get('/auth/facebook/callback',
 //----------------------STATIC ROUTES--------------------------//
 
 app.get('/', isLoggedIn, function(req, res) {  
-  var school = new models.School({name: 'Harvard University'});
-  school.save(function() {
-    var school2 = new models.School({name: 'UCLA'});
-    school2.save(function() {
-      var school3 = new models.School({name: 'University of Chicago'});
-      school3.save(function() {
-        res.send(200);
-      });
-    });
-  });
-  // models.Group.find({_id: {$in: app.get('user').groups}})
-  //             .populate('users')
-  //             .exec(function(err, groups) {
-  //               res.render('groups/groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});                
-  //             });
+  models.Group.find({_id: {$in: app.get('user').groups}})
+              .populate('users')
+              .exec(function(err, groups) {
+                res.render('groups/groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});                
+              });
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {
