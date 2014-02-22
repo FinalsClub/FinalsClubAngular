@@ -9,7 +9,7 @@ var auth = require('./authentication.js');
 var sharejs = require('share').server;
 var rtg   = require("url").parse(process.env.REDISTOGO_URL);
 var redis = require("redis").createClient(rtg.port, rtg.hostname);
-var RedisStore = require('connect-redis')(express);
+// var RedisStore = require('connect-redis')(express);
 
 //set up server
 var port = Number(process.env.PORT || 5000);;
@@ -31,7 +31,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: 'cats4life' , store: new RedisStore({ host: rtg.hostname, port: rtg.port})}));
+app.use(express.session({ secret: 'cats4life' }));
 app.use(passport.initialize())
 app.use(passport.session());
 
