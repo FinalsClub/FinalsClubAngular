@@ -1,7 +1,6 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var User = require('./models').User;
-// var config = require('./oauth.js');
 
 module.exports = passport.use(new FacebookStrategy(
   {

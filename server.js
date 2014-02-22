@@ -4,7 +4,6 @@ var express = require('express');
 var models = require('./models');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var config = require('./oauth.js');
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
 var url = require('url');
