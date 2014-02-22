@@ -81,11 +81,21 @@ app.get('/auth/facebook/callback',
 //----------------------STATIC ROUTES--------------------------//
 
 app.get('/', isLoggedIn, function(req, res) {  
-  models.Group.find({_id: {$in: app.get('user').groups}})
-              .populate('users')
-              .exec(function(err, groups) {
-                res.render('groups/groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});                
-              });
+  var school = new models.School({name: 'Harvard University'});
+  school.save(function() {
+    var school2 = new models.School({name: 'UCLA'});
+    school2.save(function() {
+      var school3 = new models.School({name: 'University of Chicago'});
+      school3.save(function() {
+        res.send(200);
+      });
+    });
+  });
+  // models.Group.find({_id: {$in: app.get('user').groups}})
+  //             .populate('users')
+  //             .exec(function(err, groups) {
+  //               res.render('groups/groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});                
+  //             });
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {

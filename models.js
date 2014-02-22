@@ -24,8 +24,6 @@ var userSchema = mongoose.Schema({
   first_name: String,
   last_name: String,
   email: String,
-  password_digest: String,
-  password_salt: String,
   auth_token: String,
   school_id: { type: Number, ref: 'School' },
   facebook:  {

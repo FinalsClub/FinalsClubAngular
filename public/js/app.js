@@ -267,12 +267,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     setInterval(function() {
       $scope.syncDB();
     }, 2000);
-    
-    //auto-save every ten seconds
-    setInterval(function() {
-      $scope.saveText();
-    },10000);
-    
+        
   });
   
 }]);
