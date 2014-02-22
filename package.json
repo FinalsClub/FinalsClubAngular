@@ -15,9 +15,13 @@
     "browserchannel": "~1.0.8",
     "redis": "~0.10.1",
     "connect-redis": "~1.4.7",
-    "redis-url": "~0.2.0"
+    "redis-url": "~0.2.0",
+    "bower": "~1.2.8"
   },
   "engines": {
     "node": "0.10.x"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }

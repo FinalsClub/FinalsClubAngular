@@ -75,7 +75,7 @@ app.get('/auth/facebook/callback',
   function(req, res) {
     app.set('user', req.user);
     app.set('name', app.get('user').first_name + " " + app.get('user').last_name);
-    req.user.email ? res.redirect('/') : res.redirect('users/sign_up?id='+req.user.id);
+    req.user.email ? res.redirect('/') : res.redirect('/sign_up?id='+req.user.id);
   });
 
 //----------------------STATIC ROUTES--------------------------//
