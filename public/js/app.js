@@ -230,9 +230,6 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
             $scope.pads.push(doc);
             doc.attach_textarea(termElem);
             
-            if (doc.getText() === "" && iterating) {
-              doc.insert(0, $scope.flashcards[index]["term"]);                
-            }
             var defID = $scope.topic._id + "-pad" + index + "-def";
             var defElem = document.getElementById(defID);
 
@@ -245,9 +242,6 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
                   // attach the ShareJS document to the textarea for the def
                   $scope.pads.push(doc2);
                   doc2.attach_textarea(defElem);
-                  if (doc2.getText() === "" && iterating) {
-                      doc2.insert(0, $scope.flashcards[index]['definition']);                      
-                    }
                 
                   if (!iterating) {
                     $scope.saveText();
@@ -280,28 +274,15 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     
   $scope.addFlashcard = function() {    
     $scope.flashcards.push({term: "", definition: ""});   
-        
     $timeout($scope.openConnections.bind(null,$scope.flashcards.length-1, false), 1000);
   };
   
   $scope.removeFlashcard = function(index){
-    var body = {
-      topic_id: $scope.topic._id,
-      index: index
-    };
-
     var flashcardDivToRemove = $scope.topic._id + '-pad' + index;
-    var confirmDelete = confirm('Are you sure you want to delete this flashcard?')
-    if(confirmDelete === true){
-      $http({
-        method: 'PUT',
-        url: '/delete_flashcards',
-        data: JSON.stringify(body)
-      }).success(function(){
-        angular.element(document.getElementById(flashcardDivToRemove)).remove();
-        console.log('flashcard deleted');
-      });
-    }
+    angular.element(document.getElementById(flashcardDivToRemove)).remove();
+    $scope.flashcards.splice(index, 1);
+    $scope.pads.splice(index*2, 2);
+    $scope.saveText();
   };
   
   $scope.syncDB = function() {
@@ -311,7 +292,9 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     }).success(function(data) {
       if (data.flashcards.length > $scope.flashcards.length) {
         $scope.addFlashcard();
-      } 
+      } else if (data.flashcards.length < $scope.flashcards.length) {
+        window.location.reload();        
+      }
     });
   };
   
