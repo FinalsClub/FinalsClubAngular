@@ -20,6 +20,10 @@ body {
   background-color: #262626; 
 }
 
+span {
+  margin: 5px;
+}
+
 
 .wrapper, .contentWrapper {
   font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
@@ -45,6 +49,10 @@ h1 {
   font-weight: 300;
   text-transform: uppercase; }
 
+h2 {
+  margin: 1% 0;
+}
+
 .groupNav a {
   color: gray;
   font-weight: bold;
@@ -52,6 +60,7 @@ h1 {
 }
 
 .groupNav {
+  padding-top: 0;
   padding-bottom: 1em;
 }
 

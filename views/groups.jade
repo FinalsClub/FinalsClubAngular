@@ -18,4 +18,7 @@ include index
         a(href="groups/{{group._id}}/communications") Communications | 
         a(href="groups/{{group._id}}/meet_up") Meet Up | 
         a(href="leave_group/{{group._id}}" ng-click='leaveGroup').grayed Leave Group
-        hr.smaller.mainPage
+      span(ng-repeat="user in group.users")
+        img(src="{{user.image}}")
+      hr.smaller.mainPage
+          

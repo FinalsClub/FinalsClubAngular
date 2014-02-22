@@ -9,7 +9,7 @@ include index
           h3 {{ group.name }}
           li.grayed#intensity {{ group.intensity }} intensity
           li.grayed {{ group.motto }}
-          li.grayed {{ group.course_id.name }}
+          li.grayed {{ group.course_id.name  }}
           li
             span(ng-repeat='user in group.users')
               img(src="{{ user.image }}") 

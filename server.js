@@ -84,11 +84,18 @@ app.get('/auth/facebook/callback',
 
 
 app.get('/', isLoggedIn, function(req, res) {  
-  models.User.find({ _id: app.get('user')._id})
-             .populate('groups')
-             .exec(function(err, userG) {              
-              res.render('groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(userG[0].groups)});
-             })
+  var user_groups = app.get('user').groups;
+  models.Group.find({_id: {$in: user_groups}})
+              .populate('users')
+              .exec(function(err, groups) {
+                res.render('groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});                
+              });
+  
+  // models.User.findOne({ _id: app.get('user')._id})
+  //            .populate('groups')
+  //            .exec(function(err, user) {     
+  //             res.render('groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(users.groups)});
+  //            })
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {

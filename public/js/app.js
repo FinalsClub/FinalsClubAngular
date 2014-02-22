@@ -221,11 +221,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
                   $scope.pads.push(doc2);
                   doc2.attach_textarea(defElem);
                 
-                  if (iterating) {
-                    $scope.createPads(index + 1);
-                  }  else {
-                    $scope.saveText();
-                  }
+                  (iterating) ? $scope.createPads(index + 1) : $scope.saveText();
                 }
             });
         }
