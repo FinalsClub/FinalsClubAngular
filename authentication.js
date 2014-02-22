@@ -1,13 +1,13 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var User = require('./models').User;
-var config = require('./oauth.js');
+// var config = require('./oauth.js');
 
 module.exports = passport.use(new FacebookStrategy(
   {
-   clientID: config.clientID,
-   clientSecret: config.clientSecret,
-   callbackURL: config.callbackURL
+   clientID: ENV['clientID'],
+   clientSecret: ENV['clientSecret'],
+   callbackURL: ENV['callbackURL']
   },
   // facebook will send back the token and profile
   function(token, refreshToken, profile, done) {
