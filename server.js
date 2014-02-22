@@ -74,15 +74,10 @@ app.get('/auth/facebook/callback',
   function(req, res) {
     app.set('user', req.user);
     app.set('name', app.get('user').first_name + " " + app.get('user').last_name);
-    if (req.user.email) {
-      res.redirect('/');
-    } else {
-      res.redirect('users/sign_up?id='+req.user.id);
-    }
+    req.user.email ? res.redirect('/') : res.redirect('users/sign_up?id='+req.user.id);
   });
 
 //----------------------STATIC ROUTES--------------------------//
-
 
 app.get('/', isLoggedIn, function(req, res) {  
   models.Group.find({_id: {$in: app.get('user').groups}})
@@ -109,106 +104,58 @@ app.get('/groups/search', isLoggedIn, function(req, res) {
 
 app.get('/join_group', isLoggedIn, function(req, res) {
   models.Group.findOne({_id: req.query['group_id']}).exec(function(err, group) {
-    res.render('groups/join-group.jade', {user: app.get('name'), image: app.get('user').image, group: group});    
+    res.render('groups/join-group.jade', {user: app.get('name'), image: app.get('user').image, group: group.name});    
   });  
 }); 
 
-app.get('/groups/:id/requests', isLoggedIn, function(req, res) {
-  if (app.get('user').groups.indexOf(req.params.id) === -1) {
-    res.send(401, "You don't belong to that group.");
-    res.redirect('/');
-  } else {
-    models.Request.find({group_id: req.params.id, ignored: false})
-                  .populate('user_id group_id')
-                  .exec(function(err, requests) {
-                    res.render('groups/requests.jade', {user: app.get('name'), image: app.get('user').image, requests: JSON.stringify(requests)});               
-                  });        
-  }
+app.get('/groups/:group_id/requests', isLoggedIn, isGroupMember, function(req, res) {
+  models.Request.find({group_id: req.params.group_id, ignored: false})
+                .populate('user_id group_id')
+                .exec(function(err, requests) {
+                  res.render('groups/requests.jade', {user: app.get('name'), image: app.get('user').image, requests: JSON.stringify(requests)});               
+                });        
 });
 
-app.get('/leave_group/:id', isLoggedIn, function(req, res) {
-  if (app.get('user').groups.indexOf(req.params.id) === -1) {
-    res.send(401, "You don't belong to that group.");
-    res.redirect('/');
-  } else {
-    models.Group.findOne({_id: req.params.id}).exec(function(err, group) {
-      res.render('groups/leave-group.jade', {user: app.get('name'), image: app.get('user').image, group: group.name});    
-    });  
-  }  
+app.get('/leave_group/:group_id', isLoggedIn, isGroupMember, function(req, res) {
+  models.Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
+    res.render('groups/leave-group.jade', {user: app.get('name'), image: app.get('user').image, group: group.name});    
+  });  
 });
 
-app.get('/groups/:id/flashcards', isLoggedIn, function(req, res){
-  if (app.get('user').groups.indexOf(req.params.id) === -1) {
-    res.send(401, "You don't belong to that group.");
-    res.redirect('/');
-  } else {
-    models.Group.findOne({_id: req.params.id})
-                .populate('topics')
-                .exec(function(err, group){
-                  res.render('topics/topics.jade', {user: app.get('name'), image: app.get('user').image, group_name: group.name, group_id: group._id, topics: JSON.stringify(group.topics)});               
+app.get('/groups/:group_id/flashcards', isLoggedIn, isGroupMember, function(req, res){
+  models.Group.findOne({_id: req.params.group_id})
+              .populate('topics')
+              .exec(function(err, group){
+                res.render('topics/topics.jade', {user: app.get('name'), image: app.get('user').image, group_name: group.name, group_id: group._id, topics: JSON.stringify(group.topics)});               
+              });
+});
+
+app.get('/groups/:group_id/topics/new', isLoggedIn, isGroupMember, function(req, res){
+  models.Group.findOne({_id: req.params.group_id}).exec(function(err, group){
+    res.render('topics/topics_new.jade', {user: app.get('name'), image: app.get('user').image, group: group.name});               
+  });
+});
+
+app.get('/groups/:group_id/flashcards/:topic_id', isLoggedIn, isGroupMember, function(req, res){  
+  models.Topic.findOne({_id: req.params.topic_id})
+                .populate('group_id')
+                .exec(function(err, topic){
+                  res.render('flashcards/flashcards.jade', {user: app.get('name'), image: app.get('user').image, group_name: topic.group_id.name, group_id: topic.group_id._id, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});               
                 });
-  }
 });
 
-app.get('/groups/:id/topics/new', isLoggedIn, function(req, res){
-  if (app.get('user').groups.indexOf(req.params.id) === -1) {
-    res.send(401, "You don't belong to that group.");
-    res.redirect('/');
-  } else {
-    models.Group.findOne({_id: req.params.id}).exec(function(err, group){
-      res.render('topics/topics_new.jade', {user: app.get('name'), image: app.get('user').image, group: group.name});               
-    });
-  }
-});
-
-app.get('/groups/:group_id/flashcards/:topic_id', isLoggedIn, function(req, res){  
-  if (app.get('user').groups.indexOf(req.params.group_id) === -1) {
-    res.send(401, "You don't belong to that group.");
-    res.redirect('/');
-  } else {
-    models.Topic.findOne({_id: req.params.topic_id})
-                  .populate('group_id')
-                  .exec(function(err, topic){
-                    res.render('flashcards/flashcards.jade', {user: app.get('name'), image: app.get('user').image, group_name: topic.group_id.name, group_id: topic.group_id._id, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});               
-                  });
-  }
-});
-
-app.get('/groups/:group_id/flashcards/:topic_id/edit', isLoggedIn, function(req, res) {
-  if (app.get('user').groups.indexOf(req.params.group_id) === -1) {
-    res.send(401, "You don't belong to that group.");
-    res.redirect('/');
-  } else {
-    models.Topic.findOne({_id: req.params.topic_id})
-          .populate('group_id')
-          .exec(function(err, topic) {
-            res.render('flashcards/edit_flashcards.jade', {user: app.get('name'), image: app.get('user').image, group_name: topic.group_id.name, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});
-          });
-  }
+app.get('/groups/:group_id/flashcards/:topic_id/edit', isLoggedIn, isGroupMember, function(req, res) {
+  models.Topic.findOne({_id: req.params.topic_id})
+        .populate('group_id')
+        .exec(function(err, topic) {
+          res.render('flashcards/edit_flashcards.jade', {user: app.get('name'), image: app.get('user').image, group_name: topic.group_id.name, topic: JSON.stringify(topic), flashcards: JSON.stringify(topic.flashcards)});
+        });
 });
 
 
 //--------------------------- API -----------------------------//
 
 //GET routes
-
-app.get('/groups', function(req, res) {
-  if (req.query['user_id']) {    
-    //return groups for that user
-    models.User.findOne({ _id: req.query['user_id'] })
-               .populate('groups')
-               .exec(function(err, user) {
-                 res.send(200, JSON.stringify(user.groups));            
-               });  
-  } else {
-    //return all groups with their users
-    models.Group.find()
-                .populate('users')
-                .exec(function(err, groups) {
-                  res.send(200, JSON.stringify(groups));
-                });
-  }
-});
 
 app.get('/topics', function(req, res) {
   if (req.query['id']) {
@@ -220,43 +167,24 @@ app.get('/topics', function(req, res) {
                     res.send(200, JSON.stringify(topic));
                   });
 
-  } else if (req.query['group_id']) {
-    //return topic with their parent group name
-    models.Topic.find({ group_id: req.query['group_id'] })
-                  .populate('group_id', 'name')
-                  .exec(function(err, topics) {
-                    res.send(200, JSON.stringify(topics));
-                  });      
-  }
+  } 
 });
 
-app.get('/communications', function(req, res) {
-  if (req.query['group_id']) {
-    models.Communication.find({group_id: req.query['group_id']})
-                        .populate('user_id')
-                        .exec(function(err, communications) {
-                          res.send(200, JSON.stringify(communications));
-                        });
-  }
+//POST routes
+
+app.put('/sign_up', function(req, res){
+  models.User.findOne({ _id: app.get('user')._id }, function(err, user){
+    user.email = req.body.email;
+    user.school_id = req.body.school._id;
+    user.phone_number = req.body.phone_number;
+    user.intensity = req.body.intensity;
+    user.save(function(err, user){
+      console.log(user);
+      res.send(200);
+    });
+  });
 });
 
-app.get('/courses', function(req, res) {
-  if (req.query['school_id']) {
-    models.Course.find({ school_id: req.query['school_id'] })
-                 .exec(function(err, courses) {
-                   res.send(200, JSON.stringify(courses));
-                 });
-  }
-});
-
-app.get('/schools', function(req, res) {
-  models.School.find()
-               .exec(function(err, schools) {
-                res.send(200, JSON.stringify(schools));
-               });
-});
-
-//------------------------POST routes-----------------------------//
 
 app.post('/leave_group', function(req, res){
   models.User.findOne({_id: app.get('user')._id })
@@ -411,19 +339,6 @@ app.put('/topics', function(req, res) {
   });
 });
 
-app.put('/sign_up', function(req, res){
-  models.User.findOne({ _id: app.get('user')._id }, function(err, user){
-    user.email = req.body.email;
-    user.school_id = req.body.school._id;
-    user.phone_number = req.body.phone_number;
-    user.intensity = req.body.intensity;
-    user.save(function(err, user){
-      console.log(user);
-      res.send(200);
-    });
-  });
-})
-
 app.put('/requests/:id', function(req, res) {
   models.Request.findOne({ _id: req.params.id })
                 .exec(function(err, request) {
@@ -451,7 +366,6 @@ app.put('/delete_flashcards', function(req, res){
 //----------------------helper functions-------------------------//
 
 function isLoggedIn(req, res, next) {
-
   if (req.isAuthenticated()) {
     app.set('user', req.user);
     app.set('name', app.get('user').first_name + " " + app.get('user').last_name);
@@ -459,5 +373,13 @@ function isLoggedIn(req, res, next) {
   }
   res.send(401, "User must log in.");
   res.redirect('users/log_in');
-}
+};
 
+function isGroupMember(req, res, next) {
+  if (app.get('user').groups.indexOf(req.params.group_id) === -1) {
+    res.send(401, "You don't belong to that group.");
+    res.redirect('/');
+  } else {
+    return next();  
+  }
+}
