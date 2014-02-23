@@ -2,18 +2,15 @@
 //require dependencies
 
 var express = require('express');
-var RedisStore = require('connect-redis')(express);
+// var RedisStore = require('connect-redis')(express);
 var models = require('./models');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
-var rtg = require('url').parse(process.env.REDISTOGO_URL);
-var redis = require('redis').createClient(9846, 'pearlfish.redistogo.com');
-redis.auth(rtg.auth.split(':')[1]);
-var url = require('url');
-// console.log("HOSTNAME: ", url.parse(process.env.REDISTOGO_URL).hostname);
-// console.log("PORT: ", url.parse(process.env.REDISTOGO_URL).port);
+// var rtg = require('url').parse(process.env.REDISTOGO_URL);
+// var redis = require('redis').createClient(9846, 'pearlfish.redistogo.com');
+// redis.auth(rtg.auth.split(':')[1]);
 
 
 //set up server
@@ -36,7 +33,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: new RedisStore({host: 'pearlfish.redistogo.com', port: 9846})}));
+app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life'}));
 app.use(passport.initialize())
 app.use(passport.session());
 
