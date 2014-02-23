@@ -12,8 +12,8 @@ var sharejs = require('share').server;
 // var redis = require('redis').createClient(9846, 'redis://redistogo:12f168b83dabb7dd2bb77c4f6ce7a852@pearlfish.redistogo.com');
 // redis.auth(rtg.auth.split(':')[1]);
 var url = require('url');
-console.log("HOSTNAME: ", url.parse(process.env.REDISTOGO_URL.hostname));
-console.log("PORT: ", url.parse(process.env.REDISTOGO_URL.port));
+console.log("HOSTNAME: ", url.parse(process.env.REDISTOGO_URL).hostname);
+console.log("PORT: ", url.parse(process.env.REDISTOGO_URL).port);
 
 
 //set up server

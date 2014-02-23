@@ -2,7 +2,9 @@ include ../index
   .joinDiv(ng-controller="findGroupController")
     h1 Request to join group: #{group}
     form
-      p #{group.entry_question}
+      p 
+        span.bold Entry question: 
+        span #{group.entry_question}
       p
         textarea(cols="50" rows="10" ng-model='request.entry_answer')  
       p 
