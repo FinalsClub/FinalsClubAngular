@@ -106,7 +106,7 @@ app.get('/groups/search', isLoggedIn, function(req, res) {
 
 app.get('/join_group', isLoggedIn, function(req, res) {
   models.Group.findOne({_id: req.query['group_id']}).exec(function(err, group) {
-    res.render('groups/join-group.jade', {user: app.get('name'), image: app.get('user').image, group: group.name});    
+    res.render('groups/join-group.jade', {user: app.get('name'), image: app.get('user').image, group: group});    
   });  
 }); 
 
