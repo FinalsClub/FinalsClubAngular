@@ -8,9 +8,13 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
-var rtg = require('url').parse(process.env.REDISTOGO_URL);
-var redis = require('redis').createClient(9846, 'redis://redistogo:12f168b83dabb7dd2bb77c4f6ce7a852@pearlfish.redistogo.com');
-redis.auth(rtg.auth.split(':')[1]);
+// var rtg = require('url').parse(process.env.REDISTOGO_URL);
+// var redis = require('redis').createClient(9846, 'redis://redistogo:12f168b83dabb7dd2bb77c4f6ce7a852@pearlfish.redistogo.com');
+// redis.auth(rtg.auth.split(':')[1]);
+var url = require('url');
+console.log("HOSTNAME: ", url.parse(process.env.REDISTOGO_URL.hostname));
+console.log("PORT: ", url.parse(process.env.REDISTOGO_URL.port));
+
 
 //set up server
 var port = Number(process.env.PORT || 5000);;
@@ -32,7 +36,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: new RedisStore({ host: 'redis://redistogo:12f168b83dabb7dd2bb77c4f6ce7a852@pearlfish.redistogo.com', port :9846, pass: '12f168b83dabb7dd2bb77c4f6ce7a852'})}));
+app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life'}));
 app.use(passport.initialize())
 app.use(passport.session());
 
