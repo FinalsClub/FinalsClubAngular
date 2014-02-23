@@ -2,13 +2,15 @@
 //require dependencies
 
 var express = require('express');
+var RedisStore = require('connect-redis')(express);
 var models = require('./models');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
-var redis = require('redis-url').connect(process.env.REDISTOGO_URL);
-var RedisStore = require('connect-redis')(express);
+var rtg = require('url').parse(process.env.REDISTOGO_URL);
+var redis = require('redis').createClient(rtg.port, rtg.hostname);
+redis.auth(rtg.auth.split(':')[1]);
 
 //set up server
 var port = Number(process.env.PORT || 5000);;
@@ -30,7 +32,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: 'cats4life', store: new RedisStore({ client: redis })}));
+app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: new RedisStore({ client: redis })}));
 app.use(passport.initialize())
 app.use(passport.session());
 
