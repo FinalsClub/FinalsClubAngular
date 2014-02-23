@@ -32,7 +32,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: new RedisStore({ host: 'redis://redistogo:12f168b83dabb7dd2bb77c4f6ce7a852@pearlfish.redistogo.com', port :9846})}));
+app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: new RedisStore({ host: 'redis://redistogo:12f168b83dabb7dd2bb77c4f6ce7a852@pearlfish.redistogo.com', port :9846, pass: '12f168b83dabb7dd2bb77c4f6ce7a852'})}));
 app.use(passport.initialize())
 app.use(passport.session());
 

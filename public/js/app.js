@@ -79,8 +79,7 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
   }
     
   $scope.submit_answer = function(){
-    console.log($scope.request);
-    console.log($scope.location)
+    $scope.request.created_at = new Date();
     $http({
       method: 'POST',
       url: '/requests',
