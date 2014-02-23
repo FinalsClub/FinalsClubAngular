@@ -9,7 +9,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
 var rtg = require('url').parse(process.env.REDISTOGO_URL);
-var redis = require('redis').createClient(9846, process.env.REDISTOGO_URL);
+// var redis = require('redis').createClient(9846, process.env.REDISTOGO_URL);
 redis.auth(rtg.auth.split(':')[1]);
 
 //set up server
@@ -32,7 +32,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: new RedisStore({client: redis})}));
+app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: new RedisStore({ host: rtg.hostname, port: rtg.port })}));
 app.use(passport.initialize())
 app.use(passport.session());
 
