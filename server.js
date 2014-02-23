@@ -1,11 +1,5 @@
 
 //require dependencies
-if (process.env.REDISTOGO_URL) { 
-  var rtg = require('url').parse(process.env.REDISTOGO_URL);
-  config.redis.port = rtg.port;
-  config.redis.host = rtg.hostname;
-  config.redis.password = rtg.auth.split(":")[1];  
-}
 
 var express = require('express');
 var models = require('./models');
@@ -13,8 +7,7 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
-
-var redis = require("redis").createClient(rtg.port, rtg.hostname);
+var redis = require('redis-url').connect(process.env.REDISTOGO_URL);
 var RedisStore = require('connect-redis')(express);
 
 //set up server
@@ -37,7 +30,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: 'cats4life', store: new RedisStore({client: redis})}));
+app.use(express.session({ secret: 'cats4life', store: new RedisStore({ client: redis })}));
 app.use(passport.initialize())
 app.use(passport.session());
 
