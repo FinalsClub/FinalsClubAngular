@@ -265,10 +265,10 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   angular.element(document).ready(function() {
     $scope.createPads(0);
     
-    //auto-sync DB every 2 seconds
+    //auto-sync DB every 5 seconds
     setInterval(function() {
       $scope.syncDB();
-    }, 2000);
+    }, 5000);
         
   });
   
