@@ -17,7 +17,7 @@ var port = Number(process.env.PORT || 5000);;
 var app = express();
 
 //attach share JS server to app
-var options = {db: {type: 'none'},  browserChannel: {cors: "*"}};
+var options = {db: {type: 'redis', hostname: rtg.hostname, port: rtg.port},  browserChannel: {cors: "*"}};
 sharejs.attach(app, options);
 
 app.listen(port);
