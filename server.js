@@ -1,23 +1,23 @@
 
 //require dependencies
+
 var express = require('express');
 var models = require('./models');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var config = require('./oauth.js');
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
-var url = require('url');
-var redis = require('redis');
-var redisUrl =  url.parse(process.env.REDISTOGO_URL);
+var rtg = require('url').parse(process.env.REDISTOGO_URL);
+var redis = require('redis').createClient(rtg.port, rtg.hostname);
+redis.auth(rtg.auth.split(':')[1]);
 var RedisStore = require('connect-redis')(express);
 
 //set up server
-var port = Number(process.env.PORT || 8080);;
+var port = Number(process.env.PORT || 5000);;
 var app = express();
 
 //attach share JS server to app
-var options = {db: {type: 'redis'},  browserChannel: {cors: "*"}};
+var options = {db: {type: 'redis', hostname: rtg.hostname, port: rtg.port, auth: rtg.auth.split(':')[1]},  browserChannel: {cors: "*"}};
 sharejs.attach(app, options);
 
 app.listen(port);
@@ -32,7 +32,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: 'cats4life' , store: new RedisStore({ host: redisUrl.hostname, port: redisUrl.port })}));
+app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: new RedisStore({client: redis})}));
 app.use(passport.initialize())
 app.use(passport.session());
 
@@ -65,18 +65,18 @@ app.get('/log_out', function(req, res) {
   req.logout();
   app.set('user', null);
   app.set('name', null);
-  res.redirect('users/log_in');
+  res.redirect('/log_in');
 });
 
 //FB routes
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: 'users/log_in' }),
+  passport.authenticate('facebook', { failureRedirect: '/log_in' }),
   function(req, res) {
     app.set('user', req.user);
     app.set('name', app.get('user').first_name + " " + app.get('user').last_name);
-    req.user.email ? res.redirect('/') : res.redirect('users/sign_up?id='+req.user.id);
+    req.user.email ? res.redirect('/') : res.redirect('/sign_up?id='+req.user.id);
   });
 
 //----------------------STATIC ROUTES--------------------------//
@@ -106,7 +106,7 @@ app.get('/groups/search', isLoggedIn, function(req, res) {
 
 app.get('/join_group', isLoggedIn, function(req, res) {
   models.Group.findOne({_id: req.query['group_id']}).exec(function(err, group) {
-    res.render('groups/join-group.jade', {user: app.get('name'), image: app.get('user').image, group: group.name});    
+    res.render('groups/join-group.jade', {user: app.get('name'), image: app.get('user').image, group: group});    
   });  
 }); 
 
@@ -346,7 +346,7 @@ function isLoggedIn(req, res, next) {
     return next();
   }
   res.send(401, "User must log in.");
-  res.redirect('users/log_in');
+  res.redirect('/log_in');
 };
 
 function isGroupMember(req, res, next) {

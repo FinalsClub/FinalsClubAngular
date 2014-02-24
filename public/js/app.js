@@ -1,15 +1,11 @@
 // write GET request for login page, dropdown menu /schools
 //// SEND JSON FOR POSTS
 
-app = angular.module('app', []);
+var app = angular.module('app', []);
 
 /*
 -----------------------------CONTROLLERS----------------------------------------------------------------------------------
 */
-
-app.controller('LogInController', ['$scope', function($scope){
-
-}])
 
 app.controller('SignUpController', ['$scope', 'signUp',  function($scope, signUp){
   $scope.newUser = {
@@ -24,15 +20,6 @@ app.controller('SignUpController', ['$scope', 'signUp',  function($scope, signUp
     signUp.createNewUser($scope.newUser);
   };
 }])
-
-app.controller('UserController', ['$scope', 'isUserLoggedIn', 'getUserGroups', function($scope, isUserLoggedIn, getUserGroups) {
-  if(isUserLoggedIn.checkLogIn()){
-    $scope.user = new isUserLoggedIn();
-    $scope.groups = new getUserGroups($scope.user._id);  
-  } else {
-    window.location.href = '/log_in';
-  }
-}]);
 
 app.controller('createGroupController', ['$scope', 'createGroup', function($scope, createGroup){
   $scope.intensities = ['low', 'medium', 'high'];
@@ -92,8 +79,7 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
   }
     
   $scope.submit_answer = function(){
-    console.log($scope.request);
-    console.log($scope.location)
+    $scope.request.created_at = new Date();
     $http({
       method: 'POST',
       url: '/requests',
@@ -267,7 +253,9 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     }).success(function(data) {
       if (data.flashcards.length > $scope.flashcards.length) {
         $scope.addFlashcard();
-      } 
+      } else if (data.flashcards.length < $scope.flashcards.length) {
+        window.location.reload();
+      }
       //add something to allow removal of flashcards
     });
   };
@@ -276,16 +264,11 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   angular.element(document).ready(function() {
     $scope.createPads(0);
     
-    //auto-sync DB every 2 seconds
+    //auto-sync DB every 5 seconds
     setInterval(function() {
       $scope.syncDB();
-    }, 2000);
-    
-    //auto-save every ten seconds
-    setInterval(function() {
-      $scope.saveText();
-    },10000);
-    
+    }, 5000);
+        
   });
   
 }]);
@@ -293,38 +276,6 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------
 */
-
-app.factory('isUserLoggedIn', ['$http', function($http){
-    return {
-      checkLogIn: function(){
-        $http({
-          method: 'GET',
-          url: '/loggedin'
-        }).success(function(data, status){
-          console.log('is user logged in ', data)
-          return data;
-        }).error(function(data, status){
-          console.log(data)
-        });
-      }
-    };
-}]);
-
-app.factory('getUserGroups', ['$http', function($http) {
-  return function(user) {
-      $http({
-        method: 'GET',
-        url: '/groups',
-        params: { user_id : user }
-      }).success(function(data, status){
-        console.log(data);
-        return data;
-      }).error(function(data, status){
-        console.log("ERROR: ", data);
-      });
-    } 
-}]);
-
 app.factory('signUp', ['$http', function($http){
   return {
     createNewUser: function(data){
@@ -356,4 +307,3 @@ app.factory('createGroup', ['$http', function($http){
       }
   };   
 }]);
-    var pads = angular.element('textarea');
