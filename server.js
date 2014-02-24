@@ -7,9 +7,21 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
-var rtg = require('url').parse(process.env.REDISTOGO_URL);
-var redis = require('redis').createClient(rtg.port, rtg.hostname);
-redis.auth(rtg.auth.split(':')[1]);
+
+var rtg;
+var redis;
+if (process.env.REDISTOGO_URL) {
+  rtg = require('url').parse(process.env.REDISTOGO_URL);
+  redis = require('redis').createClient(rtg.port, rtg.hostname);
+  redis.auth(rtg.auth.split(':')[1]);  
+} else {
+  rtg = {
+    hostname: null,
+    port: null,
+    auth: ''
+  };
+  redis = require('redis').createClient(6379, 'localhost');
+}
 var RedisStore = require('connect-redis')(express);
 
 //set up server
@@ -17,7 +29,7 @@ var port = Number(process.env.PORT || 5000);;
 var app = express();
 
 //attach share JS server to app
-var options = {db: {type: 'redis', hostname: rtg.hostname, port: rtg.port, auth: rtg.auth.split(':')[1]},  browserChannel: {cors: "*"}};
+var options = {db: {type: 'redis', hostname: rtg.hostname, port: rtg.port, auth: rtg.auth.split(':')[1] || null},  browserChannel: {cors: "*"}};
 sharejs.attach(app, options);
 
 app.listen(port);
