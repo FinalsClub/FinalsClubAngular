@@ -7,10 +7,10 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var auth = require('./authentication.js');
 var sharejs = require('share').server;
-// var rtg = require('url').parse(process.env.REDISTOGO_URL);
-// var redis = require('redis').createClient(9846, 'pearlfish.redistogo.com');
-// redis.auth(rtg.auth.split(':')[1]);
-// var RedisStore = require('connect-redis')(express);
+var rtg = require('url').parse(process.env.REDISTOGO_URL);
+var redis = require('redis').createClient(rtg.port, rtg.hostname);
+redis.auth(rtg.auth.split(':')[1]);
+var RedisStore = require('connect-redis')(express);
 
 //set up server
 var port = Number(process.env.PORT || 5000);;
@@ -32,7 +32,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life'}));
+app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: new RedisStore(client: redis)}));
 app.use(passport.initialize())
 app.use(passport.session());
 
