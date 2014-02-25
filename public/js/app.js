@@ -303,7 +303,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     }
     var body = {
       topic_id:  $scope.topic._id,
-      cards: card
+      cards: cards
     };
     $http({
       method: 'PUT',
@@ -336,9 +336,9 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
       if (data.flashcards.length > $scope.flashcards.length) {
         $scope.addFlashcard();
       } else if (data.flashcards.length < $scope.flashcards.length) {
+        window.onbeforeunload = null;
         window.location.reload();
       }
-      //add something to allow removal of flashcards
     });
   };
   

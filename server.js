@@ -23,6 +23,7 @@ if (process.env.REDISTOGO_URL) {
   redis = require('redis').createClient(6379, 'localhost');
 }
 var RedisStore = require('connect-redis')(express);
+var sessionStore = new RedisStore({client: redis});
 
 //set up server
 var port = Number(process.env.PORT || 5000);;
@@ -44,7 +45,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: new RedisStore({client: redis})}));
+app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: sessionStore}));
 app.use(passport.initialize())
 app.use(passport.session());
 
@@ -177,7 +178,6 @@ app.get('/topics', isLoggedIn, function(req, res) {
     models.Topic.findOne({ _id: req.query['id'] })
                   .populate('group_id', 'name')
                   .exec(function(err, topic) {
-                    console.log("TOPIC: ", JSON.stringify(topic));
                     res.send(200, JSON.stringify(topic));
                   });
 
