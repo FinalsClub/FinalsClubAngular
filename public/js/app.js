@@ -88,7 +88,9 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
     document.getElementById(name).style.display ='none';
     document.getElementById('fade').style.display ='none';
   };
-
+  $scope.keyup = function(e){
+    console.log(e);
+  }
   $scope.submit_answer = function(){
     $scope.request.created_at = new Date();
     $http({

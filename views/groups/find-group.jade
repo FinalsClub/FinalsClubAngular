@@ -10,7 +10,9 @@ include ../index
         ul
           //- if ({{user_groups.indexOf(group._id)}} > 0)
           h3 {{ group.name }}
-          li.grayed(ng-show="group.intensity.length > 0") Intensity: {{ group.intensity }} 
+          li.grayed(ng-show="group.intensity.length > 0") 
+            b Intensity: 
+            {{ group.intensity }} 
           li.grayed {{ group.course_id.name }}
           li
             span(ng-repeat='user in group.users')
