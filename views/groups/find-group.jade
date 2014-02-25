@@ -1,6 +1,5 @@
 include ../index
-  .groupSearch(ng-controller="findGroupController" ng-init="user_groups = [#{user_groups}]")
-    .uselessDiv(ng-init='groups = #{groups}')
+  .groupSearch(ng-controller="findGroupController" ng-init="groups = #{groups}")
     h1 FIND A GROUP
     hr
     //- h2 {{user_groups}}
@@ -14,6 +13,7 @@ include ../index
             b Intensity: 
             {{ group.intensity }} 
           li.grayed {{ group.course_id.name }}
+          p
           li
             span(ng-repeat='user in group.users')
               img(src="{{ user.image }}" title="{{user.first_name}} {{user.last_name}}")
@@ -37,6 +37,7 @@ include ../index
             li.grayed(ng-show="group.question.length > 0" )
               b Question: 
                {{ group.question }}
+            p
             li
               span(ng-repeat='user in group.users')
                 img(src="{{ user.image }}" title="{{user.first_name}} {{user.last_name}}")
