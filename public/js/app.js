@@ -1,7 +1,7 @@
 // write GET request for login page, dropdown menu /schools
 //// SEND JSON FOR POSTS
 
-var app = angular.module('app', []);
+var app = angular.module('app', ['ngAnimate']);
 
 /*
 -----------------------------CONTROLLERS----------------------------------------------------------------------------------
@@ -150,7 +150,7 @@ app.controller('topicController', ['$scope', '$http', function($scope, $http){
   }
 }]);
 
-app.controller('flashcardController', ['$scope', function($scope) {
+app.controller('flashcardController', ['$scope', '$timeout', function($scope, $timeout) {
   $scope.flashcards = [];
   $scope.topic = null;
   $scope.flipped = false;
@@ -166,6 +166,10 @@ app.controller('flashcardController', ['$scope', function($scope) {
     if ($scope.currentCard < $scope.flashcards.length-1) {
       $scope.currentCard++;
     }
+  };
+  
+  $scope.flip = function(index) {    
+    $scope.flipped = !$scope.flipped;    
   };
 }]);
 

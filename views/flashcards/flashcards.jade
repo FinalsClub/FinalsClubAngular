@@ -11,13 +11,14 @@ include ../index
       .leftArrow(ng-click="goBack(); flipped=false")
       .rightArrow(ng-click="goForward(); flipped=false") 
       .flashcardDiv(ng-repeat='flashcard in flashcards')
-        JSON.parse(flashcard.term).length
-          .flashcardTerm(ng-show="currentCard===$index && flipped===false" ng-click="flipped = !flipped")
-            p
-              {{flashcard.term}}
-          .flashcardDef(ng-show="currentCard===$index && flipped===true" ng-click="flipped = !flipped")
-            p
-              {{flashcard.definition}}
+        .flashcardTerm.animate-show(ng-show="currentCard===$index && flipped === false" ng-click="flip()")
+          p
+            {{flashcard.term}}
+        .flashcardDef.animate-show(ng-show="currentCard===$index && flipped === true" ng-click="flip()")
+          p
+            {{flashcard.definition}}
     else
       p You don't have any flashcards yet!
       a(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit').button Add flashcards
+      
+      //- ng-show="currentCard===$index && flipped===false"
