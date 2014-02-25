@@ -112,7 +112,7 @@ app.get('/groups/search', isLoggedIn, function(req, res) {
   models.Group.find()
               .populate('users course_id')
               .exec(function(err, groups) {
-                res.render('groups/find-group.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});    
+                res.render('groups/find-group.jade', {user: app.get('name'), image: app.get('user').image, user_groups: req.user.groups, groups: JSON.stringify(groups)});    
               });    
 });
 

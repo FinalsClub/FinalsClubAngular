@@ -71,13 +71,26 @@ app.controller('allGroupsViewController', [ '$scope', '$http', function($scope, 
 
 app.controller('findGroupController', ['$scope', '$http', function($scope, $http){
   $scope.groups = [];
+  $scope.user_groups = [];
   $scope.location = window.location.search.split('=')[1]
   $scope.request = {
     entry_answer : null,
     group_id : $scope.location,
     ignored : false
   }
-    
+
+  $scope.showLightbox = function(name){
+    document.getElementById(name).style.display ='block';
+    document.getElementById('fade').style.display ='block';
+  };
+
+  $scope.hideLightbox = function(name){
+    document.getElementById(name).style.display ='none';
+    document.getElementById('fade').style.display ='none';
+  };
+  $scope.keyup = function(e){
+    console.log(e);
+  }
   $scope.submit_answer = function(){
     $scope.request.created_at = new Date();
     $http({
@@ -259,7 +272,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     }
     var body = {
       topic_id:  $scope.topic._id,
-      cards: cards
+      cards: card
     };
     $http({
       method: 'PUT',
@@ -345,3 +358,4 @@ app.factory('createGroup', ['$http', function($http){
       }
   };   
 }]);
+

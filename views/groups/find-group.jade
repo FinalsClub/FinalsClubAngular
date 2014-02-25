@@ -1,18 +1,52 @@
 include ../index
   .groupSearch(ng-controller="findGroupController" ng-init="groups = #{groups}")
     h1 FIND A GROUP
-    hr    
+    hr
+    //- h2 {{user_groups}}
     input(name='search_for_group' ng-model='searchForGroup' placeholder='search for a group...')#searchForGroup
     .findGroupBox(ng-class='info')
       div(ng-repeat="group in groups | filter:searchForGroup")
         ul
+          //- if ({{user_groups.indexOf(group._id)}} > 0)
           h3 {{ group.name }}
-          li.grayed#intensity {{ group.intensity }} intensity
-          li.grayed {{ group.motto }}
-          li.grayed {{ group.course_id.name  }}
+          li.grayed(ng-show="group.intensity.length > 0") 
+            b Intensity: 
+            {{ group.intensity }} 
+          li.grayed {{ group.course_id.name }}
+          p
           li
             span(ng-repeat='user in group.users')
-              img(src="{{ user.image }}") 
+              img(src="{{ user.image }}" title="{{user.first_name}} {{user.last_name}}")
+          button(href="#" class="lightboxButton" ng-click="showLightbox(group.name)") More info
+          //- nearest jquery - get sibling element
+          .lightboxContent(class="white_content" id="{{group.name}}")
+            li {{ group.name }}
+            hr
+            li.grayed(ng-show="group.intensity.length > 0" )
+              b Intensity: 
+              {{ group.intensity }} 
+            li.grayed(ng-show="group.motto.length > 0" )
+              b Motto: 
+              {{ group.motto }}
+            li.grayed
+              b Course affiliation: 
+              {{ group.course_id.name }}
+            li.grayed(ng-show="group.description.length > 0" )
+              b Description: 
+              {{ group.description }}
+            li.grayed(ng-show="group.question.length > 0" )
+              b Question: 
+               {{ group.question }}
+            p
+            li
+              span(ng-repeat='user in group.users')
+                img(src="{{ user.image }}" title="{{user.first_name}} {{user.last_name}}")
+            
+            button(href="#" class="lightboxButton" ng-click="hideLightbox(group.name)") Close
+          
+          .fadeDiv(id="fade" class="black_overlay")
+          
           a(href='/join_group?group_id={{group._id}}')
             input(type='button' model='joinGroup' value='Request to join' class='requests find') 
         hr.smaller
+
