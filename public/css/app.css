@@ -348,20 +348,30 @@ hr.smaller {
   height: 100%;
   width: 100%;
   text-align: center;
+  overflow: scroll;
 }
 
 .back {
   -webkit-transform: rotateX(180deg);
 }
 
-.front p {
-  margin-top: 25%;
-  font-size: 3em;
+.front p, .back p {
+  padding: 10px;
 }
 
-.back p {
+.big {
   margin-top: 25%;
+  font-size: 4em;
+}
+
+.medium {
+  margin-top: 20%;
   font-size: 2em;
+}
+
+.small {
+  margin-top: 5%;
+  font-size: 1.5em;
 }
 
 .leftArrow, .rightArrow {

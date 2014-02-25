@@ -12,10 +12,10 @@ include ../index
       .rightArrow(ng-click="goForward(); flipped=false") 
       .flashcardDiv(ng-repeat='flashcard in flashcards' id='div-{{$index}}' ng-show="currentCard===$index")
         .face.front(ng-click="flip($index)")
-          p
+          p(data-length="{{flashcard.term.length}}")
             {{flashcard.term}}
         .face.back(ng-click="flip($index)")
-          p
+          p(data-length="{{flashcard.definition.length}}")
             {{flashcard.definition}}
     else
       p You don't have any flashcards yet!
