@@ -406,6 +406,7 @@ hr.smaller {
   text-align: center;
 }
 
+
 .shareDiv span {
   margin: 5px;
   font-size: 0.75em;
@@ -424,7 +425,7 @@ hr.smaller {
 .editTerm, .editDef {
   border: 1px solid #666;
   padding: 1em;
-  width: 40%;
+  width: 35%;
   height: 20%;
 }
 
@@ -433,9 +434,19 @@ hr.smaller {
   background-color: #d8d8d8;
 }
 
-/*
-  ---------------------------------------------------------------- lightbox
-*/  
+
+#editors {
+  background-color: #EDF1F1;
+  padding: 1%;
+  width: 20%;
+  position: absolute;
+  left: 108%;
+  bottom: 87%;
+}
+}
+
+/*------------------------------- lightbox--------------------------------- */
+  
 .black_overlay{
     display: none;
     position: absolute;

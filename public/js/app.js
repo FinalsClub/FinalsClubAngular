@@ -229,8 +229,39 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     if (counter === $scope.flashcards.length) {
       return;
     }
-        
     $scope.openConnections(counter, true);
+  };
+  
+  $scope.addEditors = function(index) {
+    var el = document.getElementById("editors");
+    var node = angular.element('#editors');
+    var connection = sharejs.open(index + "-editors", 'text', function(error, doc) {
+      if (error) {
+        console.log("ERROR: ", error);
+      } else {
+        var update = function() {
+          el.innerHTML = doc.snapshot;
+        }
+        update();
+        window.doc = doc;        
+        doc.on('change', update);
+
+        var regCurr = new RegExp('current', "i");
+        if (doc.snapshot.match(regCurr) === null) {
+          doc.submitOp([{i:"<p class='bold'>Current Editors</p>", p:0}]);          
+        }
+        
+        var regUser = new RegExp(node.data('user'), "i");        
+        if (doc.snapshot.match(regUser) === null) {
+          doc.submitOp([{i:"<p>" + node.data('user') + "</p>", p: doc.snapshot.length}]);                       
+        } 
+      
+        window.onunload = window.onbeforeunload = function() {
+          doc.del(doc.snapshot.match(regUser).index, node.data('user').length);
+          return "";
+        };
+      }
+    });
   };
     
   $scope.openConnections = function(index, iterating) {
@@ -314,12 +345,13 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   //create pads once DOM has loaded
   angular.element(document).ready(function() {
     $scope.createPads(0);
+    $scope.addEditors($scope.topic._id);
     
     //auto-sync DB every 5 seconds
     setInterval(function() {
       $scope.syncDB();
     }, 5000);
-        
+            
   });
   
 }]);
