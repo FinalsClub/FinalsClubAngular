@@ -10,15 +10,14 @@ include ../index
       h3 {{ topic.title }} 
       .leftArrow(ng-click="goBack(); flipped=false")
       .rightArrow(ng-click="goForward(); flipped=false") 
-      .flashcardDiv(ng-repeat='flashcard in flashcards')
-        .flashcardTerm.animate-show(ng-show="currentCard===$index && flipped === false" ng-click="flip()")
+      .flashcardDiv(ng-repeat='flashcard in flashcards' id='div-{{$index}}' ng-show="currentCard===$index")
+        .face.front(ng-click="flip($index)")
           p
             {{flashcard.term}}
-        .flashcardDef.animate-show(ng-show="currentCard===$index && flipped === true" ng-click="flip()")
+        .face.back(ng-click="flip($index)")
           p
             {{flashcard.definition}}
     else
       p You don't have any flashcards yet!
       a(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit').button Add flashcards
       
-      //- ng-show="currentCard===$index && flipped===false"

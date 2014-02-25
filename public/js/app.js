@@ -169,7 +169,7 @@ app.controller('flashcardController', ['$scope', '$timeout', function($scope, $t
   };
   
   $scope.flip = function(index) {    
-    $scope.flipped = !$scope.flipped;    
+    angular.element('#div-' + index).toggleClass('animated');
   };
 }]);
 

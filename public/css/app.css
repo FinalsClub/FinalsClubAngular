@@ -159,7 +159,7 @@ header a {
   text-decoration: none;}
 
 .groupDiv {
-  width: 50%;
+  width: 70%;
 }
 
 .facebook {
@@ -316,50 +316,50 @@ hr.smaller {
   -moz-box-shadow: 0 0 10px 2px #D8D8D8;
   -webkit-box-shadow: 0 0 10px 2px #ddd;
 }
+
+.allFlashcardsDiv {
+  -webkit-perspective: 1000;  
+}
+
 .flashcardDiv {
   height: 60%;
   position: relative;
   bottom: 5em;
   margin: 0 auto;
-  width: 80%;
-}
-
-.flashcardTerm, .flashcardDef {
-  margin: 0 auto;
   border: 1px solid gray;
   box-shadow: 2px 2px 2px #000;
+  width: 80%;
+  -webkit-transform-style: preserve-3d;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+.animated {
+  -webkit-transform: rotateX(180deg);
+}
+
+.face {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+}
+
+.front, .back {
+  margin: 0 auto;
   height: 100%;
   width: 100%;
   text-align: center;
 }
 
-.animate-show {
-  opacity: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: all linear 0.5s;
-  -webkit-transition: all linear 0.5s;
-  transform: rotateX(0deg);
-  -webkit-transform: rotateX(0deg);
-}
-
-.animate-show.ng-hide-remove, .animate-show.ng-hide-add {
-  display:block!important;    
-}
-
-.animate-show.ng-hide {
-  opacity: 0;
-  transform: rotate(180deg);
+.back {
   -webkit-transform: rotateX(180deg);
 }
 
-.flashcardTerm p {
+.front p {
   margin-top: 25%;
   font-size: 3em;
 }
 
-.flashcardDef p {
+.back p {
   margin-top: 25%;
   font-size: 2em;
 }
@@ -387,7 +387,7 @@ hr.smaller {
   border-left: 50px solid yellow;
 }
 
-.shareDiv {
+.shareDivWrapper {
   text-align: center;
 }
 

@@ -5,11 +5,13 @@ include ../index
     h3 {{topic.title}}
       span Saved!
     p
-    .flashcardPad(ng-repeat="flashcard in flashcards")  
-      .cardPads(id="{{topic._id}}-pad{{$index}}")
-        textarea(id="{{topic._id}}-pad{{$index}}-term" placeholder="Enter term here...").editTerm
-        textarea(id="{{topic._id}}-pad{{$index}}-def" placeholder="Enter definition here...").editDef
-        button(ng-click="removeFlashcard($index)" id='removeButton') x
-    button(ng-click="saveText()") Save Flashcards
+    .shareDivWrapper
+      .flashcardPad(ng-repeat="flashcard in flashcards")  
+        .cardPads(id="{{topic._id}}-pad{{$index}}")
+          textarea(id="{{topic._id}}-pad{{$index}}-term" placeholder="Enter term here...").editTerm
+          textarea(id="{{topic._id}}-pad{{$index}}-def" placeholder="Enter definition here...").editDef
+          button(ng-click="removeFlashcard($index)" id='removeButton') x
+      button(ng-click="saveText()") Save Flashcards
+    a(href="/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/") See flashcards
       
   
