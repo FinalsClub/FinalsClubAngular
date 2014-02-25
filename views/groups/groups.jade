@@ -3,10 +3,10 @@ include ../index
     h1 My Groups
     h2.gray Next Meeting: 
     hr
-    .communicationsDiv
-      h3 Recent Communications
-      p Message 1
-      p Message 2
+    //- .communicationsDiv
+    //-   h3 Recent Communications
+    //-   p Message 1
+    //-   p Message 2
 
     .groupDiv(ng-repeat='group in groups')
       p(ng-init='currentGroup = group.requests.length')

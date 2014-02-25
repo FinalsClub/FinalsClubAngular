@@ -3,9 +3,9 @@ html(lang="en" ng-app='app')
     title Finals Club
     link(type="text/css" rel="stylesheet" href="/css/app.css")      
     script(src="/bower_components/jquery/dist/jquery.min.js") 
-    script(src="/bower_components/angular/angular.js") 
+    script(src="/bower_components/angular/angular.min.js") 
     script(src="/bower_components/jquery/dist/jquery.min.js") 
-    script(src="/bower_components/angular-route/angular-route.js") 
+    script(src="/bower_components/angular-route/angular-route.min.js") 
     script(src="/browserchannel/dist/bcsocket.js") 
     script(src="/share/webclient/share.js") 
     script(src="/share/webclient/textarea.js") 
@@ -15,14 +15,14 @@ html(lang="en" ng-app='app')
       nav#login-nav
           if user
             a(href="#").username #{user}
-            img(src='#{image}')
+            img(src='#{image}' width='50px' height='50px')
             a(href="/log_out") Log out
           else
             a(href="/log_in") Sign Up
             a(href="/log_in") Log in
         .wrapper
           a(href='/')
-            img(src='/img/logo.png' alt='Finals Club - social note taking')#logo
+            img(src='/img/logo.png' alt='Finals Club - social note taking' width='312px' height='39px')#logo
           nav#main-nav
             a(href="/groups/search") Find Groups
             a(href="/groups/new") Create a Group
