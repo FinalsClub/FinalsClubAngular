@@ -14,18 +14,27 @@ html(lang="en" ng-app='app')
     header#masthead
       nav#login-nav
           if user
-            a(href="#").username #{user}
-            img(src='#{image}' width='50px' height='50px')
-            a(href="/log_out") Log out
+            ul
+              li
+                p
+                  a(href="#").username #{user}
+                p
+                  a(href="/log_out") Log out 
+              li.facebook-picture
+                img(src='#{image}' width='50px' height='50px')
           else
-            a(href="/log_in") Sign Up
-            a(href="/log_in") Log in
+            .signupDiv
+            ul
+              li
+                a(href="/log_in" class="loginOptions") Sign Up 
+              li
+                a(href="/log_in" class="loginOptions") Log in
         .wrapper
           a(href='/')
             img(src='/img/logo.png' alt='Finals Club - social note taking' width='312px' height='39px')#logo
           nav#main-nav
             a(href="/groups/search") Find Groups
             a(href="/groups/new") Create a Group
+    .fadingWrapper(id='fade')
     .contentWrapper
       =yield
-

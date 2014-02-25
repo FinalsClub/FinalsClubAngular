@@ -82,12 +82,14 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
   $scope.showLightbox = function(name){
     document.getElementById(name).style.display ='block';
     document.getElementById('fade').style.display ='block';
+    document.getElementById('fade').className = 'black_overlay'
   };
 
   $scope.hideLightbox = function(name){
     document.getElementById(name).style.display ='none';
-    document.getElementById('fade').style.display ='none';
+    document.getElementById('fade').className = '';
   };
+
   $scope.keyup = function(e){
     console.log(e);
   }
@@ -355,6 +357,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   });
   
 }]);
+
 
 /*
 -----------------------------FACTORIES------------------------------------------------------------------------------------
