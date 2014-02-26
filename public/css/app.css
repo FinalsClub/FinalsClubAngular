@@ -561,9 +561,8 @@ h2.splashpageTitle {
   font-weight: 300;
   letter-spacing: 0.1em;
   position: relative;
-  border-bottom: 2px solid white;
-  width: 89%;
-  margin-top: 2.5em;
+/*  border-bottom: 2px solid white;
+*/  margin-top: 2.5em;
   left: 1em;
 }
 
