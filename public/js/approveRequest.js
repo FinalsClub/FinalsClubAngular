@@ -1,5 +1,7 @@
 app.controller('requestController', ['$scope', '$http', function($scope, $http){
   $scope.requests = [];
+  $scope.error = false
+
   $scope.approve = function(user, request_id){
     $http({
       method: 'POST',
@@ -13,7 +15,7 @@ app.controller('requestController', ['$scope', '$http', function($scope, $http){
       window.location.href = '/';
     }).error(function(err){
       console.log(err);
-      angular.element('.contentWrapper').prepend("<span class='error'>The user is already a member of the group.</span>");
+      $scope.error = true;
     });
   };
   

@@ -517,7 +517,7 @@ hr.smaller {
 
 /*------------------------------- lightbox--------------------------------- */
 .black_overlay{
-  display: none;
+  display: block;
   position: absolute;
   top: 0%;
   left: 0%;
@@ -531,15 +531,15 @@ hr.smaller {
 }
  
 .white_content {
-    display: none;
-    position: absolute;
-    top: 25%;
-    left: 25%;
-    width: 50%;
-    padding: 16px;
-    background-color: white;
-    z-index:2;
-    overflow: auto;
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  padding: 16px;
+  background-color: white;
+  z-index:2;
+  overflow: auto;
 }
 
 .lightboxButton {
@@ -548,6 +548,11 @@ hr.smaller {
   border: 0;
   color: #666;
 }
+
+.block {
+  display: block;
+}
+
 
 /*------------------------------- homepage --------------------------------- */
 .homepage {
@@ -604,4 +609,11 @@ h3.splashpageTitle {
 
 .homepage a:last-child .splashpage {
   background-color: gray;
+}
+
+.homepageImage {
+  background-image: url("../img/homepage4.png");
+  background-repeat: no-repeat;
+  overflow: hidden;
+  background-position: center;
 }

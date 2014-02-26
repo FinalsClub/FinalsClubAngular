@@ -1,20 +1,16 @@
 var models = require('./models');
 var utils = require('./utils');
 
-app.get('/', function(req, res) {  
-  if(app.get('user')){
-    models.Group.find({_id: {$in: app.get('user').groups}})
-                .populate('users')
-                .exec(function(err, groups) {
-                  res.render('groups/groups.jade', {
-                    user: app.get('name'),
-                    image: app.get('user').image,
-                    groups: JSON.stringify(groups)
-                  });                
-                });
-  } else {
-    res.render('splashpage.jade');
-  }
+app.get('/', utils.isLoggedIn, function(req, res) {  
+  models.Group.find({_id: {$in: app.get('user').groups}})
+              .populate('users')
+              .exec(function(err, groups) {
+                res.render('groups/groups.jade', {
+                  user: app.get('name'),
+                  image: app.get('user').image,
+                  groups: JSON.stringify(groups)
+                });                
+              });
 });
 
 app.get('/groups/new', utils.isLoggedIn, function(req, res) {
