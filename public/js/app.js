@@ -73,7 +73,7 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
     ignored : false
   }
 
-  $scope.showLightbox = function(name){
+  $scope.showLightbox = function(name){    
     document.getElementById(name).style.display ='block';
     document.getElementById('fade').style.display ='block';
     document.getElementById('fade').className = 'black_overlay'
@@ -84,9 +84,6 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
     document.getElementById('fade').className = '';
   };
 
-  $scope.keyup = function(e){
-    console.log(e);
-  }
   $scope.submit_answer = function(){
     $scope.request.created_at = new Date();
     $http({
