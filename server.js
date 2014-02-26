@@ -94,12 +94,16 @@ app.get('/auth/facebook/callback',
 
 //----------------------STATIC ROUTES--------------------------//
 
-app.get('/', isLoggedIn, function(req, res) {  
-  models.Group.find({_id: {$in: app.get('user').groups}})
-              .populate('users')
-              .exec(function(err, groups) {
-                res.render('groups/groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});                
-              });
+app.get('/', function(req, res) {  
+  if(app.get('user')){
+    models.Group.find({_id: {$in: app.get('user').groups}})
+                .populate('users')
+                .exec(function(err, groups) {
+                  res.render('groups/groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});                
+                });
+  } else {
+    res.render('splashpage.jade');
+  }
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {

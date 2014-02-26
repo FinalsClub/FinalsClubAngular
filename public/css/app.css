@@ -547,3 +547,34 @@ hr.smaller {
   border: 0;
   color: #666;
 }
+
+/*------------------------------- homepage --------------------------------- */
+.homepage {
+/*  width: 1031px;
+  height: 675px;
+*/}
+
+h2.splashpageTitle {
+  text-align: center;
+  color: white;
+  font-size: 4em;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  position: relative;
+  border-bottom: 2px solid white;
+  width: 89%;
+  top: 2.5em;
+  left: 1em;
+}
+
+h3.splashpageTitle {
+  font-size: 1em;
+  color: white;
+  position: relative;
+  top: 10em;
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  left: 1em;
+}
