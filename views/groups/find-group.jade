@@ -2,12 +2,10 @@ include ../index
   .groupSearch(ng-controller="findGroupController" ng-init="groups = #{groups}")
     h1 FIND A GROUP
     hr
-    //- h2 {{user_groups}}
     input(name='search_for_group' ng-model='searchForGroup' placeholder='search for a group...')#searchForGroup
     .findGroupBox(ng-class='info'  ng-keyup="keyPress($event.keyCode)")
       div(ng-repeat="group in groups | filter:searchForGroup")
         ul
-          //- if ({{user_groups.indexOf(group._id)}} > 0)
           h3 {{ group.name }}
           li.grayed(ng-show="group.intensity.length > 0") 
             b Intensity: 

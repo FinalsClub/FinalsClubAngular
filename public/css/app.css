@@ -187,6 +187,7 @@ header a {
   margin-left: 10%;
   margin-right: 10%;
   margin-bottom: 0;
+  
   /*background-color: #e8a200;*/
   /*border:1em outset #FFDF5F;*/
 }
@@ -550,9 +551,8 @@ hr.smaller {
 
 /*------------------------------- homepage --------------------------------- */
 .homepage {
-/*  width: 1031px;
-  height: 675px;
-*/}
+  text-align: center;
+}
 
 h2.splashpageTitle {
   text-align: center;
@@ -563,7 +563,7 @@ h2.splashpageTitle {
   position: relative;
   border-bottom: 2px solid white;
   width: 89%;
-  top: 2.5em;
+  margin-top: 2.5em;
   left: 1em;
 }
 
@@ -571,10 +571,38 @@ h3.splashpageTitle {
   font-size: 1em;
   color: white;
   position: relative;
-  top: 10em;
   text-align: center;
   font-weight: 300;
-  letter-spacing: .4em;
+  letter-spacing: .35em;
   text-transform: uppercase;
   left: 1em;
+}
+
+.splashpage {
+  position: relative;
+  top: 2em;
+  margin-left: 0 auto;
+  background-color: #7D7DAF;
+  opacity: 0.8;
+  border: 0;
+  margin: 0.5em;
+  left: 1em;
+
+}
+
+.homepage a {
+  display: inline-block;
+  line-height: 60%;
+}
+
+.homepage span {
+  color: white;
+  position: relative;
+  top: 2em;
+  left: 1.3em;
+
+}
+
+.homepage a:last-child .splashpage {
+  background-color: gray;
 }
