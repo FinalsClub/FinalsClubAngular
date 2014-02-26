@@ -110,22 +110,40 @@ header a {
   color: #e8a200; }
 
 #login-nav a.username {
-  color: white; }
+  color: white; 
+}
+
 
 #login-nav {
+  font-family: sans-serif;
   min-height: 5%;
   background-color: #262626;
   width: 100%;
   padding-top: 0.25em;
-  text-align: right; }
+  padding-right: 2em;
+  text-align: right; 
+}
 
-#login-nav li {
-  font-size: 0.75em;  
-  display: inline; }
+#login-nav ul {
+  margin-bottom: 0;
+  margin-right: 1em;
+}
+#login-nav ul li {
+  display: inline-block;
+  font-size: 0.9em;
+  line-height: 120%;
+}
+
+#login-nav p {
+  padding: 0;
+  margin: 0;
+  margin-right: 1em;
+}
 
 #login-nav a {
-  padding: 0 0.75em;
-  color: #ffcd58; }
+  padding: 0 1.2gem;
+  color: #ffcd58; 
+}
 
 #logo {
   float: left;
@@ -137,7 +155,7 @@ header a {
   float: right;
   padding: 0 0.75em; 
   position: relative;
-  bottom: 1.5em; }
+  bottom: 2em; }
 
 #main-nav li {
   display: inline;
@@ -151,6 +169,58 @@ header a {
 
 #main-nav a:hover {
   color: #e8a200; }
+
+.signupDiv {
+  margin-top: 3em;
+}
+
+.loginOptions {
+  margin: 0.75em;
+}
+
+.loginButton {
+  /*border: 0;*/
+  width: 80%;
+  height: 6em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 0;
+  
+  /*background-color: #e8a200;*/
+  /*border:1em outset #FFDF5F;*/
+}
+.facebook2{
+  background-color: #5C5C5C;
+  /*border:1em inset #333;*/
+  border:0;
+
+}
+a:hover .facebook2{
+  background-color: #333;
+}
+
+a:active .facebook2 {
+  background-color:#333;
+  border: 1em inset #2F2F2F;
+  text-decoration:none;
+}
+
+.facebook {
+  background-color: #7D7DAF; 
+  border: 0;
+}
+
+a:hover .facebook{
+  background-color: #4B4B69;
+}
+
+a:active .facebook{
+  background-color:#4B4B69;
+  border:1em inset #636378;
+  text-decoration:none;
+}
 
 /*-------------------HOMEPAGE ELEMENTS-------------------------*/
 
@@ -339,6 +409,7 @@ hr.smaller {
   -webkit-transition: all 0.5s;
 }
 
+
 .animated {
   -webkit-transform: rotateX(180deg);
 }
@@ -406,6 +477,7 @@ hr.smaller {
   text-align: center;
 }
 
+
 .shareDiv span {
   margin: 5px;
   font-size: 0.75em;
@@ -424,7 +496,7 @@ hr.smaller {
 .editTerm, .editDef {
   border: 1px solid #666;
   padding: 1em;
-  width: 40%;
+  width: 35%;
   height: 20%;
 }
 
@@ -433,21 +505,29 @@ hr.smaller {
   background-color: #d8d8d8;
 }
 
-/*
-  ---------------------------------------------------------------- lightbox
-*/  
+
+#editors {
+  background-color: #EDF1F1;
+  padding: 1%;
+  width: 20%;
+  position: absolute;
+  left: 108%;
+  bottom: 90%;
+}
+
+/*------------------------------- lightbox--------------------------------- */
 .black_overlay{
-    display: none;
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    z-index:1;
-    -moz-opacity: 0.6;
-    opacity:.60;
-    filter: alpha(opacity=60);
+  display: none;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index:1;
+  -moz-opacity: 0.7;
+  opacity:.70;
+  filter: alpha(opacity=70);
 }
  
 .white_content {
@@ -467,4 +547,62 @@ hr.smaller {
   font-size: 0.75em;
   border: 0;
   color: #666;
+}
+
+/*------------------------------- homepage --------------------------------- */
+.homepage {
+  text-align: center;
+}
+
+h2.splashpageTitle {
+  text-align: center;
+  color: white;
+  font-size: 4em;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  position: relative;
+  border-bottom: 2px solid white;
+  width: 89%;
+  margin-top: 2.5em;
+  left: 1em;
+}
+
+h3.splashpageTitle {
+  font-size: 1em;
+  color: white;
+  position: relative;
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  left: 1em;
+}
+
+.splashpage {
+  position: relative;
+  top: 2em;
+  margin-left: 0 auto;
+  background-color: #7D7DAF;
+  opacity: 0.8;
+  border: 0;
+  margin: 0.5em;
+  left: 1em;
+
+}
+
+.homepage a {
+  display: inline-block;
+  line-height: 60%;
+}
+
+.homepage span {
+  color: white;
+  position: relative;
+  top: 2em;
+  left: 1.3em;
+
+}
+
+.homepage a:last-child .splashpage {
+  background-color: gray;
 }

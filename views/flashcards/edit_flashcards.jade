@@ -1,9 +1,12 @@
 include ../index
   h1 #{group_name}
+  hr
   .shareDiv(ng-controller="shareController" ng-init="flashcards = #{flashcards}; topic = #{topic}")
     a(href="#" ng-click="addFlashcard()").requests + Add flashcard
     h3 {{topic.title}}
       span Saved!
+    p
+    #editors(data-user="#{user}")
     p
     .shareDivWrapper
       .flashcardPad(ng-repeat="flashcard in flashcards")  

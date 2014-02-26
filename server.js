@@ -23,6 +23,7 @@ if (process.env.REDISTOGO_URL) {
   redis = require('redis').createClient(6379, 'localhost');
 }
 var RedisStore = require('connect-redis')(express);
+var sessionStore = new RedisStore({client: redis});
 
 //set up server
 var port = Number(process.env.PORT || 5000);;
@@ -44,7 +45,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: new RedisStore({client: redis})}));
+app.use(express.session({ secret: process.env.CLIENT_SECRET  || 'cats4life', store: sessionStore}));
 app.use(passport.initialize())
 app.use(passport.session());
 
@@ -93,12 +94,16 @@ app.get('/auth/facebook/callback',
 
 //----------------------STATIC ROUTES--------------------------//
 
-app.get('/', isLoggedIn, function(req, res) {  
-  models.Group.find({_id: {$in: app.get('user').groups}})
-              .populate('users')
-              .exec(function(err, groups) {
-                res.render('groups/groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});                
-              });
+app.get('/', function(req, res) {  
+  if(app.get('user')){
+    models.Group.find({_id: {$in: app.get('user').groups}})
+                .populate('users')
+                .exec(function(err, groups) {
+                  res.render('groups/groups.jade', {user: app.get('name'), image: app.get('user').image, groups: JSON.stringify(groups)});                
+                });
+  } else {
+    res.render('splashpage.jade');
+  }
 });
 
 app.get('/groups/new', isLoggedIn, function(req, res) {
@@ -108,11 +113,15 @@ app.get('/groups/new', isLoggedIn, function(req, res) {
               })
 });
 
-app.get('/groups/search', isLoggedIn, function(req, res) {
+app.get('/groups/search', function(req, res) {
   models.Group.find()
               .populate('users course_id')
               .exec(function(err, groups) {
-                res.render('groups/find-group.jade', {user: app.get('name'), image: app.get('user').image, user_groups: req.user.groups, groups: JSON.stringify(groups)});    
+                if (app.get('user')) {
+                  res.render('groups/find-group.jade', {user: app.get('name'), image: app.get('user').image, user_groups: req.user.groups, groups: JSON.stringify(groups)});    
+                } else {
+                   res.render('groups/find-group.jade', {user: null, image: null, user_groups: null, groups: JSON.stringify(groups)});     
+                }
               });    
 });
 
@@ -177,7 +186,6 @@ app.get('/topics', isLoggedIn, function(req, res) {
     models.Topic.findOne({ _id: req.query['id'] })
                   .populate('group_id', 'name')
                   .exec(function(err, topic) {
-                    console.log("TOPIC: ", JSON.stringify(topic));
                     res.send(200, JSON.stringify(topic));
                   });
 

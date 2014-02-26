@@ -82,12 +82,14 @@ app.controller('findGroupController', ['$scope', '$http', function($scope, $http
   $scope.showLightbox = function(name){
     document.getElementById(name).style.display ='block';
     document.getElementById('fade').style.display ='block';
+    document.getElementById('fade').className = 'black_overlay'
   };
 
   $scope.hideLightbox = function(name){
     document.getElementById(name).style.display ='none';
-    document.getElementById('fade').style.display ='none';
+    document.getElementById('fade').className = '';
   };
+
   $scope.keyup = function(e){
     console.log(e);
   }
@@ -229,8 +231,39 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     if (counter === $scope.flashcards.length) {
       return;
     }
-        
     $scope.openConnections(counter, true);
+  };
+  
+  $scope.addEditors = function(index) {
+    var el = document.getElementById("editors");
+    var node = angular.element('#editors');
+    var connection = sharejs.open(index + "-editors", 'text', function(error, doc) {
+      if (error) {
+        console.log("ERROR: ", error);
+      } else {
+        var update = function() {
+          el.innerHTML = doc.snapshot;
+        }
+        update();
+        window.doc = doc;        
+        doc.on('change', update);
+
+        var regCurr = new RegExp('current', "i");
+        if (doc.snapshot.match(regCurr) === null) {
+          doc.submitOp([{i:"<p class='bold'>Current Editors</p>", p:0}]);          
+        }
+        
+        var regUser = new RegExp(node.data('user'), "i");        
+        if (doc.snapshot.match(regUser) === null) {
+          doc.submitOp([{i:"<p>" + node.data('user') + "</p>", p: doc.snapshot.length}]);                       
+        } 
+      
+        window.onunload = window.onbeforeunload = function() {
+          doc.del(doc.snapshot.match(regUser).index, node.data('user').length);
+          return "";
+        };
+      }
+    });
   };
     
   $scope.openConnections = function(index, iterating) {
@@ -272,7 +305,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     }
     var body = {
       topic_id:  $scope.topic._id,
-      cards: card
+      cards: cards
     };
     $http({
       method: 'PUT',
@@ -305,23 +338,35 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
       if (data.flashcards.length > $scope.flashcards.length) {
         $scope.addFlashcard();
       } else if (data.flashcards.length < $scope.flashcards.length) {
+        window.onbeforeunload = null;
         window.location.reload();
       }
-      //add something to allow removal of flashcards
     });
   };
   
   //create pads once DOM has loaded
   angular.element(document).ready(function() {
     $scope.createPads(0);
+    $scope.addEditors($scope.topic._id);
     
     //auto-sync DB every 5 seconds
     setInterval(function() {
       $scope.syncDB();
     }, 5000);
-        
+            
   });
   
+}]);
+
+app.controller('homepageController', ['$scope', function($scope) {
+  $scope.loadImage = function() {
+    angular.element('body').css({
+      'background-image': 'url("img/homepage4.png")',
+      'background-repeat': 'no-repeat',
+      'overflow': 'hidden',
+      'background-position': 'center'
+    });
+  };
 }]);
 
 /*

@@ -15,8 +15,6 @@ include ../index
       h2 {{ group.name }}
       .groupNav
         a(href="groups/{{group._id}}/flashcards") Flashcards | 
-        a(href="groups/{{group._id}}/communications") Communications | 
-        a(href="groups/{{group._id}}/meet_up") Meet Up | 
         a(href="leave_group/{{group._id}}" ng-click='leaveGroup').grayed Leave Group
       span(ng-repeat="user in group.users")
         img(src="{{user.image}}")

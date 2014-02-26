@@ -1,0 +1,9 @@
+include index
+  h2.splashpageTitle Welcome to FinalsClub
+  h3.splashpageTitle The home of online social note taking
+  .homepage(ng-controller="homepageController" ng-init="loadImage()")
+    a(href='/auth/facebook')
+      button(class="splashpage") Log in with Facebook
+    span - or -
+    a(href='/auth/facebook')
+      button(class="splashpage") Sign up with Facebook
