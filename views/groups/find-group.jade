@@ -1,0 +1,46 @@
+include ../index
+  .groupSearch(ng-controller="findGroupController" ng-init="groups = #{groups}")
+    h1 FIND A GROUP
+    hr
+    input(name='search_for_group' ng-model='searchForGroup' placeholder='search for a group...')#searchForGroup
+    .findGroupBox(ng-class='info'  ng-keyup="keyPress($event.keyCode)")
+      div(ng-repeat="group in groups | filter:searchForGroup")
+        ul
+          h3 {{ group.name }}
+          li.grayed(ng-show="group.intensity.length") 
+            b Intensity: 
+            {{ group.intensity }} 
+          li.grayed {{ group.course_id.name }}
+          p
+          li
+            span(ng-repeat='user in group.users')
+              img(src="{{ user.image }}" title="{{user.first_name}} {{user.last_name}}")
+          button(href="#" class="lightboxButton" ng-click="showLightbox(group._id)") More info
+          .lightboxContent(class="white_content {{group._id}}")
+            li {{ group.name }}
+            hr
+            li.grayed(ng-show="group.intensity.length" )
+              b Intensity: 
+              {{ group.intensity }} 
+            li.grayed(ng-show="group.motto.length" )
+              b Motto: 
+              {{ group.motto }}
+            li.grayed
+              b Course affiliation: 
+              {{ group.course_id.name }}
+            li.grayed(ng-show="group.description.length" )
+              b Description: 
+              {{ group.description }}
+            li.grayed(ng-show="group.question.length" )
+              b Question: 
+               {{ group.question }}
+            p
+            li
+              span(ng-repeat='user in group.users')
+                img(src="{{ user.image }}" title="{{user.first_name}} {{user.last_name}}")
+            button(href="#" class="lightboxButton" ng-click="showLightbox(group._id)") Close
+          
+          a(href='/join_group?group_id={{group._id}}')
+            input(type='button' model='joinGroup' value='Request to join' class='requests find') 
+        hr.smaller
+
