@@ -1,7 +1,7 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var User = require('./models').User;
-var config = require('./oauth.js')
+// var config = require('./oauth.js')
 
 var getUser = function(token, refreshToken, profile, done) {
   User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
