@@ -3,10 +3,6 @@ include ../index
     h1 My Groups
     h2.gray Next Meeting: 
     hr
-    //- .communicationsDiv
-    //-   h3 Recent Communications
-    //-   p Message 1
-    //-   p Message 2
 
     .groupDiv(ng-repeat='group in groups')
       p(ng-init='currentGroup = group.requests.length')
@@ -17,6 +13,6 @@ include ../index
         a(href="groups/{{group._id}}/flashcards") Flashcards | 
         a(href="leave_group/{{group._id}}" ng-click='leaveGroup').grayed Leave Group
       span(ng-repeat="user in group.users")
-        img(src="{{user.image}}")
+        img(src="{{user.image}}" title="{{user.first_name}} {{user.last_name}}")
       hr.smaller.mainPage
           

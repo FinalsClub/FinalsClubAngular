@@ -4,17 +4,20 @@ var User = require('./models').User;
 var config = require('./oauth.js')
 
 var getUser = function(token, refreshToken, profile, done) {
+  
   User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
+    var saveUser = function(err) {
+      if (err) {throw err; } 
+      return done(null, user);              
+    };
+
     // if there is an error, stop everything and return that error
     if (err) { return done(err); }
 
     // if the user is found, then log them in
     if (user) {
       user.facebook.token = token;
-      user.save(function(err) {
-        if (err) {throw err; } 
-        return done(null, user);          
-      })
+      user.save(saveUser);
     } else {
       // if there is no user found with that facebook id, create them
       var newUser = new User();
@@ -27,17 +30,10 @@ var getUser = function(token, refreshToken, profile, done) {
       newUser.facebook.token = token; // we will save the token that facebook provides to the user                  
 
       // save our user to the database
-      newUser.save(function(err) {
-        if (err) { throw err; }
-        return done(null, newUser);
-      });
+      newUser.save(saveUser);
     } 
   });
 };
-
-var saveUser = function(err) {
-  
-}
 
 module.exports = passport.use(new FacebookStrategy({
    clientID: process.env.clientID || config.clientID,

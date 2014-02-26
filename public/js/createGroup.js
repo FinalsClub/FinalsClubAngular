@@ -1,5 +1,5 @@
-app.controller('createGroupController', ['$scope', 'createGroup', function($scope, createGroup){
-  $scope.intensities = ['low', 'medium', 'high'];
+app.controller('createGroupController', ['$scope', 'createGroup', 'INTENSITIES', function($scope, createGroup, INTENSITIES){
+  $scope.intensities = INTENSITIES;
   $scope.courses = [];
   $scope.group = {
     'name' : null,

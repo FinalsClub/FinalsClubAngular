@@ -1,4 +1,4 @@
-app.controller('SignUpController', ['$scope', 'signUp',  function($scope, signUp){
+app.controller('SignUpController', ['$scope', 'signUp', 'INTENSITIES', function($scope, signUp, INTENSITIES){
   $scope.newUser = {
     'phone_number' : null,
     'email' : null,
@@ -6,7 +6,7 @@ app.controller('SignUpController', ['$scope', 'signUp',  function($scope, signUp
     'intensity' : null
   };
   $scope.schools = [];
-  $scope.intensities = ['low', 'medium', 'high']; 
+  $scope.intensities = INTENSITIES; 
   $scope.submit = function() {
     signUp.createNewUser($scope.newUser);
   };

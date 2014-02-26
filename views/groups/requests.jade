@@ -2,6 +2,7 @@ include ../index
   .requestDiv(ng-controller='requestController' ng-init='requests = #{requests}')
     h1 Approve New Members
     hr
+    span.error(ng-show='error') You are already a member of the group.
     .requestGroupDiv(ng-repeat='request in requests')
       p 
         span.bold {{ request.user_id.first_name }} {{ request.user_id.last_name }} 
