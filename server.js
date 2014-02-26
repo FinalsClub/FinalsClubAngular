@@ -1,6 +1,4 @@
 
-//require dependencies
-
 var express = require('express');
 var models = require('./models');
 var passport = require('passport');

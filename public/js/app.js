@@ -1,11 +1,5 @@
-// write GET request for login page, dropdown menu /schools
-//// SEND JSON FOR POSTS
 
 var app = angular.module('app', []);
-
-/*
------------------------------CONTROLLERS----------------------------------------------------------------------------------
-*/
 
 app.controller('SignUpController', ['$scope', 'signUp',  function($scope, signUp){
   $scope.newUser = {
