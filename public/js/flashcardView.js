@@ -3,7 +3,7 @@ app.controller('flashcardController', ['$scope', '$timeout', function($scope, $t
   $scope.topic = null;
   $scope.flipped = false;
   $scope.currentCard = 0;
-  
+    
   $scope.configureText = function(counter, side) {
     if (counter === $scope.flashcards.length) {
       return;
@@ -24,23 +24,13 @@ app.controller('flashcardController', ['$scope', '$timeout', function($scope, $t
   };
   
   $scope.goBack = function() {
-    if ($scope.flipped) {
-      $scope.flip($scope.currentCard);
-    };
-    
-    if ($scope.currentCard > 0) {
-      $scope.currentCard--;
-    }
+    $scope.flipped && $scope.flip($scope.currentCard);
+    $scope.currentCard > 0 && $scope.currentCard--;
   };
   
   $scope.goForward = function() {
-    if ($scope.flipped) {
-      $scope.flip($scope.currentCard);
-    };
-
-    if ($scope.currentCard < $scope.flashcards.length-1) {
-      $scope.currentCard++;
-    }        
+    $scope.flipped && $scope.flip($scope.currentCard);
+    $scope.currentCard < $scope.flashcards.length-1 && $scope.currentCard++;
   };
   
   $scope.flip = function(index) {    
