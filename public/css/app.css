@@ -234,7 +234,7 @@ a:active .facebook{
   text-decoration: none;}
 
 .groupDiv {
-  width: 70%;
+  width: 100%;
 }
 
 .facebook {
@@ -557,6 +557,7 @@ hr.smaller {
 /*------------------------------- homepage --------------------------------- */
 .homepage {
   text-align: center;
+  margin-top: 10em;
 }
 
 h2.splashpageTitle {
@@ -566,9 +567,6 @@ h2.splashpageTitle {
   font-weight: 300;
   letter-spacing: 0.1em;
   position: relative;
-/*  border-bottom: 2px solid white;
-*/  margin-top: 2.5em;
-  left: 1em;
 }
 
 h3.splashpageTitle {
@@ -579,7 +577,6 @@ h3.splashpageTitle {
   font-weight: 300;
   letter-spacing: .35em;
   text-transform: uppercase;
-  left: 1em;
 }
 
 .splashpage {
@@ -590,8 +587,6 @@ h3.splashpageTitle {
   opacity: 0.8;
   border: 0;
   margin: 0.5em;
-  left: 1em;
-
 }
 
 .homepage a {
@@ -603,8 +598,6 @@ h3.splashpageTitle {
   color: white;
   position: relative;
   top: 2em;
-  left: 1.3em;
-
 }
 
 .homepage a:last-child .splashpage {
@@ -616,4 +609,8 @@ h3.splashpageTitle {
   background-repeat: no-repeat;
   overflow: hidden;
   background-position: center;
+}
+
+.emptyDiv {
+  height: 4em;
 }

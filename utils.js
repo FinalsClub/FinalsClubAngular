@@ -6,7 +6,7 @@ module.exports.isLoggedIn = function(req, res, next) {
     app.set('name', app.get('user').first_name + " " + app.get('user').last_name);
     return next();
   } else if (req.url === '/') {
-    return res.render('splashpage.jade');
+    return res.render('splashpage.jade', { empty: true });
   }
   res.send(401, "User must log in.");
   res.redirect('/log_in');
