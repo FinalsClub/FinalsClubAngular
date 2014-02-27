@@ -37,16 +37,14 @@ app.post('/leave_group', utils.isLoggedIn, function(req, res){
               user.save(function(){
                 models.Group.findOne({_id: req.body.group_id})
                             .exec(function(err, group){
-                                group.users.splice(group.users.indexOf(user._id));
+                                group.users.splice(group.users.indexOf(user._id), 1);
                                 group.save(function(){
-                                  console.log('HEYYTEHUITEAWHIOEWHEIOTW', group, user);
                                   res.send(201);
                                 });
                             });
               });
             });
 });
-
 
 app.post('/groups', utils.isLoggedIn, function(req, res){
   models.Course.findOne({name: req.body.course_id}).exec(function(err, course) {
@@ -114,22 +112,6 @@ app.post('/members', utils.isLoggedIn, function(req, res){
 });
 
 
-app.post('/leave_group', utils.isLoggedIn, function(req, res){
-  models.User.findOne({_id: app.get('user')._id })
-            .exec(function(err, user){
-              user.groups.splice(user.groups.indexOf(req.body.group_id), 1);
-              user.save(function(){
-                models.Group.findOne({_id: req.body.group_id})
-                            .exec(function(err, group){
-                                group.users.splice(group.users.indexOf(user._id));
-                                group.save(function(){
-                                  console.log("USER: ", user);
-                                  res.send(201)
-                                });
-                            })
-              });
-            })
-});
 
 app.post('/topics', utils.isLoggedIn, function(req, res){
   var topic = new models.Topic(req.body);
