@@ -7,7 +7,7 @@ include ../index
         td
           label Course affiliation*
         td
-          datalist(id="courseList")
+          datalist#courseList
             option(ng-repeat="course in courses" value="{{course.name}}")
           input(name="courseList" list="courseList", size='60' ng-model="group.course_id" value="" placeholder="Enter affiliated course (optional)" required)
       tr

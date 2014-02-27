@@ -179,7 +179,6 @@ header a {
 }
 
 .loginButton {
-  /*border: 0;*/
   width: 80%;
   height: 6em;
   text-transform: uppercase;
@@ -187,36 +186,33 @@ header a {
   margin-left: 10%;
   margin-right: 10%;
   margin-bottom: 0;
+}
   
-  /*background-color: #e8a200;*/
-  /*border:1em outset #FFDF5F;*/
-}
-.facebook2{
+p:last-child .facebook {
   background-color: #5C5C5C;
-  /*border:1em inset #333;*/
   border:0;
-
 }
-a:hover .facebook2{
+
+p:last-child .facebook:hover {
   background-color: #333;
 }
 
-a:active .facebook2 {
+p:last-child .facebook:active {
   background-color:#333;
   border: 1em inset #2F2F2F;
   text-decoration:none;
 }
 
-.facebook {
+p:nth-child(3) .facebook {
   background-color: #7D7DAF; 
   border: 0;
 }
 
-a:hover .facebook{
+p:nth-child(3) .facebook:hover {
   background-color: #4B4B69;
 }
 
-a:active .facebook{
+p:nth-child(3) .facebook:active {
   background-color:#4B4B69;
   border:1em inset #636378;
   text-decoration:none;
