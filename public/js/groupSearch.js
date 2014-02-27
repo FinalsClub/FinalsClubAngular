@@ -2,6 +2,7 @@ app.controller('findGroupController', ['$scope', '$http', '$rootScope', function
   $scope.groups = [];
   $scope.user_groups = [];
   $scope.location = window.location.search.split('=')[1]
+  $scope.error = false;
   $scope.request = {
     entry_answer : null,
     group_id : $scope.location,
@@ -46,6 +47,8 @@ app.controller('findGroupController', ['$scope', '$http', '$rootScope', function
     }).success(function() {
       window.location.href = '/';      
     }).error(function(err){
+      console.log("ERRRROORRRR")
+      $scope.error = true;
     });
   };
 }]);

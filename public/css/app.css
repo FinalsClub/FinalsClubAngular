@@ -326,7 +326,10 @@ hr.smaller {
 }
 
 .error {
-  color: red;
+  color: #B60202;
+  background-color: #FFC0CB;
+  padding: 1%;
+  margin-bottom: 1em;
 }
 
 /*-------------------GROUP SEARCH-------------------------*/

@@ -1,5 +1,6 @@
 include ../index
   .joinDiv(ng-controller="findGroupController")
+    .error(ng-show="error") You are already in this group.
     h1 Request to join group: #{group.name}
     form
       p 
