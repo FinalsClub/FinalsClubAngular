@@ -24,25 +24,16 @@ app.get('/groups/new', utils.isLoggedIn, function(req, res) {
               })
 });
 
-app.get('/groups/search', function(req, res) {
+app.get('/groups/search', utils.isLoggedIn, function(req, res) {
   models.Group.find()
               .populate('users course_id')
               .exec(function(err, groups) {
-                if (app.get('user')) {
                   res.render('groups/find-group.jade', {
                     user: app.get('name'),
                     image: app.get('user').image,
                     user_groups: req.user.groups,
                     groups: JSON.stringify(groups)
                   });    
-                } else {
-                   res.render('groups/find-group.jade', {
-                    user: null,
-                    image: null,
-                    user_groups: null,
-                    groups: JSON.stringify(groups)
-                  });     
-                }
               });    
 });
 
