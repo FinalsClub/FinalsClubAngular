@@ -1,7 +1,6 @@
 include ../index
   .groups(ng-controller='allGroupsViewController' ng-init='groups= #{groups}')
     h1 My Groups
-    h2.gray Next Meeting: 
     hr
 
     .groupDiv(ng-repeat='group in groups')
