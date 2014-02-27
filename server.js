@@ -40,8 +40,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.session({
-  secret: process.env.CLIENT_SECRET  || 'cats4life',
-  store: redis.sessionStore
+  secret: process.env.CLIENT_SECRET  || 'cats4life'
 }));
 app.use(passport.initialize())
 app.use(passport.session());
