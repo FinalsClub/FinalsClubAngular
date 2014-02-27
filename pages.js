@@ -2,27 +2,15 @@ var models = require('./models');
 var utils = require('./utils');
 
 app.get('/', utils.isLoggedIn, function(req, res) {  
-  models.Group.findOne({_id: 0}).exec(function(err, group) {
-    group.hidden = false;
-    group.save(function() {
-      models.Group.findOne({_id: 1}).exec(function(err, group2) {
-        group2.hidden = false;
-        group2.save(function() {
-          res.send(200);
-        });
-      });
-    });
-  });
-
-  // models.Group.find({_id: {$in: app.get('user').groups}})
-  //             .populate('users')
-  //             .exec(function(err, groups) {
-  //               res.render('groups/groups.jade', {
-  //                 user: app.get('name'),
-  //                 image: app.get('user').image,
-  //                 groups: JSON.stringify(groups)
-  //               });                
-  //             });
+  models.Group.find({_id: {$in: app.get('user').groups}})
+              .populate('users')
+              .exec(function(err, groups) {
+                res.render('groups/groups.jade', {
+                  user: app.get('name'),
+                  image: app.get('user').image,
+                  groups: JSON.stringify(groups)
+                });                
+              });
 });
 
 app.get('/groups/new', utils.isLoggedIn, function(req, res) {
