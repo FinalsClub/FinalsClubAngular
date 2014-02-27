@@ -3,7 +3,8 @@ app.controller('topicController', ['$scope', '$http', function($scope, $http){
   $scope.topic = {
     topic_date : null,
     title : null,
-    group_id : window.location.pathname.split('/')[2]
+    group_id : window.location.pathname.split('/')[2],
+    pads: []
   };
   
   $scope.submitTopic= function(){
