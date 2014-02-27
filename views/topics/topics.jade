@@ -1,0 +1,11 @@
+include ../index
+  .mainTopicDiv(ng-controller='topicController' ng-init='topics=#{topics}')
+    h1 #{group_name}
+    if JSON.parse(topics).length
+      a.grayed(href='/groups/#{group_id}/topics/new') Create a new topic
+      .topicDiv(ng-repeat='topic in topics')
+        a.flashcard(href='/groups/#{group_id}/flashcards/{{topic._id}}' ) {{ topic.title }}
+    else
+      p You don't have any topics yet!
+      a.button(href='/groups/#{group_id}/topics/new') Create a new topic
+      
