@@ -1,0 +1,30 @@
+include ../index
+  .groups(ng-controller='allGroupsViewController' ng-init='groups= #{groups}')
+    h1 My Groups
+    hr
+    .groupDiv(ng-repeat='group in groups')
+      .dateChecker(ng-if="dateExists(group)")
+        .meetingDate.gray
+          ul
+            li
+              span Next meeting: 
+            li
+              a(href="groups/{{group._id}}/edit") {{ group.next_meeting | date: 'mediumDate' }}
+      .dateChecker(ng-if="!dateExists(group)")
+        .meetingDate.gray
+          ul
+            li
+              span No meeting set
+            li
+              a(href="groups/{{group._id}}/edit") Edit
+      p(ng-init='currentGroup = group.requests.length')
+        a(href="/groups/{{group._id}}/requests" ng-show='currentGroup > 0')
+          span.requests {{group.requests.length}} new member requests
+      h2 {{ group.name }}
+      .groupNav
+        a(href="groups/{{group._id}}/flashcards") Flashcards |  
+        a.grayed(href="groups/{{group._id}}/edit") Edit group
+      span(ng-repeat="user in group.users")
+        img(src="{{user.image}}" title="{{user.first_name}} {{user.last_name}}")
+      hr.smaller.mainPage
+          

@@ -1,3 +1,623 @@
+
+/*-------------------GENERAL ELEMENTS-------------------------*/
+
+html, body {
+  height: 100%;
+  margin: 0; }
+
+body {
+  background-position: 20% 0; }
+
+::-moz-selection {
+  background: #44a1dd;
+  color: #fff;
+  text-shadow: none; }
+
+::selection {
+  background: #44a1dd;
+  color: #fff;
+  text-shadow: none; }
+
 h1 {
-  color: blue;
+  padding:0;
+  margin: 0;
+  text-align: left;
+  position: relative;
+  font-size: 1.5em;
+  font-weight: 300;
+  text-transform: uppercase; }
+
+h2 {
+  margin: 1% 0;
 }
+
+h3 {
+  text-align: center;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+p {
+  color: #444; }
+
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: normal;}
+
+a:hover {
+  color: #e8a200; }
+
+span {
+  margin: 5px;
+  margin-left: 0;
+}
+
+li {
+  list-style: none; 
+  line-height: 160%;
+}
+  
+img {
+  max-width: 100%; }
+
+input[type='button']{
+  cursor: pointer;
+}
+
+button, .button, input[type='submit'] {
+  cursor: pointer;
+  padding: 0.375em 1em;
+  border: 0;
+  background-color: #333;
+  border: 1px solid #000;
+  color: #fff;
+  height: 2em; 
+  font-size: 1.1em;
+  margin-top: 20px;
+  margin-bottom: 20px; }
+  
+hr {
+  width: 100%;
+}
+
+/*-------------------MASTHEAD AND LAYOUT ELEMENTS-------------------------*/
+
+#masthead {
+  background-color: #262626; 
+}
+
+.wrapper, .contentWrapper {
+  font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.contentWrapper {
+  margin-top: 2.3em;
+  padding-bottom: 5em;
+
+}
+
+#masthead .wrapper {
+  border-bottom: 5px solid #e8a200; 
+}
+
+header a {
+  text-decoration: none;
+  font-weight: normal;
+  color: #e8a200; }
+
+#login-nav a.username {
+  color: white; 
+}
+
+
+#login-nav {
+  font-family: sans-serif;
+  min-height: 5%;
+  background-color: #262626;
+  width: 100%;
+  padding-top: 0.25em;
+  padding-right: 2em;
+  text-align: right; 
+}
+
+#login-nav ul {
+  margin-bottom: 0;
+  margin-right: 1em;
+}
+#login-nav ul li {
+  display: inline-block;
+  font-size: 0.9em;
+  line-height: 120%;
+}
+
+#login-nav p {
+  padding: 0;
+  margin: 0;
+  margin-right: 1em;
+}
+
+#login-nav a {
+  padding: 0 1.2gem;
+  color: #ffcd58; 
+}
+
+#logo {
+  float: left;
+  position: relative;
+  bottom: 2.4em;}
+
+#main-nav {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  float: right;
+  padding: 0 0.75em; 
+  position: relative;
+  bottom: 2em; }
+
+#main-nav li {
+  display: inline;
+  vertical-align: middle; }
+
+#main-nav a {
+  position: relative;
+  margin-left: 1.5em;
+  color: #fff; 
+  font-size: 1.2em; }
+
+#main-nav a:hover {
+  color: #e8a200; }
+
+.signupDiv {
+  margin-top: 3em;
+}
+
+.loginOptions {
+  margin: 0.75em;
+}
+
+.loginButton {
+  width: 80%;
+  height: 6em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 0;
+}
+  
+p:last-child .facebook {
+  background-color: #5C5C5C;
+  border:0;
+}
+
+p:last-child .facebook:hover {
+  background-color: #333;
+}
+
+p:last-child .facebook:active {
+  background-color:#333;
+  border: 1em inset #2F2F2F;
+  text-decoration:none;
+}
+
+p:nth-child(3) .facebook {
+  background-color: #7D7DAF; 
+  border: 0;
+}
+
+p:nth-child(3) .facebook:hover {
+  background-color: #4B4B69;
+}
+
+p:nth-child(3) .facebook:active {
+  background-color:#4B4B69;
+  border:1em inset #636378;
+  text-decoration:none;
+}
+
+/*-------------------HOMEPAGE ELEMENTS-------------------------*/
+
+.groupNav {
+  padding-top: 0;
+  padding-bottom: 1em; }
+
+.groupNav a {
+  color: gray;
+  font-weight: bold;
+  text-decoration: none;}
+
+.groupDiv {
+  width: 100%;
+}
+
+.facebook {
+  background-color: #7D7DAF; }
+
+.communicationsDiv {
+  width: 35%;  
+  float: right;
+  background-color: #E9EAEB;
+  padding: 0.5em;
+  min-height: 400px;
+}
+
+hr.smaller.mainPage {
+  width: 100%;
+}
+
+.meetingDate a {
+  float: right;
+}
+.meetingDate li {
+  text-align: right;
+}
+/*-------------------FORM ELEMENTS-------------------------*/
+
+input:focus, select:focus, textarea:focus, button:focus {
+    outline: none; }
+
+table {
+  margin-top: 20px; }
+
+input {
+  height: 3em;
+  padding-left: 1%;
+  font-size: 0.75em;
+  border: 1px solid #D8D8D8;
+  background-color: #e3e3e3; }
+
+.input_error {
+  color: #D8D8D8;
+  margin-left: 0.75em;
+  font-size: 0.75em; }
+
+textarea {
+  border-radius: 0; }
+
+td {
+  padding-bottom: 20px; }
+
+label {
+  font-weight: 400;
+  font-size: 1em; }
+
+.selectField {
+  border: 1 solid #e3e3e3;
+  width: 100%;
+  height: 2em;
+  border-radius: 0;
+  padding-left: 1.2em;
+  -webkit-appearance: none;
+}
+
+/*-------------------CUSTOM CLASSES-------------------------*/
+
+.bold {
+  font-weight: bold;
+}
+
+.gray {
+  color: gray; 
+  float: right;
+  font-weight: normal;
+  position: relative;
+  bottom: 1em;
+  margin: 0;
+}
+  
+.grayed {
+  color: gray;
+  font-size: 0.75em;
+}
+
+.requests {
+  padding: 0.5em;
+  background-color: #F3DD37;
+  float: right;}
+
+.requests.find {
+  left: -3em;
+}
+
+hr.smaller {
+  width: 98%;
+  border: thin solid #D8D8D8;
+}
+
+.error {
+  color: #B60202;
+  background-color: #FFC0CB;
+  padding: 1%;
+  margin-bottom: 1em;
+}
+
+/*-------------------GROUP SEARCH-------------------------*/
+  
+input[name='search_for_group'] {
+  width: 100%;
+}
+
+.findGroupBox{
+  border: 1px solid #D8D8D8;
+  min-height: 10em;
+  max-height: 30em;
+  overflow: scroll;
+  padding-bottom: 2em;
+}
+
+.findGroupBox input[type='button'] {
+  position: relative;
+  bottom: 1em;
+} 
+
+/*-------------------REQUESTS-------------------------*/
+
+
+.approveMember {
+  zoom: 1.5;
+}
+
+.entry {
+  float: left;
+  position: relative;
+  padding: 1em;
+  bottom: 2em;
+}
+
+.entry_answer {
+  position: relative;
+  bottom: 2em;
+  padding: 0 1em;
+}
+
+.ignore {
+  float: right;
+  position: relative;
+  bottom: 3em;
+  color: gray;
+}
+
+/*-------------------FLASHCARD PAGES-------------------------*/
+
+.flashcard {
+  position: relative;
+  float: left;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-weight: bold;
+  width: 16em;
+  height: 9em;
+  line-height: 9em;
+  margin-right: 3%;
+  margin-top: 2%;
+  -moz-box-shadow: 0 0 10px 2px #D8D8D8;
+  -webkit-box-shadow: 0 0 10px 2px #ddd;
+}
+
+.allFlashcardsDiv {
+  -webkit-perspective: 1000;  
+}
+
+.flashcardDiv {
+  height: 60%;
+  position: relative;
+  bottom: 5em;
+  margin: 0 auto;
+  border: 1px solid gray;
+  box-shadow: 2px 2px 2px #000;
+  width: 80%;
+  -webkit-transform-style: preserve-3d;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+
+.animated {
+  -webkit-transform: rotateX(180deg);
+}
+
+.face {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+}
+
+.front, .back {
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  overflow: scroll;
+}
+
+.back {
+  -webkit-transform: rotateX(180deg);
+}
+
+.front p, .back p {
+  padding: 10px;
+}
+
+.big {
+  margin-top: 25%;
+  font-size: 3em;
+}
+
+.medium {
+  margin-top: 20%;
+  font-size: 2em;
+}
+
+.small {
+  margin-top: 5%;
+  font-size: 1.5em;
+}
+
+.leftArrow, .rightArrow {
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.leftArrow {
+  position: relative;
+  top: 11em;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-right: 50px solid yellow;
+}
+
+.rightArrow {
+  float: right;
+  position: relative;
+  top: 5em;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-left: 50px solid yellow;
+}
+
+.shareDivWrapper {
+  text-align: center;
+}
+
+
+.shareDiv span {
+  margin: 5px;
+  font-size: 0.75em;
+  font-weight: normal;
+  color: green;
+  display: none;
+}
+
+
+#removeButton {
+  color: gray;
+  border: 0;
+  margin-top: -13em;
+  background-color: #fff;
+}
+
+.editTerm, .editDef {
+  border: 1px solid #666;
+  padding: 1em;
+  width: 35%;
+  height: 20%;
+}
+
+.editDef {
+  border-left: 0;
+  background-color: #d8d8d8;
+}
+
+
+#editors {
+  background-color: #EDF1F1;
+  padding: 1%;
+  width: 20%;
+  position: absolute;
+  left: 108%;
+  bottom: 90%;
+}
+
+/*------------------------------- lightbox--------------------------------- */
+.black_overlay{
+  display: block;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index:1;
+  -moz-opacity: 0.7;
+  opacity:.70;
+  filter: alpha(opacity=70);
+}
+ 
+.white_content {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  padding: 16px;
+  background-color: white;
+  z-index:2;
+  overflow: auto;
+}
+
+.lightboxButton {
+  background-color: #ddd;
+  font-size: 0.75em;
+  border: 0;
+  color: #666;
+}
+
+.block {
+  display: block;
+}
+
+
+/*------------------------------- homepage --------------------------------- */
+.homepage {
+  text-align: center;
+  margin-top: 10em;
+}
+
+h2.splashpageTitle {
+  text-align: center;
+  color: white;
+  font-size: 4em;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  position: relative;
+}
+
+h3.splashpageTitle {
+  font-size: 1em;
+  color: white;
+  position: relative;
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+}
+
+.splashpage {
+  position: relative;
+  top: 2em;
+  margin-left: 0 auto;
+  background-color: #7D7DAF;
+  opacity: 0.8;
+  border: 0;
+  margin: 0.5em;
+}
+
+.homepage a {
+  display: inline-block;
+  line-height: 60%;
+}
+
+.homepage span {
+  color: white;
+  position: relative;
+  top: 2em;
+}
+
+.homepage a:last-child .splashpage {
+  background-color: gray;
+}
+
+.homepageImage {
+  background-image: url("../img/homepage4.png");
+  background-repeat: no-repeat;
+  overflow: hidden;
+  background-position: center;
+}
+
+.emptyDiv {
+  height: 4em;
+}
+

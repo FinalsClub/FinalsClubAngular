@@ -1,54 +1,53 @@
-doctype html
 html(lang="en" ng-app='app')
   head
     title Finals Club
-    link(type="text/css" rel="stylesheet" href="/css/fonts.css")      
-    link(type="text/css" rel="stylesheet" href="/css/style.css")      
-
-    script(src="/bower_components/angular/angular.js") 
-    script(src="/bower_components/angular-route/angular-route.js") 
+    link(type="text/css" rel="stylesheet" href="/css/app.css")      
     script(src="/bower_components/jquery/dist/jquery.min.js") 
+    script(src="/bower_components/angular/angular.min.js") 
+    script(src="/bower_components/jquery/dist/jquery.min.js") 
+    script(src="/bower_components/angular-route/angular-route.min.js") 
+    script(src="/browserchannel/dist/bcsocket.js") 
+    script(src="/share/webclient/share.js") 
+    script(src="/share/webclient/textarea.js") 
     script(src="/js/app.js")
-
-  body
-    header#g-masthead
-      .wrapper
-        nav#g-nav-user
-          ul
-            //- li.first
-            //-   a(href="#").username
-            li
-              a(href="/sign_up")#register_link Sign Up
-            li.last
-              a(href="/log_in")#login_link Log in
-        #g-logo
-          a(href='/')
-            img(src='/img/logo-light.png' alt='Finals Club - social note taking')#logo 
-          //- .loginstatus
-          //-   - if( user && user.loggedIn )
-          //-     | Currently logged in as 
-          //-     span.username
-          //-       | !{ user.displayName || user.name }
-          //-   - else
-          //-     | &nbsp;
-          
-          nav#g-nav-main
+    script(src="/js/masthead.js")    
+    script(src="/js/approveRequest.js")
+    script(src="/js/createGroup.js")
+    script(src="/js/editGroup.js")
+    script(src="/js/editFlashcards.js")
+    script(src="/js/flashcardView.js")
+    script(src="/js/groupSearch.js")
+    script(src="/js/groupsView.js")
+    script(src="/js/homepage.js")
+    script(src="/js/signUp.js")
+    script(src="/js/topicsView.js")
+  body(ng-controller="indexController" ng-class="homepage")
+    header#masthead
+      nav#login-nav
+          if user
             ul
               li
-                a(href="/schools")#school_link Groups
-                //- span.icon(alt="paperclip") 
+                p
+                  a(href="#").username #{user}
+                p
+                  a(href="/log_out") Log out 
+              li.facebook-picture
+                img(src='#{image}' width='50px' height='50px')
+          else if empty
+            .emptyDiv
+          else
+            .signupDiv
+            ul
               li
-                a(href="http://blog.finalsclub.org")#blog_link Blog
-                  //- span.icon(alt="align-lines")
-              //- li
-              //-   a(href="/archive")#archive_link.nav
-              //-     span.icon(alt="book") Library
-          hr#g-masthead-hr
-    #topofcontent
-      .wrapper
-        #messages.page
-          span#PROTO_message.__type__ __msg__
-      #g-page
-        .wrapper  
-    div(ng-view='')
-
+                a.loginOptions(href="/log_in") Sign Up 
+              li
+                a.loginOptions(href="/log_in") Log in
+        .wrapper
+          a(href='/')
+            img(src='/img/logo.png' alt='Finals Club - social note taking' width='312px' height='39px')#logo
+          nav#main-nav
+            a(href="/groups/search") Find Groups
+            a(href="/groups/new") Create a Group
+    .fadingWrapper.black_overlay#fade(ng-show="lightbox")
+    .contentWrapper
+      =yield

@@ -1,0 +1,17 @@
+include ../index
+  .requestDiv(ng-controller='requestController' ng-init='requests = #{requests}')
+    h1 Approve New Members
+    hr
+    span.error(ng-show='error') You are already a member of the group.
+    .requestGroupDiv(ng-repeat='request in requests')
+      p 
+        span.bold {{ request.user_id.first_name }} {{ request.user_id.last_name }} 
+        span wants to join 
+        span.bold {{ request.group_id.name }} 
+        p
+          img(src="{{request.user_id.image}}").approveMember
+          span.entry_answer {{ request.entry_answer }}
+          a.requests(href="" ng-click='approve(request.user_id._id, request._id)') Approve Member        
+        a(href="" ng-click="ignoreRequest(request._id)").ignore Ignore
+        span.grayed {{ request.created_at | date: 'medium'}}  
+      hr.smaller
