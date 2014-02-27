@@ -8,7 +8,8 @@ app.get('/', utils.isLoggedIn, function(req, res) {
                 res.render('groups/groups.jade', {
                   user: app.get('name'),
                   image: app.get('user').image,
-                  groups: JSON.stringify(groups)
+                  groups: JSON.stringify(groups),
+                  user_token: app.get('user').facebook.token
                 });                
               });
 });
@@ -19,7 +20,8 @@ app.get('/groups/new', utils.isLoggedIn, function(req, res) {
                 res.render('groups/create-group.jade', {
                   user: app.get('name'),
                   image: app.get('user').image,
-                  courses: JSON.stringify(courses)
+                  courses: JSON.stringify(courses),
+                  user_token: app.get('user').facebook.token
                 });
               })
 });
@@ -33,7 +35,9 @@ app.get('/groups/search', utils.isLoggedIn, function(req, res) {
                     user_id: app.get('user')._id,
                     image: app.get('user').image,
                     user_groups: req.user.groups,
-                    groups: JSON.stringify(groups)
+                    groups: JSON.stringify(groups),
+                    user_token: app.get('user').facebook.token
+
                   });    
               });    
 });
@@ -43,7 +47,8 @@ app.get('/join_group', utils.isLoggedIn, function(req, res) {
     res.render('groups/join-group.jade', {
       user: app.get('name'),
       image: app.get('user').image,
-      group: group
+      group: group,
+      user_token: app.get('user').facebook.token
     });    
   });  
 }); 
@@ -55,7 +60,8 @@ app.get('/groups/:group_id/requests', utils.isLoggedIn, utils.isGroupMember, fun
                   res.render('groups/requests.jade', {
                     user: app.get('name'),
                     image: app.get('user').image,
-                    requests: JSON.stringify(requests)
+                    requests: JSON.stringify(requests),
+                    user_token: app.get('user').facebook.token                  
                   });               
                 });        
 });
@@ -72,7 +78,8 @@ app.get('/groups/:group_id/flashcards', utils.isLoggedIn, utils.isGroupMember, f
                     image: app.get('user').image,
                     group_name: group.name,
                     group_id: group._id,
-                    topics: JSON.stringify(group.topics)
+                    topics: JSON.stringify(group.topics),
+                    user_token: app.get('user').facebook.token
                   });                                 
                 }
               });
@@ -83,7 +90,8 @@ app.get('/groups/:group_id/topics/new', utils.isLoggedIn, utils.isGroupMember, f
     res.render('topics/topics_new.jade', {
       user: app.get('name'),
       image: app.get('user').image,
-      group: group.name
+      group: group.name,
+      user_token: app.get('user').facebook.token
     });               
   });
 });
@@ -98,7 +106,8 @@ app.get('/groups/:group_id/flashcards/:topic_id', utils.isLoggedIn, utils.isGrou
                     group_name: topic.group_id.name,
                     group_id: topic.group_id._id,
                     topic: JSON.stringify(topic),
-                    flashcards: JSON.stringify(topic.flashcards)
+                    flashcards: JSON.stringify(topic.flashcards),
+                    user_token: app.get('user').facebook.token                  
                   });               
                 });
 });
@@ -113,7 +122,8 @@ app.get('/groups/:group_id/flashcards/:topic_id/edit', utils.isLoggedIn, utils.i
             group_name: topic.group_id.name,
             topic: JSON.stringify(topic),
             flashcards: JSON.stringify(topic.flashcards),
-            pads: JSON.stringify(topic.pads)
+            pads: JSON.stringify(topic.pads),
+            user_token: app.get('user').facebook.token            
           });
         });
 });
@@ -124,7 +134,8 @@ app.get('/groups/:group_id/edit', utils.isLoggedIn, utils.isGroupMember, functio
                 res.render('groups/edit-group.jade', {
                   user: app.get('name'),
                   image: app.get('user').image,
-                  group: JSON.stringify(group)                
+                  group: JSON.stringify(group),
+                  user_token: app.get('user').facebook.token
                 });
               });
 });

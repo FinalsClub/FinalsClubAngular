@@ -30,7 +30,7 @@ html(lang="en" ng-app='app')
                 p
                   a(href="#").username #{user}
                 p
-                  a(href="/log_out") Log out 
+                  a(href="http://www.facebook.com/logout.php?confirm=1&next={{host}}/log_out&access_token=#{user_token}") Log out 
               li.facebook-picture
                 img(src='#{image}' width='50px' height='50px')
           else if empty

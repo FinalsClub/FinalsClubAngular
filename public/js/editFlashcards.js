@@ -45,7 +45,6 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   };
     
   $scope.openConnections = function(index, iterating) {
-    debugger;
     var termID = $scope.topic._id + "-pad" + $scope.padIDs[index] + "-term";
     var termElem = document.getElementById(termID);
     // connect to the share js server
