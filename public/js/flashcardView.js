@@ -11,7 +11,7 @@ app.controller('flashcardController', ['$scope', '$timeout', function($scope, $t
     var el = angular.element('#div-' + counter + " " + side + ' p');
     
     if (el.data('length') < 60) {
-      el.addClass('big');
+      el.addClass('big'); 
     } else if (el.data('length') < 200) {
       el.addClass('medium');
     } else {

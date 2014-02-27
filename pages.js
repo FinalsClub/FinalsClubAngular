@@ -2,6 +2,7 @@ var models = require('./models');
 var utils = require('./utils');
 
 app.get('/', utils.isLoggedIn, function(req, res) {  
+
   models.Group.find({_id: {$in: app.get('user').groups}})
               .populate('users')
               .exec(function(err, groups) {
@@ -112,7 +113,8 @@ app.get('/groups/:group_id/flashcards/:topic_id/edit', utils.isLoggedIn, utils.i
             image: app.get('user').image,
             group_name: topic.group_id.name,
             topic: JSON.stringify(topic),
-            flashcards: JSON.stringify(topic.flashcards)
+            flashcards: JSON.stringify(topic.flashcards),
+            pads: JSON.stringify(topic.pads)
           });
         });
 });

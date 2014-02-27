@@ -79,7 +79,8 @@ var topicSchema = mongoose.Schema({
   title: String,
   topic_date: Date,
   updated_at: Date,
-  flashcards: []
+  flashcards: [],
+  pads: []
 });
 
 topicSchema.plugin(autoIncrement.plugin, 'Topic');

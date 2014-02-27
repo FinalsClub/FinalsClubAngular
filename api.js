@@ -24,7 +24,6 @@ app.put('/sign_up', utils.isLoggedIn, function(req, res){
     user.intensity = req.body.intensity;
     
     user.save(function(err, user){
-      console.log(user);
       res.send(200);
     });
   });
@@ -99,7 +98,6 @@ app.post('/requests', utils.isLoggedIn, function(req, res){
       models.Group.findOne({_id : request.group_id})
                   .exec(function(err, group){
                     group.requests.push(request._id);
-                    console.log("Request: ", request);
                     group.save(function() {
                       res.send(201);                    
                     });
@@ -151,8 +149,6 @@ app.post('/topics', utils.isLoggedIn, function(req, res){
                 .exec(function(err, group){
                   group.topics.push(topic._id);
                   group.save(function(){
-                    console.log('NEW TOPIC: ', topic)
-                    console.log('GROUP: ', group)
                     res.send(201);
                   });
                 });
@@ -161,10 +157,9 @@ app.post('/topics', utils.isLoggedIn, function(req, res){
 
 app.put('/topics', utils.isLoggedIn, function(req, res) {
   models.Topic.findOne({_id: req.body.topic_id}).exec(function(err, topic) {
-    console.log("CARDS: ", req.body.cards);
     topic.flashcards = req.body.cards;
+    topic.pads = req.body.pads;
     topic.save(function() {
-      console.log("EDITED TOPIC: ", JSON.stringify(topic.flashcards));
       res.send(200);
     });
   });

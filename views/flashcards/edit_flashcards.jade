@@ -1,7 +1,7 @@
 include ../index
   h1 #{group_name}
   hr
-  .shareDiv(ng-controller="shareController" ng-init="flashcards = #{flashcards}; topic = #{topic}")
+  .shareDiv(ng-controller="shareController" ng-init="padIDs = #{pads}; topic = #{topic}")
     a.requests(href="#" ng-click="addFlashcard()") + Add flashcard
     h3 {{topic.title}}
       span Saved!
@@ -9,10 +9,10 @@ include ../index
     #editors(data-user="#{user}")
     p
     .shareDivWrapper
-      .flashcardPad(ng-repeat="flashcard in flashcards")  
-        .cardPads(id="{{topic._id}}-pad{{$index}}")
-          textarea.editTerm(id="{{topic._id}}-pad{{$index}}-term" placeholder="Enter term here..." ng-keydown="addRow($event, $index)")
-          textarea.editDef(id="{{topic._id}}-pad{{$index}}-def" placeholder="Enter definition here..." ng-keydown="addRow($event, $index)")
+      .flashcardPad(ng-repeat="flashcard in padIDs")  
+        .cardPads(id="{{topic._id}}-pad{{padIDs[$index]}}")
+          textarea.editTerm(id="{{topic._id}}-pad{{padIDs[$index]}}-term" placeholder="Enter term here..." ng-keydown="addRow($event, $index, 'term')")
+          textarea.editDef(id="{{topic._id}}-pad{{padIDs[$index]}}-def" placeholder="Enter definition here..." ng-keydown="addRow($event, $index, 'def')")
           button(ng-click="removeFlashcard($index)" id='removeButton') x
       button(ng-click="saveText()") Save Flashcards
     a(href="/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/") See flashcards

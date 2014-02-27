@@ -1,10 +1,10 @@
 app.controller('shareController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
-  $scope.flashcards = [];
   $scope.pads = [];
+  $scope.padIDs = [];
   $scope.topic = null;
     
   $scope.createPads = function(counter) {
-    if (counter === $scope.flashcards.length) {
+    if (counter === $scope.padIDs.length) {
       return;
     }
     $scope.openConnections(counter, true);
@@ -43,7 +43,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   };
     
   $scope.openConnections = function(index, iterating) {
-    var termID = $scope.topic._id + "-pad" + index + "-term";
+    var termID = $scope.topic._id + "-pad" + $scope.padIDs[index] + "-term";
     var termElem = document.getElementById(termID);
     // connect to the share js server
     var connection = sharejs.open(termID, 'text', function(error, doc) {
@@ -54,7 +54,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
             $scope.pads.push(doc);
             doc.attach_textarea(termElem);
             
-            var defID = $scope.topic._id + "-pad" + index + "-def";
+            var defID = $scope.topic._id + "-pad" + $scope.padIDs[index] + "-def";
             var defElem = document.getElementById(defID);
 
             // connect to the share js server
@@ -81,7 +81,8 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     }
     var body = {
       topic_id:  $scope.topic._id,
-      cards: cards
+      cards: cards,
+      pads: $scope.padIDs
     };
     $http({
       method: 'PUT',
@@ -93,20 +94,25 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   };
     
   $scope.addFlashcard = function() {    
-    $scope.flashcards.push({term: "", definition: ""});   
-    $timeout($scope.openConnections.bind(null,$scope.flashcards.length-1, false), 1000);
+    $scope.padIDs.push($scope.padIDs[$scope.padIDs.length-1] + 1);
+    debugger;
+    $timeout($scope.openConnections.bind(null,$scope.padIDs.length-1, false), 1000);
   };
   
-  $scope.addRow = function(event, index) {
-    event.keyCode === 9 && index === $scope.flashcards.length - 1 && $scope.addFlashcard();
+  $scope.addRow = function(event, index, side) {
+    event.keyCode === 9 && index === $scope.padIDs.length - 1 && side === 'def' && $scope.addFlashcard();
   };
   
   $scope.removeFlashcard = function(index){
-    var flashcardDivToRemove = $scope.topic._id + '-pad' + index;
+    var flashcardDivToRemove = $scope.topic._id + '-pad' + $scope.padIDs[index];
     angular.element(document.getElementById(flashcardDivToRemove)).remove();
-    $scope.flashcards.splice(index, 1);
-    $scope.pads.splice(index*2, 2);
-    $scope.saveText();
+    $scope.pads[index*2].close(function() {
+      $scope.pads[index*2 + 1].close(function() {
+        $scope.pads.splice(index*2, 2);
+        $scope.padIDs.splice(index, 1);
+        $scope.saveText();              
+      });
+    });
   };
   
   $scope.syncDB = function() {
@@ -114,9 +120,9 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
       method: 'GET',
       url: '/topics?id=' + $scope.topic._id
     }).success(function(data) {
-      if (data.flashcards.length > $scope.flashcards.length) {
+      if (data.flashcards.length > $scope.padIDs.length) {
         $scope.addFlashcard();
-      } else if (data.flashcards.length < $scope.flashcards.length) {
+      } else if (data.flashcards.length < $scope.padIDs.length) {
         window.onbeforeunload = null;
         window.location.reload();
       }
