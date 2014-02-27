@@ -4,6 +4,21 @@ include ../index
     hr
 
     .groupDiv(ng-repeat='group in groups')
+      .dateChecker(ng-if="dateExists(group)")
+        .meetingDate.gray
+          ul
+            li
+              span Next meeting: 
+            li
+              a(href="groups/{{group._id}}/edit") 
+                {{ group.next_meeting | date: 'mediumDate' }}
+      .dateChecker(ng-if="!dateExists(group)")
+        .meetingDate.gray
+          ul
+            li
+              span No meeting set
+            li
+              a(href="groups/{{group._id}}/edit") Edit
       p(ng-init='currentGroup = group.requests.length')
         a(href="/groups/{{group._id}}/requests" ng-show='currentGroup > 0')
           span.requests {{group.requests.length}} new member requests

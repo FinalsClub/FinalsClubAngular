@@ -252,6 +252,12 @@ hr.smaller.mainPage {
   width: 100%;
 }
 
+.meetingDate a {
+  float: right;
+}
+.meetingDate li {
+  text-align: right;
+}
 /*-------------------FORM ELEMENTS-------------------------*/
 
 input:focus, select:focus, textarea:focus, button:focus {
@@ -617,3 +623,4 @@ h3.splashpageTitle {
 .emptyDiv {
   height: 4em;
 }
+

@@ -127,3 +127,13 @@ app.get('/groups/:group_id/flashcards/:topic_id/edit', utils.isLoggedIn, utils.i
         });
 });
 
+app.get('/groups/:group_id/edit', utils.isLoggedIn, utils.isGroupMember, function(req, res) {
+  models.Group.findOne({_id: req.params.group_id})
+              .exec(function(err, group){
+                res.render('groups/edit-group.jade', {
+                  user: app.get('name'),
+                  image: app.get('user').image,
+                  group: JSON.stringify(group)                
+                });
+              });
+});

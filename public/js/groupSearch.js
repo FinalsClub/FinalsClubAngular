@@ -52,15 +52,3 @@ app.controller('findGroupController', ['$scope', '$http', '$rootScope', function
     });
   };
 }]);
-
-app.directive('ngIf', function(){
-  return {
-    link: function(scope, element, attrs){
-       if(scope.$eval(attrs.ngIf)) {
-        element.replaceWith(element.children())
-      } else {
-        element.replaceWith(' ')
-      }
-    }
-  }
-})

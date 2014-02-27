@@ -23,5 +23,10 @@ app.controller('allGroupsViewController', [ '$scope', '$http', function($scope, 
       }).error(function(data){
         console.log('error in deleting group: ', data)
       });
-    };
+  };
+    
+  $scope.dateExists = function(group){
+    return group.next_meeting ? true : false;
+  };
+
 }]);

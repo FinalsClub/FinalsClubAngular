@@ -64,6 +64,15 @@ app.post('/groups', utils.isLoggedIn, function(req, res){
  });             
 });
 
+app.put('/groups/:group_id', utils.isLoggedIn, utils.isGroupMember, function(req, res){
+  models.Group.findOne({_id: req.params.group_id}).exec(function(err, group){
+    group.next_meeting = req.body.meeting;
+    group.save(function(){
+      res.send(200);
+    });
+  });
+});
+
 app.post('/requests', utils.isLoggedIn, function(req, res){
   if (app.get('user').groups.indexOf(req.body.group_id) === -1) {
     var request = new models.Request(req.body);
