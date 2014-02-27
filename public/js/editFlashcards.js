@@ -10,6 +10,12 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     $scope.openConnections(counter, true);
   };
   
+  $scope.loadPads = function(pads) {
+    $scope.padIDs = pads;
+    console.log("pads: ", $scope.padIDs);
+    debugger;
+  };
+  
   $scope.addEditors = function(index) {
     var el = document.getElementById("editors");
     var node = angular.element('#editors');
@@ -95,7 +101,6 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     
   $scope.addFlashcard = function() {    
     $scope.padIDs.push($scope.padIDs[$scope.padIDs.length-1] + 1);
-    debugger;
     $timeout($scope.openConnections.bind(null,$scope.padIDs.length-1, false), 1000);
   };
   

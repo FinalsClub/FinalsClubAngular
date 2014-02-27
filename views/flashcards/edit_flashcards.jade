@@ -1,7 +1,7 @@
 include ../index
   h1 #{group_name}
   hr
-  .shareDiv(ng-controller="shareController" ng-init="padIDs = #{pads}; topic = #{topic}")
+  .shareDiv(ng-controller="shareController" ng-init="loadPads(#{pads}); topic = #{topic}")
     a.requests(href="#" ng-click="addFlashcard()") + Add flashcard
     h3 {{topic.title}}
       span Saved!
