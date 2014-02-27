@@ -8,6 +8,9 @@ app.controller('topicController', ['$scope', '$http', function($scope, $http){
   };
   
   $scope.submitTopic= function(){
+    var title = prompt("What do you want to name your topic?");
+    $scope.topic.title = title;
+    
     $http({
       method: 'POST', 
       url: '/topics',

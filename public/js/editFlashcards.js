@@ -2,7 +2,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   $scope.pads = [];
   $scope.padIDs = [];
   $scope.topic = null;
-    
+      
   $scope.createPads = function(counter) {
     if (counter === $scope.padIDs.length) {
       $scope.saveText();
@@ -135,8 +135,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   
   //create pads once DOM has loaded
   angular.element(document).ready(function() {
-    $scope.createPads(0);    
-    
+    $scope.createPads(0);
     $scope.addEditors($scope.topic._id);
     
     // auto-sync DB every 5 seconds
