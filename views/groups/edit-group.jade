@@ -2,6 +2,7 @@ include ../index
   .editGroup(ng-controller="editGroupController" ng-init="group = #{group};")
     h1 edit group: {{group.name}}
     hr
+    .error(ng-show="error") Please pick a date in the future.
     if JSON.parse(group).next_meeting
       h4 Next meeting: {{group.next_meeting | date: "mediumDate"}}
     else

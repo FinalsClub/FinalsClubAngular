@@ -1,6 +1,7 @@
 app.controller("editGroupController", ['$scope', '$http', function($scope, $http){
   $scope.group = {};
   $scope.meeting = null;
+  $scope.error = false;
 
   $scope.submitDate = function(){
     $http({
@@ -10,6 +11,7 @@ app.controller("editGroupController", ['$scope', '$http', function($scope, $http
     }).success(function(){
       window.location.href = '/';
     }).error(function(){ 
+      $scope.error = true;
     })
   };
   

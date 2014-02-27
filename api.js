@@ -64,6 +64,22 @@ app.post('/groups', utils.isLoggedIn, function(req, res){
  });             
 });
 
+app.put('/groups/:group_id', utils.isLoggedIn, utils.isGroupMember, function(req, res){
+  var proposedTime = new Date(req.body.meeting).getTime(); 
+  var currentTime = new Date().getTime();
+  if (proposedTime < currentTime) {
+    res.send(401, "Time is not in the future.");    
+  } else {
+    models.Group.findOne({_id: req.params.group_id}).exec(function(err, group){
+      group.next_meeting = req.body.meeting;
+      group.save(function(){
+        res.send(200);
+      });
+    });
+  }
+});
+
+
 app.put('/groups/:group_id/delete', utils.isLoggedIn, utils.isGroupMember, function(req, res){
   models.Group.findOne({_id: req.params.group_id})
               .populate('users')
@@ -73,15 +89,6 @@ app.put('/groups/:group_id/delete', utils.isLoggedIn, utils.isGroupMember, funct
                   utils.deleteGroupUsers(group.users, group._id, 0, res);
                 });
               });  
-});
-
-app.put('/groups/:group_id', utils.isLoggedIn, utils.isGroupMember, function(req, res){
-  models.Group.findOne({_id: req.params.group_id}).exec(function(err, group){
-    group.next_meeting = req.body.meeting;
-    group.save(function(){
-      res.send(200);
-    });
-  });
 });
 
 app.post('/requests', utils.isLoggedIn, function(req, res){
