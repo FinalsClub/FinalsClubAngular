@@ -72,7 +72,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
                   // attach the ShareJS document to the textarea for the def
                   $scope.pads.push(doc2);
                   doc2.attach_textarea(defElem);
-                
+                  debugger;
                   (iterating) ? $scope.createPads(index + 1) : $scope.saveText();
                 }
             });
@@ -140,8 +140,8 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     $scope.addEditors($scope.topic._id);
     
     //auto-sync DB every 5 seconds
-    setInterval(function() {
-      $scope.syncDB();
-    }, 5000);
+    // setInterval(function() {
+    //   $scope.syncDB();
+    // }, 5000);
   });
 }]);
