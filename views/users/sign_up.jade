@@ -1,7 +1,6 @@
 include ../index
   h1 Complete registration
   form(ng-controller='SignUpController' ng-submit="submit()" ng-init='schools = #{schools}')
-    //- METHOD: PUT url sign_up/users_id
     table
       tr
         td 
@@ -12,7 +11,7 @@ include ../index
         td
           label(for='school') School
         td
-          select(ng-model='newUser.school' ng-options='school.name for school in schools' required).selectField
+          select.selectField(ng-model='newUser.school' ng-options='school.name for school in schools' required)
             option(value="") select school 
       tr 
         td
@@ -23,7 +22,7 @@ include ../index
         td
           label(for='intensity') Intensity
         td
-          select(ng-model='newUser.intensity' ng-options='intensity for intensity in intensities' value='low' ).selectField
+          select.selectField(ng-model='newUser.intensity' ng-options='intensity for intensity in intensities' value='low' )
              option(value="") select intensity 
       tr
         td

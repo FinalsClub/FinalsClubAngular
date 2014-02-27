@@ -6,7 +6,7 @@ include ../index
 
   .allFlashcardsDiv(ng-controller='flashcardController' ng-init='flashcards=#{flashcards}; topic=#{topic};')
     if JSON.parse(flashcards).length
-      a(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit').gray Edit flashcards
+      a.gray(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit') Edit flashcards
       h3 {{ topic.title }} 
       .leftArrow(ng-click="goBack(); flipped=false")
       .rightArrow(ng-click="goForward(); flipped=false") 
@@ -17,5 +17,5 @@ include ../index
           p(data-length="{{flashcard.definition.length}}") {{flashcard.definition}}
     else
       p You don't have any flashcards yet!
-      a(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit').button Add flashcards
+      a.button(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit') Add flashcards
       

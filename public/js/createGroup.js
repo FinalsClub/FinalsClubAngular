@@ -2,13 +2,14 @@ app.controller('createGroupController', ['$scope', 'createGroup', 'INTENSITIES',
   $scope.intensities = INTENSITIES;
   $scope.courses = [];
   $scope.group = {
-    'name' : null,
-    'course_id' : null,
-    'motto' : null,
-    'description' : null,   
-    'intensity' : null,
-    'entry_question' : null,
-    'hidden': false
+    name : null,
+    course_id : null,
+    motto : null,
+    description : null,   
+    intensity : null,
+    entry_question : null,
+    next_meeting : null, 
+    hidden : false
   };
   $scope.submit = function(){
     createGroup.createNewGroup($scope.group);

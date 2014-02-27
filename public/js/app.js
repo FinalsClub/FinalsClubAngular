@@ -1,1 +1,2 @@
-window.app = angular.module('app', []).constant('INTENSITIES', ['low', 'medium', 'high']);
+window.app = angular.module('app', [])
+                    .constant('INTENSITIES', ['low', 'medium', 'high']);

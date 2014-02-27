@@ -60,16 +60,6 @@ app.get('/groups/:group_id/requests', utils.isLoggedIn, utils.isGroupMember, fun
                 });        
 });
 
-app.get('/leave_group/:group_id', utils.isLoggedIn, utils.isGroupMember, function(req, res) {
-  models.Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
-    res.render('groups/leave-group.jade', {
-      user: app.get('name'),
-      image: app.get('user').image,
-      group: group.name
-    });    
-  });  
-});
-
 app.get('/groups/:group_id/flashcards', utils.isLoggedIn, utils.isGroupMember, function(req, res){
   models.Group.findOne({_id: req.params.group_id})
               .populate('topics')
