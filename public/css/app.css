@@ -340,7 +340,7 @@ hr.smaller {
 
 /*-------------------GROUP SEARCH-------------------------*/
   
-#searchForGroup {
+input[name='search_for_group'] {
   width: 100%;
 }
 
