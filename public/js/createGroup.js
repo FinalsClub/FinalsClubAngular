@@ -7,7 +7,8 @@ app.controller('createGroupController', ['$scope', 'createGroup', 'INTENSITIES',
     'motto' : null,
     'description' : null,   
     'intensity' : null,
-    'entry_question' : null
+    'entry_question' : null,
+    'hidden': false
   };
   $scope.submit = function(){
     createGroup.createNewGroup($scope.group);

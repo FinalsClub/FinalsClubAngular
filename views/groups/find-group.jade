@@ -8,7 +8,7 @@ include ../index
         ul
           h3 {{ group.name }}
           li.grayed(ng-show="group.intensity.length") 
-            b Intensity: 
+            span.bold Intensity: 
             {{ group.intensity }} 
           li.grayed {{ group.course_id.name }}
           p
@@ -20,19 +20,22 @@ include ../index
             li {{ group.name }}
             hr
             li.grayed(ng-show="group.intensity.length" )
-              b Intensity: 
+              span.bold Intensity: 
               {{ group.intensity }} 
+            li.grayed(ng-show="group.next_meeting.length" )
+              span.bold Next meeting: 
+              {{ group.next_meeting | date:"mediumDate" }} 
             li.grayed(ng-show="group.motto.length" )
-              b Motto: 
+              span.bold Motto: 
               {{ group.motto }}
             li.grayed
-              b Course affiliation: 
+              span.bold Course affiliation: 
               {{ group.course_id.name }}
             li.grayed(ng-show="group.description.length" )
-              b Description: 
+              span.bold Description: 
               {{ group.description }}
             li.grayed(ng-show="group.question.length" )
-              b Question: 
+              span.bold Question: 
                {{ group.question }}
             p
             li

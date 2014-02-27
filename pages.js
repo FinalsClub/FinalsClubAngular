@@ -25,7 +25,7 @@ app.get('/groups/new', utils.isLoggedIn, function(req, res) {
 });
 
 app.get('/groups/search', utils.isLoggedIn, function(req, res) {
-  models.Group.find()
+  models.Group.find({hidden: false})
               .populate('users course_id')
               .exec(function(err, groups) {
                   res.render('groups/find-group.jade', {

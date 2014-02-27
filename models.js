@@ -66,6 +66,7 @@ var groupSchema = mongoose.Schema({
   open: Boolean,
   next_meeting: Date, 
   created_at: Date,
+  hidden: Boolean,
   users: [{type: Number, ref: 'User'}],
   topics: [{type: Number, ref: 'Topic'}],
   requests: [{type: Number, ref: "Request"}]
