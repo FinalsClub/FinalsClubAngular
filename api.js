@@ -94,14 +94,18 @@ app.post('/members', utils.isLoggedIn, function(req, res){
                    .exec(function(err, user){
                       user.groups.push(req.body.group_id);
                       user.save(function(){
-                         models.Request.findOne({_id: req.body.request_id})
-                                       .remove()
-                                       .exec(function(err) {
-                                         group.requests.splice(group.requests.indexOf(req.body.request_id),1);
-                                         group.save(function() {
-                                           res.send(201);                                                     
-                                         });
-                                       }); 
+                        if(req.body.request_id){
+                           models.Request.findOne({_id: req.body.request_id})
+                                         .remove()
+                                         .exec(function(err) {
+                                           group.requests.splice(group.requests.indexOf(req.body.request_id),1);
+                                           group.save(function() {
+                                             res.send(201);                                                     
+                                           });
+                                         }); 
+                        } else {
+                          res.send(201);
+                        }
                       });
                    });
       });

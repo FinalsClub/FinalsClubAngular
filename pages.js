@@ -30,6 +30,7 @@ app.get('/groups/search', utils.isLoggedIn, function(req, res) {
               .exec(function(err, groups) {
                   res.render('groups/find-group.jade', {
                     user: app.get('name'),
+                    user_id: app.get('user')._id,
                     image: app.get('user').image,
                     user_groups: req.user.groups,
                     groups: JSON.stringify(groups)
