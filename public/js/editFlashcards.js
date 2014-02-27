@@ -97,6 +97,10 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     $timeout($scope.openConnections.bind(null,$scope.flashcards.length-1, false), 1000);
   };
   
+  $scope.addRow = function(event, index) {
+    event.keyCode === 9 && index === $scope.flashcards.length - 1 && $scope.addFlashcard();
+  };
+  
   $scope.removeFlashcard = function(index){
     var flashcardDivToRemove = $scope.topic._id + '-pad' + index;
     angular.element(document.getElementById(flashcardDivToRemove)).remove();
