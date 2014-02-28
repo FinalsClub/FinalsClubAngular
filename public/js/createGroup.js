@@ -3,7 +3,7 @@ app.controller('createGroupController', ['$scope', 'createGroup', 'INTENSITIES',
   $scope.courses = [];
   $scope.group = {
     name : null,
-    course_id : null,
+    course_name : null,
     motto : null,
     description : null,   
     intensity : null,

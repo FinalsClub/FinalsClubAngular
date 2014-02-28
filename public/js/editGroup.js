@@ -1,13 +1,14 @@
-app.controller("editGroupController", ['$scope', '$http', function($scope, $http){
+app.controller("editGroupController", ['$scope', '$http', 'INTENSITIES', function($scope, $http, INTENSITIES){
   $scope.group = {};
-  $scope.meeting = null;
   $scope.error = false;
+  $scope.courses = [];
+  $scope.intensities = INTENSITIES;
 
-  $scope.submitDate = function(){
+  $scope.editGroup = function(){
     $http({
       method: 'PUT', 
       url: '/groups/' + $scope.group._id,
-      data: JSON.stringify({meeting: $scope.meeting})
+      data: JSON.stringify($scope.group)
     }).success(function(){
       window.location.href = '/';
     }).error(function(){ 

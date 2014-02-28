@@ -137,14 +137,18 @@ app.get('/groups/:group_id/flashcards/:topic_id/edit', utils.isLoggedIn, utils.i
 });
 
 app.get('/groups/:group_id/edit', utils.isLoggedIn, utils.isGroupMember, function(req, res) {
-  models.Group.findOne({_id: req.params.group_id})
-              .exec(function(err, group){
-                res.render('groups/edit-group.jade', {
-                  user: app.get('name'),
-                  image: app.get('user').image,
-                  group: JSON.stringify(group),
-                  user_token: app.get('user').facebook.token,
-                  user_id: app.get('user')._id                  
-                });
-              });
+  models.Course.find({ school_id: app.get('user').school_id })
+            .exec(function(err, courses){
+              models.Group.findOne({_id: req.params.group_id})
+                          .exec(function(err, group){
+                            res.render('groups/edit-group.jade', {
+                              user: app.get('name'),
+                              image: app.get('user').image,
+                              group: JSON.stringify(group),
+                              user_token: app.get('user').facebook.token,
+                              user_id: app.get('user')._id,
+                              courses: JSON.stringify(courses)                   
+                            });
+                          });
+            });  
 });
