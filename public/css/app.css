@@ -503,8 +503,8 @@ input[name='search_for_group'] {
   padding: 1%;
   width: 20%;
   position: absolute;
-  left: 108%;
-  bottom: 90%;
+  left: 50em;
+  bottom: 2em;
 }
 
 /*------------------------------- lightbox--------------------------------- */
@@ -626,7 +626,7 @@ h3.splashpageTitle {
 
 .topic {
   position: relative;
-  top: 1.5em;
+  top: 0;
 }
 
 .topicDiv p:first-child {

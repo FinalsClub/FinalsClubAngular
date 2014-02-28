@@ -39,8 +39,9 @@ module.exports.createNewGroup = function(data, response, course) {
 };
 
 module.exports.deleteGroupUsers = deleteGroups = function(users, group_id, counter, response) {
-  if (counter === users.length - 1) {
+  if (counter === users.length) {
     response.send(200);
+    return;
   }
   var user = users[counter];
   user.groups.splice(user.groups.indexOf(group_id), 1);
