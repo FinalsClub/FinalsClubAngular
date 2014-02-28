@@ -6,16 +6,9 @@ app.controller('requestController', ['$scope', '$http', 'requestHandler', functi
     requestHandler.approveRequest(user, request_id);
   };
   
-  $scope.ignoreRequest = function(id) {
-    $http({
-      method: 'PUT',
-      url: '/requests/' + id
-    }).success(function() {
-      window.location.href = window.location.pathname;
-    }).error(function(err) {
-      console.log(err);
-    });  
-  };
+  $scope.ignore = function(id){
+    requestHandler.ignoreRequest(id);
+  }
   
 }]);
 
@@ -33,9 +26,16 @@ app.factory('requestHandler', ['$http', function($http){
       }).success(function(){
         window.location.href = '/';
       }).error(function(err){
-        console.log(err);
         $scope.error = true;
       });  
+    },
+    ignoreRequest: function(id){
+      $http({
+        method: 'PUT',
+        url: '/requests/' + id
+      }).success(function() {
+        window.location.href = window.location.pathname;
+      });
     }
   };   
 }]);

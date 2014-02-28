@@ -12,6 +12,6 @@ include ../index
           img(src="{{request.user_id.image}}").approveMember
           span.entry_answer {{ request.entry_answer }}
           a.requests(href="" ng-click='approve(request.user_id._id, request._id)') Approve Member        
-        a(href="" ng-click="ignoreRequest(request._id)").ignore Ignore
+        a(href="" ng-click="ignore(request._id)").ignore Ignore
         span.grayed {{ request.created_at | date: 'medium'}}  
       hr.smaller
