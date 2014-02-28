@@ -15,17 +15,10 @@ app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandle
   
   $scope.editTopic = function(topicObj) {
     if ($scope.topic.title.length) {
-      $http({
-        method: 'PUT', 
-        url: '/topics/' + topicObj._id,
-        data: JSON.stringify($scope.topic)
-      }).success(function(data, status){
+      topicObj.title = $scope.topic.title;
+      topicHandler.editTopic(topicObj, function(){
         $scope.showLightbox(topicObj._id);
-        angular.element('.topicDiv.' + topicObj._id + ' a.topic').text($scope.topic.title);
-        angular.element('.lightboxContent input').val('');
-      }).error(function(err, data){
-        console.log(err);
-      });      
+      });
     }
   };
 
@@ -60,11 +53,20 @@ app.factory('topicHandler', ['$http', function($http){
         window.location.reload();
       })
     },
-    editTopic: function(){
-
+    editTopic: function(topicObj, callback){
+      $http({
+        method: 'PUT', 
+        url: '/topics/' + topicObj._id,
+        data: JSON.stringify(topicObj)
+      }).success(function(data, status){
+        angular.element('.topicDiv.' + topicObj._id + ' a.topic').text(topicObj.title);
+        angular.element('.lightboxContent input').val('');
+        callback();
+      });
     },
     deleteTopic: function(){
 
     }
   };
+
 }]);
