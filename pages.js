@@ -9,18 +9,20 @@ app.get('/', utils.isLoggedIn, function(req, res) {
                   user: app.get('name'),
                   image: app.get('user').image,
                   groups: JSON.stringify(groups),
-                  user_token: app.get('user').facebook.token
+                  user_token: app.get('user').facebook.token,
+                  user_id: app.get('user')._id
                 });                
               });
 });
 
 app.get('/users/:user_id/edit', utils.isLoggedIn, utils.isUser, function(req, res) {
   models.School.find().exec(function(err, schools) {
-    res.render('users/sign_up.jade', {
+    res.render('users/edit_user.jade', {
       schools: JSON.stringify(schools),
       user: app.get('name'),
       image: app.get('user').image,
-      user_obj: app.get('user')
+      user_obj: app.get('user'),
+      user_id: app.get('user')._id
     });
   });
 });
@@ -32,7 +34,8 @@ app.get('/groups/new', utils.isLoggedIn, function(req, res) {
                   user: app.get('name'),
                   image: app.get('user').image,
                   courses: JSON.stringify(courses),
-                  user_token: app.get('user').facebook.token
+                  user_token: app.get('user').facebook.token,
+                  user_id: app.get('user')._id
                 });
               });
 });
@@ -47,8 +50,8 @@ app.get('/groups/search', utils.isLoggedIn, function(req, res) {
                     image: app.get('user').image,
                     user_groups: req.user.groups,
                     groups: JSON.stringify(groups),
-                    user_token: app.get('user').facebook.token
-
+                    user_token: app.get('user').facebook.token,
+                    user_id: app.get('user')._id
                   });    
               });    
 });
@@ -59,7 +62,8 @@ app.get('/join_group', utils.isLoggedIn, function(req, res) {
       user: app.get('name'),
       image: app.get('user').image,
       group: group,
-      user_token: app.get('user').facebook.token
+      user_token: app.get('user').facebook.token,
+      user_id: app.get('user')._id
     });    
   });  
 }); 
@@ -72,7 +76,8 @@ app.get('/groups/:group_id/requests', utils.isLoggedIn, utils.isGroupMember, fun
                     user: app.get('name'),
                     image: app.get('user').image,
                     requests: JSON.stringify(requests),
-                    user_token: app.get('user').facebook.token                  
+                    user_token: app.get('user').facebook.token,
+                    user_id: app.get('user')._id                      
                   });               
                 });        
 });
@@ -90,7 +95,8 @@ app.get('/groups/:group_id/flashcards', utils.isLoggedIn, utils.isGroupMember, f
                     group_name: group.name,
                     group_id: group._id,
                     topics: JSON.stringify(group.topics),
-                    user_token: app.get('user').facebook.token
+                    user_token: app.get('user').facebook.token,
+                    user_id: app.get('user')._id                  
                   });                                 
                 }
               });
@@ -107,7 +113,8 @@ app.get('/groups/:group_id/flashcards/:topic_id', utils.isLoggedIn, utils.isGrou
                     group_id: topic.group_id._id,
                     topic: JSON.stringify(topic),
                     flashcards: JSON.stringify(topic.flashcards),
-                    user_token: app.get('user').facebook.token                  
+                    user_token: app.get('user').facebook.token,
+                    user_id: app.get('user')._id
                   });               
                 });
 });
@@ -123,7 +130,8 @@ app.get('/groups/:group_id/flashcards/:topic_id/edit', utils.isLoggedIn, utils.i
             topic: JSON.stringify(topic),
             flashcards: JSON.stringify(topic.flashcards),
             pads: JSON.stringify(topic.pads),
-            user_token: app.get('user').facebook.token            
+            user_token: app.get('user').facebook.token,
+            user_id: app.get('user')._id            
           });
         });
 });
@@ -135,7 +143,8 @@ app.get('/groups/:group_id/edit', utils.isLoggedIn, utils.isGroupMember, functio
                   user: app.get('name'),
                   image: app.get('user').image,
                   group: JSON.stringify(group),
-                  user_token: app.get('user').facebook.token
+                  user_token: app.get('user').facebook.token,
+                  user_id: app.get('user')._id                  
                 });
               });
 });

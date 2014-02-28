@@ -23,31 +23,42 @@ html(lang="en" ng-app='app')
     script(src="/js/topicsView.js")
   body(ng-controller="indexController" ng-class="homepage")
     header#masthead
-      nav#login-nav
-          if user
+      if user
+        nav#login-nav
+          ul
+            li
+              p
+                a.username(href="#") #{user} 
+            li.facebook-picture
+              img(src='#{image}' width='50px' height='50px') 
+            li
+              span |
+              a(href='#' ng-click='menuOpen = !menuOpen') &#x25BC;
+          nav#menu(ng-show="menuOpen")
             ul
+              hr
               li
-                p
-                  a(href="#").username #{user}
-                p
-                  a(href="http://www.facebook.com/logout.php?confirm=1&next={{host}}/log_out&access_token=#{user_token}") Log out 
-              li.facebook-picture
-                img(src='#{image}' width='50px' height='50px')
-          else if empty
-            .emptyDiv
-          else
-            .signupDiv
-            ul
+                a(href="/users/#{user_id}/edit") Edit
+              hr
               li
-                a.loginOptions(href="/log_in") Sign Up 
-              li
-                a.loginOptions(href="/log_in") Log in
-        .wrapper
-          a(href='/')
-            img(src='/img/logo.png' alt='Finals Club - social note taking' width='312px' height='39px')#logo
-          nav#main-nav
-            a(href="/groups/search") Find Groups
-            a(href="/groups/new") Create a Group
+                a(href="http://www.facebook.com/logout.php?confirm=1&next={{host}}/log_out&access_token=#{user_token}") Log out 
+      else if empty
+        nav#login-nav
+          .emptyDiv
+      else
+        nav#login-nav
+          .signupDiv
+          ul
+            li
+              a.loginOptions(href="/log_in") Sign Up 
+            li
+              a.loginOptions(href="/log_in") Log in
+      .wrapper
+        a(href='/')
+          img(src='/img/logo.png' alt='Finals Club - social note taking' width='312px' height='39px')#logo
+        nav#main-nav
+          a(href="/groups/search") Find Groups
+          a(href="/groups/new") Create a Group      
     .fadingWrapper.black_overlay#fade(ng-show="lightbox")
     .contentWrapper
       =yield

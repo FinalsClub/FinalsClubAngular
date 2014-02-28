@@ -60,7 +60,7 @@ passport.deserializeUser(function(id, done) {
 app.set('user', null);
 
 app.get('/log_in', function(req, res) {
-  res.render('users/log_in.jade');
+  res.render('users/log_in.jade', {empty: true});
 })
 
 app.get('/sign_up/:user_id', utils.isLoggedIn, utils.isUser, function(req, res) {

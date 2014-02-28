@@ -2,6 +2,7 @@ app.controller('indexController', ['$rootScope', 'HOST', function($rootScope, HO
   $rootScope.lightbox = false;
   $rootScope.homepage = "";
   $rootScope.host = HOST;
+  $rootScope.menuOpen = false;
 }]);
 
 
