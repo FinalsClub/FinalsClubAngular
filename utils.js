@@ -1,4 +1,7 @@
+
 var models = require('./models');
+
+//-----------------------------------VALIDATIONS------------------------------//
 
 module.exports.isLoggedIn = function(req, res, next) {
   if (req.isAuthenticated()) {
@@ -20,6 +23,18 @@ module.exports.isGroupMember = function(req, res, next) {
     return next();  
   }
 }
+
+module.exports.isUser = function(req, res, next) {
+  if (req.params.user_id.toString() === app.get('user')._id.toString()) {
+    return next();
+  } else {
+    res.send(401, "That's not your profile.");
+    res.redirect('/');
+  }
+};
+
+
+//---------------------------------HELPER FUNCTIONS-------------------------//
 
 module.exports.createNewGroup = function(data, response, course) {
   var group = new models.Group(data);

@@ -63,9 +63,14 @@ app.get('/log_in', function(req, res) {
   res.render('users/log_in.jade');
 })
 
-app.get('/sign_up', function(req, res) {
+app.get('/sign_up/:user_id', utils.isLoggedIn, utils.isUser, function(req, res) {
   models.School.find().exec(function(err, schools) {
-    res.render('users/sign_up.jade', {schools: JSON.stringify(schools)});
+    res.render('users/sign_up.jade', {
+      schools: JSON.stringify(schools),
+      user: app.get('name'),
+      image: app.get('user').image,
+      user_obj: app.get('user')
+    });
   });
 })
 
@@ -84,7 +89,7 @@ app.get('/auth/facebook/callback',
   function(req, res) {
     app.set('user', req.user);
     app.set('name', app.get('user').first_name + " " + app.get('user').last_name);
-    req.user.email ? res.redirect('/') : res.redirect('/sign_up?id='+req.user.id);
+    req.user.email ? res.redirect('/') : res.redirect('/sign_up/'+req.user.id);
   });
 
 var pages = require('./pages');

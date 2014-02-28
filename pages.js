@@ -14,6 +14,17 @@ app.get('/', utils.isLoggedIn, function(req, res) {
               });
 });
 
+app.get('/users/:user_id/edit', utils.isLoggedIn, utils.isUser, function(req, res) {
+  models.School.find().exec(function(err, schools) {
+    res.render('users/sign_up.jade', {
+      schools: JSON.stringify(schools),
+      user: app.get('name'),
+      image: app.get('user').image,
+      user_obj: app.get('user')
+    });
+  });
+});
+
 app.get('/groups/new', utils.isLoggedIn, function(req, res) {
   models.Course.find({ school_id: app.get('user').school_id })
               .exec(function(err, courses){
@@ -23,7 +34,7 @@ app.get('/groups/new', utils.isLoggedIn, function(req, res) {
                   courses: JSON.stringify(courses),
                   user_token: app.get('user').facebook.token
                 });
-              })
+              });
 });
 
 app.get('/groups/search', utils.isLoggedIn, function(req, res) {
