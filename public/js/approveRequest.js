@@ -1,18 +1,24 @@
 // requests.jade
 app.controller('requestController', ['$scope', '$http', 'requestHandler', function($scope, $http, requestHandler){
+  
   $scope.requests = [];
   $scope.error = false
 
-  $scope.approve = requestHandler.approveRequest.bind(null, user, request_id);
-  
-  $scope.ignore = requestHandler.ignoreRequest.bind(null, id);
-  
-  
+  $scope.approve = function(user, request_id){
+    requestHandler.approveRequest(user, request_id, function(){
+      $scope.error = true;
+    });
+  };
+
+  $scope.ignore = function(id){
+    requestHandler.ignoreRequest(id);
+  };
+
 }]);
 
-app.factory('requestHandler', ['$http', '$scope', function($http, $scope){
+app.factory('requestHandler', ['$http', function($http){
   return {
-    approveRequest: function(user, request_id){
+    approveRequest: function(user, request_id, callback){
       $http({
       method: 'POST',
       url: '/members',
@@ -24,7 +30,7 @@ app.factory('requestHandler', ['$http', '$scope', function($http, $scope){
       }).success(function(){
         window.location.href = '/';
       }).error(function(err){
-        $scope.error = true;
+        callback();
       });  
     },
     ignoreRequest: function(id){

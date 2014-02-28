@@ -10,11 +10,12 @@ app.controller("editGroupController", ['$scope', '$http', 'INTENSITIES', 'groupH
     groupHandler.editGroup($scope.group._id, $scope.group, function() {
       $scope.error = true;
     });
-  }
+  };
 
   $scope.leave = function(){
     groupHandler.leaveGroup($scope.group._id);
-  }  
+  };
+
   $scope.delete = function(){
     groupHandler.deleteGroup($scope.group._id);
   };
