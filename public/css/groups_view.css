@@ -1,0 +1,35 @@
+/*-------------------HOMEPAGE ELEMENTS-------------------------*/
+.groupNav {
+  padding-top: 0;
+  padding-bottom: 1em; }
+
+.groupNav a {
+  color: gray;
+  font-weight: bold;
+  text-decoration: none;}
+
+.groupDiv {
+  width: 100%;
+}
+
+.facebook {
+  background-color: #7D7DAF; }
+
+.communicationsDiv {
+  width: 35%;  
+  float: right;
+  background-color: #E9EAEB;
+  padding: 0.5em;
+  min-height: 400px;
+}
+
+hr.smaller.mainPage {
+  width: 100%;
+}
+
+.meetingDate a {
+  float: right;
+}
+.meetingDate li {
+  text-align: right;
+}

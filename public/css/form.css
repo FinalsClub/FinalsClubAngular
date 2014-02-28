@@ -1,0 +1,38 @@
+/*-------------------FORM ELEMENTS-------------------------*/
+
+input:focus, select:focus, textarea:focus, button:focus {
+    outline: none; }
+
+table {
+  margin-top: 20px; }
+
+input {
+  height: 3em;
+  padding-left: 1%;
+  font-size: 0.75em;
+  border: 1px solid #D8D8D8;
+  background-color: #e3e3e3; }
+
+.input_error {
+  color: #D8D8D8;
+  margin-left: 0.75em;
+  font-size: 0.75em; }
+
+textarea {
+  border-radius: 0; }
+
+td {
+  padding-bottom: 20px; }
+
+label {
+  font-weight: 400;
+  font-size: 1em; }
+
+.selectField {
+  border: 1 solid #e3e3e3;
+  width: 100%;
+  height: 2em;
+  border-radius: 0;
+  padding-left: 1.2em;
+  -webkit-appearance: none;
+}

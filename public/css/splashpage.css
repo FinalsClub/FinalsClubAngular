@@ -1,0 +1,61 @@
+/*------------------------------- SPLASHPAGE --------------------------------- */
+.homepage {
+  text-align: center;
+  margin-top: 10em;
+}
+
+h2.splashpageTitle {
+  text-align: center;
+  color: white;
+  font-size: 4em;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  position: relative;
+}
+
+h3.splashpageTitle {
+  font-size: 1em;
+  color: white;
+  position: relative;
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+}
+
+.splashpage {
+  position: relative;
+  top: 2em;
+  margin-left: 0 auto;
+  background-color: #7D7DAF;
+  opacity: 0.8;
+  border: 0;
+  margin: 0.5em;
+}
+
+.homepage a {
+  display: inline-block;
+  line-height: 60%;
+}
+
+.homepage span {
+  color: white;
+  position: relative;
+  top: 2em;
+}
+
+.homepage a:last-child .splashpage {
+  background-color: gray;
+}
+
+.homepageImage {
+  background-image: url("../img/homepage4.png");
+  background-color: #262626;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  background-position: center;
+}
+
+.emptyDiv {
+  height: 4em;
+}

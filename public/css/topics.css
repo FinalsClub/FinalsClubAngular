@@ -1,0 +1,39 @@
+/*-------------------------------TOPICS----------------------------------*/
+
+.topicDiv {
+  width: 30%;
+  height: 20%;
+  border: 1px solid #ddd;
+  -moz-box-shadow: 0 0 10px 2px #D8D8D8;
+  -webkit-box-shadow: 0 0 10px 2px #ddd;
+  text-align: center;
+  font-weight: bold;
+  margin-right: 3%;
+  margin-top: 2%;
+  display: inline-block;
+}
+
+.topic {
+  position: relative;
+  top: 0;
+}
+
+.topicDiv p:first-child {
+  text-align: right;
+}
+
+.topicDiv .grayed {
+  margin-right: 0.5em;
+  position: relative;
+  bottom: 1em;
+  font-size: 1em;
+  color: #CAC8C8;
+}
+
+.white_content p:first-child {
+  text-align: left;
+}
+
+a.closeX {
+  float: right;
+}

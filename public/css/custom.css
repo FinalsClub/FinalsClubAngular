@@ -1,0 +1,41 @@
+/*-------------------CUSTOM CLASSES-------------------------*/
+
+.bold {
+  font-weight: bold;
+}
+
+.gray {
+  color: gray; 
+  float: right;
+  font-weight: normal;
+  position: relative;
+  bottom: 1em;
+  margin: 0;
+}
+  
+.grayed {
+  color: gray;
+  font-size: 0.75em;
+}
+
+.requests {
+  padding: 0.5em;
+  background-color: #F3DD37;
+  float: right;}
+
+.requests.find {
+  left: -3em;
+}
+
+hr.smaller {
+  width: 98%;
+  border: thin solid #D8D8D8;
+}
+
+.error {
+  color: #B60202;
+  background-color: #FFC0CB;
+  padding: 1%;
+  margin-bottom: 1em;
+}
+
