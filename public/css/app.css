@@ -123,9 +123,14 @@ header a {
 }
 
 #login-nav #menu ul li {
-  margin-right: 1em;
+  padding-right: 1em;
   padding: 0.5em;
 }
+
+#login-nav #menu ul li:hover {
+  background-color: gray;
+}
+
 
 #menu hr {
   height: 1px;
