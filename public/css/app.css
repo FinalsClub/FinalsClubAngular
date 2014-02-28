@@ -1,9 +1,11 @@
 
 /*-------------------GENERAL ELEMENTS-------------------------*/
 
+
 html, body {
   height: 100%;
   margin: 0; }
+
 
 body {
   background-position: 20% 0; }
@@ -83,10 +85,6 @@ hr {
 
 /*-------------------MASTHEAD AND LAYOUT ELEMENTS-------------------------*/
 
-#masthead {
-  background-color: #262626; 
-}
-
 .wrapper, .contentWrapper {
   font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   position: relative;
@@ -109,14 +107,50 @@ header a {
   font-weight: normal;
   color: #e8a200; }
 
+#menu {
+  background-color: #262626;
+  width: 10%;
+  float: right;
+  position: relative;
+  bottom: 0.175em;
+}
+
+#login-nav #menu ul {
+  padding: 0;
+  margin-right: 0;
+  position: relative;
+  bottom: 1em;
+}
+
+#login-nav #menu ul li {
+  padding-right: 1em;
+  padding: 0.5em;
+}
+
+#login-nav #menu ul li:hover {
+  background-color: gray;
+}
+
+
+#menu hr {
+  height: 1px;
+  border: none;
+  background-color: gray;
+  padding-right: 0;
+}
+
+#login-nav #menu li {
+  display: block;
+}
+
 #login-nav a.username {
   color: white; 
 }
 
-
 #login-nav {
   font-family: sans-serif;
-  min-height: 5%;
+  min-height: 70px;
+  max-height: 10%;
   background-color: #262626;
   width: 100%;
   padding-top: 0.25em;
@@ -127,11 +161,21 @@ header a {
 #login-nav ul {
   margin-bottom: 0;
   margin-right: 1em;
+  position: relative;
+  bottom: 0.5em;
 }
 #login-nav ul li {
   display: inline-block;
   font-size: 0.9em;
   line-height: 120%;
+}
+
+#login-nav li:last-child a {
+  font-size: 0.5em;
+}
+
+#login-nav #menu li:last-child a {
+  font-size: 1em;
 }
 
 #login-nav p {
@@ -155,7 +199,7 @@ header a {
   float: right;
   padding: 0 0.75em; 
   position: relative;
-  bottom: 2em; }
+  bottom: 1.7em; }
 
 #main-nav li {
   display: inline;
@@ -382,21 +426,6 @@ input[name='search_for_group'] {
 
 /*-------------------FLASHCARD PAGES-------------------------*/
 
-.flashcard {
-  position: relative;
-  float: left;
-  border: 1px solid #ddd;
-  text-align: center;
-  font-weight: bold;
-  width: 16em;
-  height: 9em;
-  line-height: 9em;
-  margin-right: 3%;
-  margin-top: 2%;
-  -moz-box-shadow: 0 0 10px 2px #D8D8D8;
-  -webkit-box-shadow: 0 0 10px 2px #ddd;
-}
-
 .allFlashcardsDiv {
   -webkit-perspective: 1000;  
 }
@@ -517,8 +546,8 @@ input[name='search_for_group'] {
   padding: 1%;
   width: 20%;
   position: absolute;
-  left: 108%;
-  bottom: 90%;
+  left: 50em;
+  bottom: 2em;
 }
 
 /*------------------------------- lightbox--------------------------------- */
@@ -546,6 +575,7 @@ input[name='search_for_group'] {
   background-color: white;
   z-index:2;
   overflow: auto;
+  text-align: left;
 }
 
 .lightboxButton {
@@ -612,6 +642,7 @@ h3.splashpageTitle {
 
 .homepageImage {
   background-image: url("../img/homepage4.png");
+  background-color: #262626;
   background-repeat: no-repeat;
   overflow: hidden;
   background-position: center;
@@ -621,3 +652,43 @@ h3.splashpageTitle {
   height: 4em;
 }
 
+
+/*-------------------------------topic pages----------------------------------*/
+
+.topicDiv {
+  width: 30%;
+  height: 20%;
+  border: 1px solid #ddd;
+  -moz-box-shadow: 0 0 10px 2px #D8D8D8;
+  -webkit-box-shadow: 0 0 10px 2px #ddd;
+  text-align: center;
+  font-weight: bold;
+  margin-right: 3%;
+  margin-top: 2%;
+  display: inline-block;
+}
+
+.topic {
+  position: relative;
+  top: 0;
+}
+
+.topicDiv p:first-child {
+  text-align: right;
+}
+
+.topicDiv .grayed {
+  margin-right: 0.5em;
+  position: relative;
+  bottom: 1em;
+  font-size: 1em;
+  color: #CAC8C8;
+}
+
+.white_content p:first-child {
+  text-align: left;
+}
+
+a.closeX {
+  float: right;
+}

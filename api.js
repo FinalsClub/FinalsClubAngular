@@ -46,7 +46,7 @@ app.post('/leave_group', utils.isLoggedIn, function(req, res){
 });
 
 app.post('/groups', utils.isLoggedIn, function(req, res){
-  models.Course.findOne({name: req.body.course_id}).exec(function(err, course) {
+  models.Course.findOne({name: req.body.course_name}).exec(function(err, course) {
     if (course === null) {
       var newCourse = new models.Course({
         school_id: app.get('user').school_id,
@@ -64,16 +64,23 @@ app.post('/groups', utils.isLoggedIn, function(req, res){
 });
 
 app.put('/groups/:group_id', utils.isLoggedIn, utils.isGroupMember, function(req, res){
-  var proposedTime = new Date(req.body.meeting).getTime(); 
+  var proposedTime = new Date(req.body.next_meeting).getTime(); 
   var currentTime = new Date().getTime();
   if (proposedTime < currentTime) {
     res.send(401, "Time is not in the future.");    
   } else {
-    models.Group.findOne({_id: req.params.group_id}).exec(function(err, group){
-      group.next_meeting = req.body.meeting;
-      group.save(function(){
-        res.send(200);
-      });
+    models.Course.findOne({name: req.body.course_name}).exec(function(err, course) {
+      if (course) {
+        models.Group.findOne({_id: req.params.group_id}).exec(function(err, group){
+          for (var key in req.body) {
+            group[key] = req.body[key];
+          }
+          group.course_id = course._id;
+          group.save(function(){
+            res.send(200);
+          });
+        });        
+      }
     });
   }
 });
@@ -161,6 +168,26 @@ app.put('/topics', utils.isLoggedIn, function(req, res) {
     topic.pads = req.body.pads;
     topic.save(function() {
       res.send(200);
+    });
+  });
+});
+
+app.put('/topics/:id', utils.isLoggedIn, function(req, res) {
+  models.Topic.findOne({_id: req.params.id}).exec(function(err, topic) {
+    topic.title = req.body.title;
+    topic.save(function() {
+      res.send(200);
+    });
+  });
+});
+
+app.put('/topics/:id/delete', utils.isLoggedIn, function(req, res) {
+  models.Topic.findOne({_id: req.params.id}).remove().exec(function(err, topic) {
+    models.Group.findOne({_id: req.body.group_id}).exec(function(err, group) {
+      group.topics.splice(group.topics.indexOf(req.params.id),1);
+      group.save(function() {
+        res.send(200);
+      });
     });
   });
 });

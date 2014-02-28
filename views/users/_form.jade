@@ -1,0 +1,28 @@
+form(ng-controller='SignUpController' ng-submit="submit()" ng-init='schools = #{schools}; user = #{user_obj}')
+  table
+    tr
+      td 
+        label(for='email') Email*
+      td 
+        input(type='email' name='email' ng-model='user.email' required size="60")
+    tr 
+      td
+        label(for='school') School
+      td
+        select.selectField(ng-model='user.school' ng-options='school.name for school in schools' required)
+          option(value="") select school 
+    tr 
+      td
+        label(for='phone_number') Phone number
+      td
+        input(type='tel' ng-model='user.phone_number' name='phone_number' size="60")
+    tr 
+      td
+        label(for='intensity') Intensity
+      td
+        select.selectField(ng-model='user.intensity' ng-options='intensity for intensity in intensities' value='low' )
+           option(value="") select intensity 
+    tr
+      td
+      td
+        input(type="submit" id="submit" value="Submit")

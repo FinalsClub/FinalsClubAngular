@@ -1,18 +1,15 @@
 include ../index
-  .editGroup(ng-controller="editGroupController" ng-init="group = #{group};")
+  .editGroup(ng-controller="editGroupController" ng-init="group = #{group}; courses = #{courses}")
     h1 edit group: {{group.name}}
     hr
     .error(ng-show="error") Please pick a date in the future.
-    if JSON.parse(group).next_meeting
-      h4 Next meeting: {{group.next_meeting | date: "mediumDate"}}
-    else
-      h4 Next meeting: none 
-    form(ng-submit="submitDate()")
-      p
-        label(for="group.meeting_date") Edit your next meeting
-      p
-        input(type="date" ng-model="meeting")
-      p
-        input(type="submit" value="Submit")
+    form(ng-submit="editGroup()")
+      table
+        tr
+          td 
+            label(for="group.next_meeting") Next meeting
+          td
+            input(type="date" ng-model="group.next_meeting" size="60")
+        include _form
     a.grayed(href="#" ng-click="leaveGroup()") Leave group |   
     a.grayed(href="#" ng-click="deleteGroup()") Delete group

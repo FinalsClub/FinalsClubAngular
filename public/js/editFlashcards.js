@@ -2,14 +2,16 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   $scope.pads = [];
   $scope.padIDs = [];
   $scope.topic = null;
-    
+      
   $scope.createPads = function(counter) {
     if (counter === $scope.padIDs.length) {
+      $scope.saveText();
       return;
     }
+    
     $scope.openConnections(counter, true);
   };
-  
+    
   $scope.addEditors = function(index) {
     var el = document.getElementById("editors");
     var node = angular.element('#editors');
@@ -66,7 +68,6 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
                   // attach the ShareJS document to the textarea for the def
                   $scope.pads.push(doc2);
                   doc2.attach_textarea(defElem);
-                
                   (iterating) ? $scope.createPads(index + 1) : $scope.saveText();
                 }
             });
@@ -93,10 +94,11 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     });
   };
     
-  $scope.addFlashcard = function() {    
-    $scope.padIDs.push($scope.padIDs[$scope.padIDs.length-1] + 1);
-    debugger;
-    $timeout($scope.openConnections.bind(null,$scope.padIDs.length-1, false), 1000);
+  $scope.addFlashcard = function() {  
+    if ($scope.padIDs.length) {
+      $scope.padIDs.push($scope.padIDs[$scope.padIDs.length-1] + 1);
+      $timeout($scope.openConnections.bind(null,$scope.padIDs.length-1, false), 1200);      
+    }    
   };
   
   $scope.addRow = function(event, index, side) {
@@ -106,6 +108,8 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   $scope.removeFlashcard = function(index){
     var flashcardDivToRemove = $scope.topic._id + '-pad' + $scope.padIDs[index];
     angular.element(document.getElementById(flashcardDivToRemove)).remove();
+    $scope.pads[index*2].del(0,500);
+    $scope.pads[index*2 + 1].del(0,500);
     $scope.pads[index*2].close(function() {
       $scope.pads[index*2 + 1].close(function() {
         $scope.pads.splice(index*2, 2);
@@ -134,7 +138,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     $scope.createPads(0);
     $scope.addEditors($scope.topic._id);
     
-    //auto-sync DB every 5 seconds
+    // auto-sync DB every 5 seconds
     setInterval(function() {
       $scope.syncDB();
     }, 5000);

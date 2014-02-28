@@ -1,6 +1,8 @@
-app.controller('indexController', ['$rootScope', function($rootScope) {
+app.controller('indexController', ['$rootScope', 'HOST', function($rootScope, HOST) {
   $rootScope.lightbox = false;
   $rootScope.homepage = "";
+  $rootScope.host = HOST;
+  $rootScope.menuOpen = false;
 }]);
 
 
