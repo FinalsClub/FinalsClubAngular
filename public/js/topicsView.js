@@ -1,4 +1,4 @@
-app.controller('topicController', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
+app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandler', function($scope, $http, $rootScope, topicHandler){
   $scope.topics = [];
   $scope.topic = {
     title : null,
@@ -10,15 +10,7 @@ app.controller('topicController', ['$scope', '$http', '$rootScope', function($sc
   $scope.submitTopic= function(){
     var title = prompt("What do you want to name your topic?");
     $scope.topic.title = title;
-    $http({
-      method: 'POST', 
-      url: '/topics',
-      data: JSON.stringify($scope.topic)
-    }).success(function(data, status){
-      window.location.reload();
-    }).error(function(err, data){
-      console.log(err);
-    });
+    topicHandler.submitTopic($scope.topic);
   };
   
   $scope.editTopic = function(topicObj) {
@@ -55,4 +47,24 @@ app.controller('topicController', ['$scope', '$http', '$rootScope', function($sc
     angular.element("." + id).toggleClass('block');
   };
     
+}]);
+
+app.factory('topicHandler', ['$http', function($http){
+  return {
+    submitTopic: function(topic){
+      $http({
+        method: 'POST', 
+        url: '/topics',
+        data: JSON.stringify(topic)
+      }).success(function(data, status){
+        window.location.reload();
+      })
+    },
+    editTopic: function(){
+
+    },
+    deleteTopic: function(){
+
+    }
+  };
 }]);
