@@ -10,6 +10,7 @@ module.exports.isLoggedIn = function(req, res, next) {
   } else if (req.url === '/') {
     return res.render('splashpage.jade', { empty: true });
   }
+  res.send(401, "User must log in.");
   res.redirect('/log_in');
 };
 
@@ -73,3 +74,4 @@ module.exports.deleteGroupUsers = deleteGroups = function(users, group_id, count
     deleteGroups(users, group_id, counter, response);
   });
 };
+

@@ -1,5 +1,5 @@
 // edit-group.jade
-app.controller("editGroupController", ['$scope', '$http', 'INTENSITIES', 'groupHandler', function($scope, $http, INTENSITIES, groupHandler){
+app.controller("editGroupController", ['$scope', '$http', 'INTENSITIES', 'groupHandler', '$timeout', function($scope, $http, INTENSITIES, groupHandler, $timeout){
  
   $scope.group = {};
   $scope.error = false;
@@ -8,7 +8,8 @@ app.controller("editGroupController", ['$scope', '$http', 'INTENSITIES', 'groupH
 
   $scope.edit = function(){
     groupHandler.editGroup($scope.group._id, $scope.group, function() {
-      $scope.error = true;
+      $scope.toggleError();
+      $timeout($scope.toggleError, 4000);
     });
   };
 
@@ -19,11 +20,14 @@ app.controller("editGroupController", ['$scope', '$http', 'INTENSITIES', 'groupH
   $scope.delete = function(){
     groupHandler.deleteGroup($scope.group._id);
   };
+  
+  $scope.toggleError = function() {
+    $scope.error = !$scope.error;
+  };
 
 }]);
 
 app.factory('groupHandler', ['$http', function($http){
-  var errored = false;
   return {
     editGroup: function(group_id, group, callback){
       $http({
