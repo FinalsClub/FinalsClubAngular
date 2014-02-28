@@ -1,3 +1,4 @@
+// views/flashcards/flashcards.jade
 app.controller('flashcardController', ['$scope', '$timeout', function($scope, $timeout) {
   $scope.flashcards = [];
   $scope.topic = null;
@@ -11,11 +12,11 @@ app.controller('flashcardController', ['$scope', '$timeout', function($scope, $t
     var el = angular.element('#div-' + counter + " " + side + ' p');
     
     if (el.data('length') < 60) {
-      el.addClass('big'); 
+      el.addClass('big_text'); 
     } else if (el.data('length') < 200) {
-      el.addClass('medium');
+      el.addClass('medium_text');
     } else {
-      el.addClass('small');
+      el.addClass('small_text');
     }
       
     side = side === ".back" ? ".front" : ".back";

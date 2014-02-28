@@ -1,3 +1,4 @@
+// views/index.jade
 app.controller('indexController', ['$rootScope', 'HOST', function($rootScope, HOST) {
   $rootScope.lightbox = false;
   $rootScope.homepage = "";
@@ -16,4 +17,4 @@ app.directive('ngIf', function(){
       }
     }
   };
-})
+});

@@ -1,3 +1,4 @@
+// views/groups/create-group.jade
 app.controller('createGroupController', ['$scope', 'createGroup', 'INTENSITIES', function($scope, createGroup, INTENSITIES){
   $scope.intensities = INTENSITIES;
   $scope.courses = [];

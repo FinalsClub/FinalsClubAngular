@@ -1,4 +1,5 @@
-app.controller('shareController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+// views/flashcards/edit_flashcards.jade
+app.controller('shareController', ['$scope', '$http', '$timeout', 'editFlashcard', function($scope, $http, $timeout, editFlashcard) {
   $scope.pads = [];
   $scope.padIDs = [];
   $scope.topic = null;
@@ -13,35 +14,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   };
     
   $scope.addEditors = function(index) {
-    var el = document.getElementById("editors");
-    var node = angular.element('#editors');
-    var connection = sharejs.open(index + "-editors", 'text', function(error, doc) {
-      if (error) {
-        console.log("ERROR: ", error);
-      } else {
-        var update = function() {
-          el.innerHTML = doc.snapshot;
-        }
-        update();
-        window.doc = doc;        
-        doc.on('change', update);
-
-        var regCurr = new RegExp('current', "i");
-        if (doc.snapshot.match(regCurr) === null) {
-          doc.submitOp([{i:"<p class='bold'>Current Editors</p>", p:0}]);          
-        }
-        
-        var regUser = new RegExp(node.data('user'), "i");        
-        if (doc.snapshot.match(regUser) === null) {
-          doc.submitOp([{i:"<p>" + node.data('user') + "</p>", p: doc.snapshot.length}]);                       
-        } 
-      
-        window.onunload = window.onbeforeunload = function() {
-          doc.del(doc.snapshot.match(regUser).index, node.data('user').length);
-          return "";
-        };
-      }
-    });
+    editFlashcard.addEditors(index);
   };
     
   $scope.openConnections = function(index, iterating) {
@@ -76,22 +49,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   };
   
   $scope.saveText = function() {
-    var cards = [];
-    for (var i = 0; i < $scope.pads.length; i+=2) {
-      cards.push({term: $scope.pads[i].getText(), definition: $scope.pads[i+1].getText()})
-    }
-    var body = {
-      topic_id:  $scope.topic._id,
-      cards: cards,
-      pads: $scope.padIDs
-    };
-    $http({
-      method: 'PUT',
-      url: '/topics',
-      data: JSON.stringify(body)
-    }).success(function() {
-      angular.element('.shareDiv span').fadeIn(1000).fadeOut(2000);
-    });
+    editFlashcard.saveText($scope.pads, $scope.padIDs, $scope.topic._id);
   };
     
   $scope.addFlashcard = function() {  
@@ -120,16 +78,8 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
   };
   
   $scope.syncDB = function() {
-    $http({
-      method: 'GET',
-      url: '/topics?id=' + $scope.topic._id
-    }).success(function(data) {
-      if (data.flashcards.length > $scope.padIDs.length) {
-        $scope.addFlashcard();
-      } else if (data.flashcards.length < $scope.padIDs.length) {
-        window.onbeforeunload = null;
-        window.location.reload();
-      }
+    editFlashcard.syncDB($scope.topic._id, $scope.padIDs, function() {
+      $scope.addFlashcard();
     });
   };
   
@@ -144,3 +94,78 @@ app.controller('shareController', ['$scope', '$http', '$timeout', function($scop
     }, 5000);
   });
 }]);
+
+
+
+app.factory('editFlashcard', ['$http', function($http) {
+  return {
+    addEditors: function(index) {
+      var el = document.getElementById("editors");
+      var node = angular.element('#editors');
+      var connection = sharejs.open(index + "-editors", 'text', function(error, doc) {
+        if (error) {
+          console.log("ERROR: ", error);
+        } else {
+          var update = function() {
+            el.innerHTML = doc.snapshot;
+          }
+          update();
+          window.doc = doc;        
+          doc.on('change', update);
+
+          var regCurr = new RegExp('current', "i");
+          if (doc.snapshot.match(regCurr) === null) {
+            doc.submitOp([{i:"<p class='bold'>Current Editors</p>", p:0}]);          
+          }
+          
+          var regUser = new RegExp(node.data('user'), "i");        
+          if (doc.snapshot.match(regUser) === null) {
+            doc.submitOp([{i:"<p>" + node.data('user') + "</p>", p: doc.snapshot.length}]);                       
+          } 
+        
+          window.onunload = window.onbeforeunload = function() {
+            doc.del(doc.snapshot.match(regUser).index, node.data('user').length);
+            return "";
+          };
+        }
+      });
+    },
+    saveText: function(pads, padIDs, topic_id) {
+      var cards = [];
+      for (var i = 0; i < pads.length; i+=2) {
+        cards.push({term: pads[i].getText(), definition: pads[i+1].getText()})
+      }
+      var body = {
+        topic_id:  topic_id,
+        cards: cards,
+        pads: padIDs
+      };
+      $http({
+        method: 'PUT',
+        url: '/topics',
+        data: JSON.stringify(body)
+      }).success(function() {
+        angular.element('.shareDiv span').fadeIn(1000).fadeOut(2000);
+      });
+    },
+    syncDB: function(topic_id, padIDs, callback) {
+      $http({
+        method: 'GET',
+        url: '/topics?id=' + topic_id
+      }).success(function(data) {
+        if (data.flashcards.length > padIDs.length) {
+          callback();
+        } else if (data.flashcards.length < padIDs.length) {
+          window.onbeforeunload = null;
+          window.location.reload();
+        }
+      });
+    }
+  };
+}]);
+
+
+
+
+
+

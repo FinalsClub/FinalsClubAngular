@@ -1,0 +1,18 @@
+/*-------------------GROUP SEARCH-------------------------*/
+  
+input[name='search_for_group'] {
+  width: 100%;
+}
+
+.findGroupBox{
+  border: 1px solid #D8D8D8;
+  min-height: 10em;
+  max-height: 30em;
+  overflow: scroll;
+  padding-bottom: 2em;
+}
+
+.findGroupBox input[type='button'] {
+  position: relative;
+  bottom: 1em;
+} 

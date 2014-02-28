@@ -39,6 +39,7 @@ app.use(express.static(__dirname + '/public'));
 //configures passport js
 app.use(express.cookieParser());
 app.use(express.bodyParser());
+app.use(utils.errorHandler);
 app.use(express.session({
   secret: process.env.CLIENT_SECRET  || 'cats4life'
 }));

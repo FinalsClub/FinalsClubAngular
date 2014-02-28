@@ -1,0 +1,43 @@
+/*-------------------CUSTOM CLASSES-------------------------*/
+
+.bold {
+  font-weight: bold;
+}
+
+.right {
+  position: relative;
+  float: right;
+  bottom: 1em;
+  margin: 0;
+}
+
+.gray {
+  color: gray; 
+  font-weight: normal;
+}
+  
+.tiny {
+  font-size: 0.75em;
+}
+
+.requests {
+  padding: 0.5em;
+  background-color: #F3DD37;
+  float: right;
+}
+
+.requests.join {
+  left: -3em;
+}
+
+hr.smaller {
+  width: 98%;
+  border: thin solid #D8D8D8;
+}
+
+.error {
+  color: #B60202;
+  background-color: #FFC0CB;
+  padding: 1%;
+  margin-bottom: 1em;
+}

@@ -1,3 +1,4 @@
+// users/_form
 app.controller('SignUpController', ['$scope', 'signUp', 'INTENSITIES', function($scope, signUp, INTENSITIES){
   $scope.user = {
     'phone_number' : null,
@@ -21,8 +22,6 @@ app.factory('signUp', ['$http', function($http){
         data: JSON.stringify(data)
         }).success(function(data, status, headers){
           window.location.href = '/';
-        }).error(function(){
-          console.log('error in creating new user: ', data)
         })
       }
     };   

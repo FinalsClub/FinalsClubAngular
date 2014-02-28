@@ -1,49 +1,65 @@
-app.controller("editGroupController", ['$scope', '$http', 'INTENSITIES', function($scope, $http, INTENSITIES){
+// edit-group.jade
+app.controller("editGroupController", ['$scope', '$http', 'INTENSITIES', 'groupHandler', function($scope, $http, INTENSITIES, groupHandler){
+ 
   $scope.group = {};
   $scope.error = false;
   $scope.courses = [];
   $scope.intensities = INTENSITIES;
 
-  $scope.editGroup = function(){
-    $http({
-      method: 'PUT', 
-      url: '/groups/' + $scope.group._id,
-      data: JSON.stringify($scope.group)
-    }).success(function(){
-      window.location.href = '/';
-    }).error(function(){ 
+  $scope.edit = function(){
+    groupHandler.editGroup($scope.group._id, $scope.group, function() {
       $scope.error = true;
-    })
+    });
   };
-  
-  $scope.leaveGroup = function(){
-    var confirmed = confirm("Are you sure you want to leave this group?");
-    if (confirmed) {
-      $http({
-        method: 'POST',
-        url: '/leave_group',
-        data: JSON.stringify({
-          group_id: $scope.group._id
-        })
-      }).success(function(data, status){
-          window.location.href = '/';
-      }).error(function(data){
-          console.log('error in deleting group: ', data)
-      });      
-    }
+
+  $scope.leave = function(){
+    groupHandler.leaveGroup($scope.group._id);
   };
-  
-  $scope.deleteGroup = function(){
-    var confirmed = confirm("Are you sure you want to delete this group?");
-    if(confirmed){
+
+  $scope.delete = function(){
+    groupHandler.deleteGroup($scope.group._id);
+  };
+
+}]);
+
+app.factory('groupHandler', ['$http', function($http){
+  var errored = false;
+  return {
+    editGroup: function(group_id, group, callback){
       $http({
         method: 'PUT', 
-        url: '/groups/' + $scope.group._id + '/delete',
+        url: '/groups/' + group_id,
+        data: JSON.stringify(group)
       }).success(function(){
         window.location.href = '/';
-      }).error(function(){
-        console.log('date not sent! ', id)      
-      })
+      }).error(function(){ 
+        callback();
+      });
+    },
+    leaveGroup: function(group_id){
+      var confirmed = confirm("Are you sure you want to leave this group?");
+      if (confirmed) {
+        $http({
+          method: 'POST',
+          url: '/leave_group',
+          data: JSON.stringify({
+            group_id: group_id
+          })
+        }).success(function(data, status){
+          window.location.href = '/';
+        });     
+      }
+    },
+    deleteGroup: function(group_id){
+      var confirmed = confirm("Are you sure you want to delete this group?");
+      if(confirmed){
+        $http({
+          method: 'PUT', 
+          url: '/groups/' + group_id + '/delete',
+        }).success(function(){
+          window.location.href = '/';
+        });
+      }
     }
-  }
+  };
 }]);

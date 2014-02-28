@@ -1,0 +1,125 @@
+/*-------------------VIEW FLASHCARDS-------------------------*/
+
+.allFlashcardsDiv {
+  -webkit-perspective: 1000;  
+}
+
+.flashcardDiv {
+  height: 60%;
+  position: relative;
+  bottom: 5em;
+  margin: 0 auto;
+  border: 1px solid gray;
+  box-shadow: 2px 2px 2px #000;
+  width: 80%;
+  -webkit-transform-style: preserve-3d;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+.animated {
+  -webkit-transform: rotateX(180deg);
+}
+
+.face {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+}
+
+.front, .back {
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  overflow: scroll;
+}
+
+.back {
+  -webkit-transform: rotateX(180deg);
+}
+
+.front p, .back p {
+  padding: 10px;
+}
+
+.big_text {
+  margin-top: 25%;
+  font-size: 3em;
+}
+
+.medium_text {
+  margin-top: 20%;
+  font-size: 2em;
+}
+
+.small_text {
+  margin-top: 5%;
+  font-size: 1.5em;
+}
+
+.leftArrow, .rightArrow {
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.leftArrow {
+  position: relative;
+  top: 11em;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-right: 50px solid yellow;
+}
+
+.rightArrow {
+  float: right;
+  position: relative;
+  top: 5em;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-left: 50px solid yellow;
+}
+/*-------------------EDIT FLASHCARDS-------------------------*/
+
+.shareDivWrapper {
+  text-align: center;
+}
+
+
+.shareDiv span {
+  margin: 5px;
+  font-size: 0.75em;
+  font-weight: normal;
+  color: green;
+  display: none;
+}
+
+
+#removeButton {
+  color: gray;
+  border: 0;
+  margin-top: -13em;
+  background-color: #fff;
+}
+
+.editTerm, .editDef {
+  border: 1px solid #666;
+  padding: 1em;
+  width: 35%;
+  height: 20%;
+}
+
+.editDef {
+  border-left: 0;
+  background-color: #d8d8d8;
+}
+
+
+#editors {
+  background-color: #EDF1F1;
+  padding: 1%;
+  width: 20%;
+  position: absolute;
+  left: 108%;
+  bottom: 87%;
+}
