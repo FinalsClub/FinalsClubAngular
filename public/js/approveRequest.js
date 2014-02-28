@@ -1,18 +1,16 @@
+// requests.jade
 app.controller('requestController', ['$scope', '$http', 'requestHandler', function($scope, $http, requestHandler){
   $scope.requests = [];
   $scope.error = false
 
-  $scope.approve = function(user, request_id){
-    requestHandler.approveRequest(user, request_id);
-  };
+  $scope.approve = requestHandler.approveRequest.bind(null, user, request_id);
   
-  $scope.ignore = function(id){
-    requestHandler.ignoreRequest(id);
-  }
+  $scope.ignore = requestHandler.ignoreRequest.bind(null, id);
+  
   
 }]);
 
-app.factory('requestHandler', ['$http', function($http){
+app.factory('requestHandler', ['$http', '$scope', function($http, $scope){
   return {
     approveRequest: function(user, request_id){
       $http({

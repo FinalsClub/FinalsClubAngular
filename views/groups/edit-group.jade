@@ -3,7 +3,7 @@ include ../index
     h1 edit group: {{group.name}}
     hr
     .error(ng-show="error") Please pick a date in the future.
-    form(ng-submit="editGroup()")
+    form(ng-submit="edit()")
       table
         tr
           td 
@@ -11,5 +11,5 @@ include ../index
           td
             input(type="date" ng-model="group.next_meeting" size="60")
         include _form
-    a.grayed(href="#" ng-click="leaveGroup()") Leave group |   
-    a.grayed(href="#" ng-click="deleteGroup()") Delete group
+    a.grayed(href="#" ng-click="leave()") Leave group |   
+    a.grayed(href="#" ng-click="delete()") Delete group
