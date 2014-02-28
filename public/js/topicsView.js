@@ -1,24 +1,29 @@
 // views/topics/topics.jade
-app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandler', function($scope, $http, $rootScope, topicHandler){
-  
+app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandler', '$timeout', function($scope, $http, $rootScope, topicHandler, $timeout){
+  $scope.error = false;
   $scope.topics = [];
   $scope.topic = {
     title : null,
     group_id : window.location.pathname.split('/')[2],
     pads: []
   };
-  $scope.temp = null;
   
   $scope.submitTopic= function(){
-    topicHandler.submitTopic($scope.topic);
+    topicHandler.submitTopic($scope.topic, function() {
+      $scope.toggleError();
+      $timeout($scope.toggleError, 4000);       
+
+    });
   };
   
   $scope.editTopic = function(topicObj) {
-    if ($scope.topic.title.length) {
-      topicHandler.editTopic(topicObj, $scope.topic.title, function(){
-        $scope.showLightbox(topicObj._id);
-      });
-    }
+    topicHandler.editTopic(topicObj, $scope.topic.title, function(){
+      $scope.showLightbox(topicObj._id);
+    }, function() {
+      $scope.showLightbox(topicObj._id);
+      $scope.toggleError();
+      $timeout($scope.toggleError, 4000);       
+    });
   };
 
   $scope.deleteTopic = function(topicObj) {
@@ -31,6 +36,10 @@ app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandle
     $rootScope.lightbox = !$rootScope.lightbox;
     angular.element("." + id).toggleClass('block');
   };
+  
+  $scope.toggleError = function() {
+    $scope.error = !$scope.error;
+  };
     
 }]);
 
@@ -38,29 +47,36 @@ app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandle
 app.factory('topicHandler', ['$http', function($http){
   
   return {
-    submitTopic: function(topic){
-      var title = prompt("What do you want to name your topic?");
-      topic.title = title;
-      $http({
-        method: 'POST', 
-        url: '/topics',
-        data: JSON.stringify(topic)
-      }).success(function(data, status){
-        window.location.reload();
-      })
-    },
-
-    editTopic: function(topicObj, title, callback){
-      topicObj.title = title;
-      $http({
-        method: 'PUT', 
-        url: '/topics/' + topicObj._id,
-        data: JSON.stringify(topicObj)
-      }).success(function(data, status){
-        angular.element('.topicDiv.' + topicObj._id + ' a.topic').text(topicObj.title);
-        angular.element('.lightboxContent input').val('');
+   submitTopic: function(topic, callback){
+       var title = prompt("What do you want to name your topic?");
+       if(title.length){
+         topic.title = title;
+         $http({
+           method: 'POST', 
+           url: '/topics',
+           data: JSON.stringify(topic)
+         }).success(function(data, status){
+           window.location.reload();
+         }); 
+       } else {
         callback();
-      });
+       }
+     },
+    editTopic: function(topicObj, title, callback, errorCallback){
+      if (title) {
+        topicObj.title = title;
+        $http({
+          method: 'PUT', 
+          url: '/topics/' + topicObj._id,
+          data: JSON.stringify(topicObj)
+        }).success(function(data, status){
+          angular.element('.topicDiv.' + topicObj._id + ' a.topic').text(topicObj.title);
+          angular.element('.lightboxContent input').val('');
+          callback();
+        });        
+      } else {
+        errorCallback();
+      }
     },
 
     deleteTopic: function(topicObj, callback){

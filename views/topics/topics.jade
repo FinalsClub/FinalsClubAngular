@@ -2,6 +2,7 @@ include ../index
   .mainTopicDiv(ng-controller='topicController' ng-init='topics=#{topics}')
     h1 #{group_name}
     hr
+    .error(ng-show="error") Please add a title to your topic.
     if JSON.parse(topics).length
       a(href='#' ng-click='submitTopic()') Create a new topic
     p
