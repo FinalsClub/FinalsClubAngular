@@ -8,7 +8,7 @@ include ../index
     if JSON.parse(topics).length
       .topicDiv(ng-repeat='item in topics' class='{{item._id}}')
         p
-          a.grayed(href='#' ng-click='showLightbox(item._id)') &#9881;
+          a.gray.tiny(href='#' ng-click='showLightbox(item._id)') &#9881;
         div(ng-if='item.title.length > 25')
           a.topic(href='/groups/#{group_id}/flashcards/{{item._id}}' ) {{ item.title | limitTo: 25 }}...
         div(ng-if='item.title.length < 25')
@@ -23,7 +23,7 @@ include ../index
             p
               button.lightboxButton Save
           p
-            a.gray(href='#' ng-click='deleteTopic(item)') Delete this topic
+            a.gray.right(href='#' ng-click='deleteTopic(item)') Delete this topic
 
     else
       p You don't have any topics yet!

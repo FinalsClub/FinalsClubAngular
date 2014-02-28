@@ -1,24 +1,26 @@
-
 /*-------------------GENERAL ELEMENTS-------------------------*/
-
 
 html, body {
   height: 100%;
-  margin: 0; }
+  margin: 0; 
+}
 
 
 body {
-  background-position: 20% 0; }
+  background-position: 20% 0; 
+}
 
 ::-moz-selection {
   background: #44a1dd;
   color: #fff;
-  text-shadow: none; }
+  text-shadow: none; 
+}
 
 ::selection {
   background: #44a1dd;
   color: #fff;
-  text-shadow: none; }
+  text-shadow: none; 
+}
 
 h1 {
   padding:0;
@@ -27,7 +29,8 @@ h1 {
   position: relative;
   font-size: 1.5em;
   font-weight: 300;
-  text-transform: uppercase; }
+  text-transform: uppercase; 
+}
 
 h2 {
   margin: 1% 0;
@@ -40,15 +43,18 @@ h3 {
 }
 
 p {
-  color: #444; }
+  color: #444; 
+}
 
 a {
   text-decoration: none;
   color: black;
-  font-weight: normal;}
+  font-weight: normal;
+}
 
 a:hover {
-  color: #e8a200; }
+  color: #e8a200; 
+}
 
 span {
   margin: 5px;
@@ -61,7 +67,8 @@ li {
 }
   
 img {
-  max-width: 100%; }
+  max-width: 100%; 
+}
 
 input[type='button']{
   cursor: pointer;
@@ -76,8 +83,9 @@ button, .button, input[type='submit'] {
   color: #fff;
   height: 2em; 
   font-size: 1.1em;
-  margin-top: 20px;
-  margin-bottom: 20px; }
+  margin-top: 2 s0px;
+  margin-bottom: 20px; 
+}
   
 hr {
   width: 100%;

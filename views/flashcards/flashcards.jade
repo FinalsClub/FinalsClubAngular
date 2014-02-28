@@ -7,7 +7,7 @@ include ../index
 
   .allFlashcardsDiv(ng-controller='flashcardController' ng-init='flashcards=#{flashcards}; topic=#{topic};')
     if JSON.parse(flashcards).length
-      a.gray(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit') Edit flashcards
+      a.gray.right(href='/groups/{{topic.group_id._id}}/flashcards/{{topic._id}}/edit') Edit flashcards
       h3 {{ topic.title }} 
       .leftArrow(ng-click="goBack(); flipped=false")
       .rightArrow(ng-click="goForward(); flipped=false") 

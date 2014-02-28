@@ -4,26 +4,29 @@
   font-weight: bold;
 }
 
-.gray {
-  color: gray; 
-  float: right;
-  font-weight: normal;
+.right {
   position: relative;
+  float: right;
   bottom: 1em;
   margin: 0;
 }
+
+.gray {
+  color: gray; 
+  font-weight: normal;
+}
   
-.grayed {
-  color: gray;
+.tiny {
   font-size: 0.75em;
 }
 
 .requests {
   padding: 0.5em;
   background-color: #F3DD37;
-  float: right;}
+  float: right;
+}
 
-.requests.find {
+.requests.join {
   left: -3em;
 }
 
@@ -38,4 +41,3 @@ hr.smaller {
   padding: 1%;
   margin-bottom: 1em;
 }
-

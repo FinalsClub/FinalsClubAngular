@@ -7,10 +7,10 @@ include ../index
       div(ng-repeat="group in groups | filter:searchForGroup")
         ul
           h3 {{ group.name }}
-          li.grayed(ng-show="group.intensity.length") 
+          li.gray.tiny(ng-show="group.intensity.length") 
             span.bold Intensity: 
             {{ group.intensity }} 
-          li.grayed {{ group.course_id.name }}
+          li.gray.tiny {{ group.course_id.name }}
           p
           li
             span(ng-repeat='user in group.users')
@@ -19,22 +19,22 @@ include ../index
           .lightboxContent.white_content(class="{{group._id}}")
             li {{ group.name }}
             hr
-            li.grayed(ng-show="group.intensity.length" )
+            li.gray.tiny(ng-show="group.intensity.length" )
               span.bold Intensity: 
               {{ group.intensity }} 
-            li.grayed(ng-show="group.next_meeting.length" )
+            li.gray.tiny(ng-show="group.next_meeting.length" )
               span.bold Next meeting: 
               {{ group.next_meeting | date:"mediumDate" }} 
-            li.grayed(ng-show="group.motto.length" )
+            li.gray.tiny(ng-show="group.motto.length" )
               span.bold Motto: 
               {{ group.motto }}
-            li.grayed
+            li.gray.tiny
               span.bold Course affiliation: 
               {{ group.course_id.name }}
-            li.grayed(ng-show="group.description.length" )
+            li.gray.tiny(ng-show="group.description.length" )
               span.bold Description: 
               {{ group.description }}
-            li.grayed(ng-show="group.question.length" )
+            li.gray.tiny(ng-show="group.question.length" )
               span.bold Question: 
                {{ group.question }}
             p
@@ -44,9 +44,9 @@ include ../index
             button.lightboxButton(href="#" ng-click="showLightbox(group._id)") Close
           div(ng-if="checkGroupLength(group.users)")
             a(href='/join_group?group_id={{group._id}}')
-              input.requests.find(type='button' model='joinGroup' value='Request to Join Group')  
+              input.requests.join(type='button' model='joinGroup' value='Request to Join Group')  
           div(ng-if="!checkGroupLength(group.users)")
             a(href='#')
-              input.requests.find(type='button' model='joinGroup' value='Join Group' ng-click="joinEmptyGroup(group._id, #{user_id})")
+              input.requests.join(type='button' model='joinGroup' value='Join Group' ng-click="joinEmptyGroup(group._id, #{user_id})")
         hr.smaller
 

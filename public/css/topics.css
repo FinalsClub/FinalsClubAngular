@@ -1,5 +1,15 @@
 /*-------------------------------TOPICS----------------------------------*/
 
+
+.topic {
+  position: relative;
+  top: 0;
+}
+
+.topicDiv p:first-child {
+  text-align: right;
+}
+
 .topicDiv {
   width: 30%;
   height: 20%;
@@ -13,16 +23,7 @@
   display: inline-block;
 }
 
-.topic {
-  position: relative;
-  top: 0;
-}
-
-.topicDiv p:first-child {
-  text-align: right;
-}
-
-.topicDiv .grayed {
+.topicDiv .gray.tiny {
   margin-right: 0.5em;
   position: relative;
   bottom: 1em;

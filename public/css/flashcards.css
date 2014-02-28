@@ -1,4 +1,4 @@
-/*-------------------FLASHCARD PAGES-------------------------*/
+/*-------------------VIEW FLASHCARDS-------------------------*/
 
 .allFlashcardsDiv {
   -webkit-perspective: 1000;  
@@ -16,7 +16,6 @@
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
 }
-
 
 .animated {
   -webkit-transform: rotateX(180deg);
@@ -43,17 +42,17 @@
   padding: 10px;
 }
 
-.big {
+.big_text {
   margin-top: 25%;
   font-size: 3em;
 }
 
-.medium {
+.medium_text {
   margin-top: 20%;
   font-size: 2em;
 }
 
-.small {
+.small_text {
   margin-top: 5%;
   font-size: 1.5em;
 }
@@ -80,6 +79,7 @@
   border-bottom: 50px solid transparent;
   border-left: 50px solid yellow;
 }
+/*-------------------EDIT FLASHCARDS-------------------------*/
 
 .shareDivWrapper {
   text-align: center;

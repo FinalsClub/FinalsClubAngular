@@ -6,14 +6,16 @@
 .groupNav a {
   color: gray;
   font-weight: bold;
-  text-decoration: none;}
+  text-decoration: none;
+}
 
 .groupDiv {
   width: 100%;
 }
 
 .facebook {
-  background-color: #7D7DAF; }
+  background-color: #7D7DAF; 
+}
 
 .communicationsDiv {
   width: 35%;  

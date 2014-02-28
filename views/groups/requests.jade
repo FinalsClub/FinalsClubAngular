@@ -13,5 +13,5 @@ include ../index
           span.entry_answer {{ request.entry_answer }}
           a.requests(href="" ng-click='approve(request.user_id._id, request._id)') Approve Member        
         a(href="" ng-click="ignore(request._id)").ignore Ignore
-        span.grayed {{ request.created_at | date: 'medium'}}  
+        span.gray.tiny {{ request.created_at | date: 'medium'}}  
       hr.smaller

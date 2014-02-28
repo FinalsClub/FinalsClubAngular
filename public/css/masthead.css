@@ -1,7 +1,7 @@
-/*-------------------MASTHEAD AND LAYOUT ELEMENTS-------------------------*/
+/*-------------------MASTHEAD, LAYOUT ELEMENTS, AND LOG IN PAGE-------------------------*/
 
 .wrapper, .contentWrapper {
-  font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-family: "Helvetica", "Arial", sans-serif;
   position: relative;
   width: 60%;
   margin: 0 auto;
@@ -20,7 +20,10 @@
 header a {
   text-decoration: none;
   font-weight: normal;
-  color: #e8a200; }
+  color: #e8a200; 
+}
+
+/*-------------------MENU-------------------------*/
 
 #menu {
   background-color: #262626;
@@ -28,6 +31,13 @@ header a {
   float: right;
   position: relative;
   bottom: 0.175em;
+}
+
+#menu hr {
+  height: 1px;
+  border: none;
+  background-color: gray;
+  padding-right: 0;
 }
 
 #login-nav #menu ul {
@@ -46,21 +56,11 @@ header a {
   background-color: gray;
 }
 
-
-#menu hr {
-  height: 1px;
-  border: none;
-  background-color: gray;
-  padding-right: 0;
-}
-
 #login-nav #menu li {
   display: block;
 }
 
-#login-nav a.username {
-  color: white; 
-}
+/*-------------------LOG IN NAV-------------------------*/
 
 #login-nav {
   font-family: sans-serif;
@@ -71,6 +71,10 @@ header a {
   padding-top: 0.25em;
   padding-right: 2em;
   text-align: right; 
+}
+
+#login-nav a.username {
+  color: white; 
 }
 
 #login-nav ul {
@@ -107,27 +111,34 @@ header a {
 #logo {
   float: left;
   position: relative;
-  bottom: 2.4em;}
+  bottom: 2.4em;
+}
+
+/*-------------------MAIN NAV-------------------------*/
 
 #main-nav {
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   float: right;
   padding: 0 0.75em; 
   position: relative;
-  bottom: 1.7em; }
+  bottom: 1.7em; 
+}
 
 #main-nav li {
   display: inline;
-  vertical-align: middle; }
+  vertical-align: middle; 
+}
 
 #main-nav a {
   position: relative;
   margin-left: 1.5em;
   color: #fff; 
-  font-size: 1.2em; }
+  font-size: 1.2em; 
+}
 
 #main-nav a:hover {
-  color: #e8a200; }
+  color: #e8a200; 
+}
 
 .signupDiv {
   margin-top: 3em;
@@ -146,7 +157,9 @@ header a {
   margin-right: 10%;
   margin-bottom: 0;
 }
-  
+
+/*-------------------LOG IN PAGE-------------------------*/
+
 p:last-child .facebook {
   background-color: #5C5C5C;
   border:0;

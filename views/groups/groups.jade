@@ -4,14 +4,14 @@ include ../index
     hr
     .groupDiv(ng-repeat='group in groups')
       .dateChecker(ng-if="dateExists(group)")
-        .meetingDate.gray
+        .meetingDate.gray.right
           ul
             li
               span Next meeting: 
             li
               a(href="groups/{{group._id}}/edit") {{ group.next_meeting | date: 'mediumDate' }}
       .dateChecker(ng-if="!dateExists(group)")
-        .meetingDate.gray
+        .meetingDate.gray.right
           ul
             li
               span No meeting set
@@ -23,7 +23,7 @@ include ../index
       h2 {{ group.name }}
       .groupNav
         a(href="groups/{{group._id}}/flashcards") Flashcards |  
-        a.grayed(href="groups/{{group._id}}/edit") Edit group
+        a.gray.tiny(href="groups/{{group._id}}/edit") Edit group
       span(ng-repeat="user in group.users")
         img(src="{{user.image}}" title="{{user.first_name}} {{user.last_name}}")
       hr.smaller.mainPage
