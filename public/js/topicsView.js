@@ -1,3 +1,4 @@
+// views/topics/topics.jade
 app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandler', function($scope, $http, $rootScope, topicHandler){
   
   $scope.topics = [];
@@ -9,15 +10,12 @@ app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandle
   $scope.temp = null;
   
   $scope.submitTopic= function(){
-    var title = prompt("What do you want to name your topic?");
-    $scope.topic.title = title;
     topicHandler.submitTopic($scope.topic);
   };
   
   $scope.editTopic = function(topicObj) {
     if ($scope.topic.title.length) {
-      topicObj.title = $scope.topic.title;
-      topicHandler.editTopic(topicObj, function(){
+      topicHandler.editTopic(topicObj, $scope.topic.title, function(){
         $scope.showLightbox(topicObj._id);
       });
     }
@@ -37,11 +35,12 @@ app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandle
 }]);
 
 
-
 app.factory('topicHandler', ['$http', function($http){
   
   return {
     submitTopic: function(topic){
+      var title = prompt("What do you want to name your topic?");
+      topic.title = title;
       $http({
         method: 'POST', 
         url: '/topics',
@@ -51,7 +50,8 @@ app.factory('topicHandler', ['$http', function($http){
       })
     },
 
-    editTopic: function(topicObj, callback){
+    editTopic: function(topicObj, title, callback){
+      topicObj.title = title;
       $http({
         method: 'PUT', 
         url: '/topics/' + topicObj._id,
@@ -62,6 +62,7 @@ app.factory('topicHandler', ['$http', function($http){
         callback();
       });
     },
+
     deleteTopic: function(topicObj, callback){
       $http({
         method: 'PUT', 
@@ -70,7 +71,7 @@ app.factory('topicHandler', ['$http', function($http){
       }).success(function(data, status){
         angular.element('.topicDiv.' + topicObj._id).remove();
         callback();
-      });   
+      });
     }
   };
 

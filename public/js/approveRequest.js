@@ -1,4 +1,4 @@
-// requests.jade
+// views/groups/requests.jade
 app.controller('requestController', ['$scope', '$http', 'requestHandler', function($scope, $http, requestHandler){
   
   $scope.requests = [];

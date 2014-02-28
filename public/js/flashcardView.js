@@ -1,3 +1,4 @@
+// views/flashcards/flashcards.jade
 app.controller('flashcardController', ['$scope', '$timeout', function($scope, $timeout) {
   $scope.flashcards = [];
   $scope.topic = null;
