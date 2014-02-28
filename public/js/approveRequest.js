@@ -1,22 +1,9 @@
-app.controller('requestController', ['$scope', '$http', function($scope, $http){
+app.controller('requestController', ['$scope', '$http', 'requestHandler', function($scope, $http, requestHandler){
   $scope.requests = [];
   $scope.error = false
 
   $scope.approve = function(user, request_id){
-    $http({
-      method: 'POST',
-      url: '/members',
-      data: JSON.stringify({
-        user_id: user,
-        group_id: window.location.pathname.split('/')[2],
-        request_id: request_id
-      })
-    }).success(function(){
-      window.location.href = '/';
-    }).error(function(err){
-      console.log(err);
-      $scope.error = true;
-    });
+    requestHandler.approveRequest(user, request_id);
   };
   
   $scope.ignoreRequest = function(id) {
@@ -31,3 +18,25 @@ app.controller('requestController', ['$scope', '$http', function($scope, $http){
   };
   
 }]);
+
+app.factory('requestHandler', ['$http', function($http){
+  return {
+    approveRequest: function(user, request_id){
+      $http({
+      method: 'POST',
+      url: '/members',
+      data: JSON.stringify({
+            user_id: user,
+            group_id: window.location.pathname.split('/')[2],
+            request_id: request_id
+          })
+      }).success(function(){
+        window.location.href = '/';
+      }).error(function(err){
+        console.log(err);
+        $scope.error = true;
+      });  
+    }
+  };   
+}]);
+

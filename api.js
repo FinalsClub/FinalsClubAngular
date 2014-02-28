@@ -50,7 +50,7 @@ app.post('/groups', utils.isLoggedIn, function(req, res){
     if (course === null) {
       var newCourse = new models.Course({
         school_id: app.get('user').school_id,
-        name: req.body.course_id
+        name: req.body.course_name
       });
       newCourse.save(function() {
        req.body.course_id = newCourse._id;
@@ -60,7 +60,7 @@ app.post('/groups', utils.isLoggedIn, function(req, res){
       req.body.course_id = course._id;
       utils.createNewGroup(req.body, res, course);
     }
- });             
+  });             
 });
 
 app.put('/groups/:group_id', utils.isLoggedIn, utils.isGroupMember, function(req, res){

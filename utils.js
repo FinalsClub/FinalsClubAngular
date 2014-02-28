@@ -1,7 +1,6 @@
-
 var models = require('./models');
 
-//-----------------------------------VALIDATIONS------------------------------//
+//-----------------------------------VALIDATIONS-----------------------------------//
 
 module.exports.isLoggedIn = function(req, res, next) {
   if (req.isAuthenticated()) {
@@ -11,7 +10,6 @@ module.exports.isLoggedIn = function(req, res, next) {
   } else if (req.url === '/') {
     return res.render('splashpage.jade', { empty: true });
   }
-  res.send(401, "User must log in.");
   res.redirect('/log_in');
 };
 
@@ -34,7 +32,17 @@ module.exports.isUser = function(req, res, next) {
 };
 
 
-//---------------------------------HELPER FUNCTIONS-------------------------//
+//-------------------------------ERROR HANDLING ----------------------------------//
+
+module.exports.errorHandler = function(err, req, res, next) {
+  if (err) { 
+    console.error(err) ;
+  } else {
+    return next();
+  }
+};
+
+//---------------------------------HELPER FUNCTIONS-------------------------------//
 
 module.exports.createNewGroup = function(data, response, course) {
   var group = new models.Group(data);
