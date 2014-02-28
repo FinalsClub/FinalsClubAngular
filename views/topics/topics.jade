@@ -2,16 +2,28 @@ include ../index
   .mainTopicDiv(ng-controller='topicController' ng-init='topics=#{topics}')
     h1 #{group_name}
     hr
-    a(href='#' ng-click="submitTopic()") Create a new topic
+    a(href='#' ng-click='submitTopic()') Create a new topic
     p
     if JSON.parse(topics).length
-      .topicDiv(ng-repeat='topic in topics')
+      .topicDiv(ng-repeat='item in topics' class='{{item._id}}')
         p
-          a.grayed(href="#" ng-click="editTopic(topic)") &#9881;
-        div(ng-if="topic.title.length > 25")
-          a.topic(href='/groups/#{group_id}/flashcards/{{topic._id}}' ) {{ topic.title | limitTo: 25 }}...
-        div(ng-if="topic.title.length < 25")
-          a.topic(href='/groups/#{group_id}/flashcards/{{topic._id}}' ) {{ topic.title }}
+          a.grayed(href='#' ng-click='showLightbox(item._id)') &#9881;
+        div(ng-if='item.title.length > 25')
+          a.topic(href='/groups/#{group_id}/flashcards/{{item._id}}' ) {{ item.title | limitTo: 25 }}...
+        div(ng-if='item.title.length < 25')
+          a.topic(href='/groups/#{group_id}/flashcards/{{item._id}}' ) {{ item.title }}
+        .lightboxContent.white_content(class='{{item._id}}')
+          a.closeX(href='#' ng-click='showLightbox(item._id)') x
+          form(ng-submit='editTopic(item)')
+            p
+              label.bold(for='topic.title') Edit topic: 
+            p
+              input(type='text' ng-model='topic.title' placeholder='Enter title here...' size='60')
+            p
+              button.lightboxButton Save
+          p
+            a.gray(href='#' ng-click='deleteTopic(item)') Delete this topic
+
     else
       p You don't have any topics yet!
       a.button(href='/groups/#{group_id}/topics/new') Create a new topic

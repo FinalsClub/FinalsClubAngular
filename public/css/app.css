@@ -532,6 +532,7 @@ input[name='search_for_group'] {
   background-color: white;
   z-index:2;
   overflow: auto;
+  text-align: left;
 }
 
 .lightboxButton {
@@ -607,6 +608,9 @@ h3.splashpageTitle {
   height: 4em;
 }
 
+
+/*-------------------------------topic pages----------------------------------*/
+
 .topicDiv {
   width: 30%;
   height: 20%;
@@ -625,7 +629,7 @@ h3.splashpageTitle {
   top: 1.5em;
 }
 
-.topicDiv p {
+.topicDiv p:first-child {
   text-align: right;
 }
 
@@ -637,3 +641,10 @@ h3.splashpageTitle {
   color: #CAC8C8;
 }
 
+.white_content p:first-child {
+  text-align: left;
+}
+
+a.closeX {
+  float: right;
+}

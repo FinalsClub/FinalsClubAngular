@@ -174,6 +174,16 @@ app.put('/topics/:id', utils.isLoggedIn, function(req, res) {
   });
 });
 
+app.put('/topics/:id/delete', utils.isLoggedIn, function(req, res) {
+  models.Topic.findOne({_id: req.params.id}).remove().exec(function(err, topic) {
+    models.Group.findOne({_id: req.body.group_id}).exec(function(err, group) {
+      group.topics.splice(group.topics.indexOf(req.params.id),1);
+      group.save(function() {
+        res.send(200);
+      });
+    });
+  });
+});
 
 app.put('/requests/:id', utils.isLoggedIn, function(req, res) {
   models.Request.findOne({ _id: req.params.id })
