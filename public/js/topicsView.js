@@ -1,4 +1,5 @@
 app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandler', function($scope, $http, $rootScope, topicHandler){
+  
   $scope.topics = [];
   $scope.topic = {
     title : null,
@@ -23,16 +24,9 @@ app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandle
   };
 
   $scope.deleteTopic = function(topicObj) {
-    $http({
-      method: 'PUT', 
-      url: '/topics/' + topicObj._id + '/delete',
-      data: JSON.stringify({group_id: topicObj.group_id})
-    }).success(function(data, status){
+    topicHandler.deleteTopic(topicObj, function(){
       $scope.showLightbox(topicObj._id);
-      angular.element('.topicDiv.' + topicObj._id).remove();
-    }).error(function(err, data){
-      console.log(err);
-    });      
+    });
   };
   
   $scope.showLightbox = function(id) {
@@ -42,7 +36,10 @@ app.controller('topicController', ['$scope', '$http', '$rootScope', 'topicHandle
     
 }]);
 
+
+
 app.factory('topicHandler', ['$http', function($http){
+  
   return {
     submitTopic: function(topic){
       $http({
@@ -53,6 +50,7 @@ app.factory('topicHandler', ['$http', function($http){
         window.location.reload();
       })
     },
+
     editTopic: function(topicObj, callback){
       $http({
         method: 'PUT', 
@@ -64,8 +62,15 @@ app.factory('topicHandler', ['$http', function($http){
         callback();
       });
     },
-    deleteTopic: function(){
-
+    deleteTopic: function(topicObj, callback){
+      $http({
+        method: 'PUT', 
+        url: '/topics/' + topicObj._id + '/delete',
+        data: JSON.stringify({group_id: topicObj.group_id})
+      }).success(function(data, status){
+        angular.element('.topicDiv.' + topicObj._id).remove();
+        callback();
+      });   
     }
   };
 
