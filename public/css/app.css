@@ -1,6 +1,7 @@
 
 /*-------------------GENERAL ELEMENTS-------------------------*/
 
+
 html, body {
   height: 100%;
   margin: 0; }
@@ -619,7 +620,20 @@ h3.splashpageTitle {
   display: inline-block;
 }
 
-.topicDiv a {
+.topic {
   position: relative;
-  top: 45%;
+  top: 1.5em;
 }
+
+.topicDiv p {
+  text-align: right;
+}
+
+.topicDiv .grayed {
+  margin-right: 0.5em;
+  position: relative;
+  bottom: 1em;
+  font-size: 1em;
+  color: #CAC8C8;
+}
+

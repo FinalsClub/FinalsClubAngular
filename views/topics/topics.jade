@@ -6,10 +6,12 @@ include ../index
     p
     if JSON.parse(topics).length
       .topicDiv(ng-repeat='topic in topics')
-        span(ng-if="topic.title.length > 28")
-          a(href='/groups/#{group_id}/flashcards/{{topic._id}}' ) {{ topic.title | limitTo: 28 }}...
-        span(ng-if="topic.title.length < 28")
-          a(href='/groups/#{group_id}/flashcards/{{topic._id}}' ) {{ topic.title }}
+        p
+          a.grayed(href="#" ng-click="editTopic(topic)") &#9881;
+        div(ng-if="topic.title.length > 25")
+          a.topic(href='/groups/#{group_id}/flashcards/{{topic._id}}' ) {{ topic.title | limitTo: 25 }}...
+        div(ng-if="topic.title.length < 25")
+          a.topic(href='/groups/#{group_id}/flashcards/{{topic._id}}' ) {{ topic.title }}
     else
       p You don't have any topics yet!
       a.button(href='/groups/#{group_id}/topics/new') Create a new topic

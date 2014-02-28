@@ -1,7 +1,6 @@
 app.controller('topicController', ['$scope', '$http', function($scope, $http){
   $scope.topics = [];
   $scope.topic = {
-    topic_date : null,
     title : null,
     group_id : window.location.pathname.split('/')[2],
     pads: []
@@ -16,9 +15,25 @@ app.controller('topicController', ['$scope', '$http', function($scope, $http){
       url: '/topics',
       data: JSON.stringify($scope.topic)
     }).success(function(data, status){
-      window.location.href = '/groups/' + $scope.topic.group_id + '/flashcards';
+      window.location.reload();
     }).error(function(err, data){
       console.log(err);
     });
   };
+  
+  $scope.editTopic = function(topicObj) {
+    var title = prompt("New topic name: ");  
+    if (title.length) {
+      $http({
+        method: 'PUT', 
+        url: '/topics/' + topicObj._id,
+        data: JSON.stringify({title: title})
+      }).success(function(data, status){
+        window.location.reload();
+      }).error(function(err, data){
+        console.log(err);
+      });      
+    }
+  };
+  
 }]);

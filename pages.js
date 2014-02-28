@@ -85,17 +85,6 @@ app.get('/groups/:group_id/flashcards', utils.isLoggedIn, utils.isGroupMember, f
               });
 });
 
-app.get('/groups/:group_id/topics/new', utils.isLoggedIn, utils.isGroupMember, function(req, res){
-  models.Group.findOne({_id: req.params.group_id}).exec(function(err, group){
-    res.render('topics/topics_new.jade', {
-      user: app.get('name'),
-      image: app.get('user').image,
-      group: group.name,
-      user_token: app.get('user').facebook.token
-    });               
-  });
-});
-
 app.get('/groups/:group_id/flashcards/:topic_id', utils.isLoggedIn, utils.isGroupMember, function(req, res){  
   models.Topic.findOne({_id: req.params.topic_id})
                 .populate('group_id')

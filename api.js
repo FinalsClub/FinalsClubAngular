@@ -165,6 +165,16 @@ app.put('/topics', utils.isLoggedIn, function(req, res) {
   });
 });
 
+app.put('/topics/:id', utils.isLoggedIn, function(req, res) {
+  models.Topic.findOne({_id: req.params.id}).exec(function(err, topic) {
+    topic.title = req.body.title;
+    topic.save(function() {
+      res.send(200);
+    });
+  });
+});
+
+
 app.put('/requests/:id', utils.isLoggedIn, function(req, res) {
   models.Request.findOne({ _id: req.params.id })
                 .exec(function(err, request) {
