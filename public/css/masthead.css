@@ -30,6 +30,7 @@ header a {
   float: right;
   position: relative;
   bottom: 0.175em;
+  z-index: 100;
 }
 
 #menu hr {

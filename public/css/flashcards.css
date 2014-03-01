@@ -122,4 +122,5 @@
   position: absolute;
   left: 108%;
   bottom: 87%;
+  z-index: 1;
 }
