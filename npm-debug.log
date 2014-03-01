@@ -1,0 +1,853 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'jasmine-node',
+1 verbose cli   '--save' ]
+2 info using npm@1.3.21
+3 info using node@v0.10.24
+4 warn package.json finalsclub@0.0.1 No repository field.
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'jasmine-node', null ]
+7 verbose cache add name=undefined spec="jasmine-node" args=["jasmine-node",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'jasmine-node',
+8 verbose parsed url   path: 'jasmine-node',
+8 verbose parsed url   href: 'jasmine-node' }
+9 silly lockFile bba04ce4-jasmine-node jasmine-node
+10 verbose lock jasmine-node /Users/lennylemony/.npm/bba04ce4-jasmine-node.lock
+11 silly lockFile bba04ce4-jasmine-node jasmine-node
+12 silly lockFile bba04ce4-jasmine-node jasmine-node
+13 verbose addNamed [ 'jasmine-node', '' ]
+14 verbose addNamed [ null, '*' ]
+15 silly lockFile b74de4f8-jasmine-node jasmine-node@
+16 verbose lock jasmine-node@ /Users/lennylemony/.npm/b74de4f8-jasmine-node.lock
+17 silly addNameRange { name: 'jasmine-node', range: '*', hasData: false }
+18 verbose url raw jasmine-node
+19 verbose url resolving [ 'https://registry.npmjs.org/', './jasmine-node' ]
+20 verbose url resolved https://registry.npmjs.org/jasmine-node
+21 info trying registry request attempt 1 at 16:47:24
+22 verbose etag "CGN1F56X18QQ7E4BP2FJSO0BH"
+23 http GET https://registry.npmjs.org/jasmine-node
+24 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+25 info trying registry request attempt 2 at 16:47:34
+26 verbose etag "CGN1F56X18QQ7E4BP2FJSO0BH"
+27 http GET https://registry.npmjs.org/jasmine-node
+28 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+29 info trying registry request attempt 3 at 16:48:35
+30 verbose etag "CGN1F56X18QQ7E4BP2FJSO0BH"
+31 http GET https://registry.npmjs.org/jasmine-node
+32 silly registry.get cb [ 304, undefined ]
+33 verbose etag jasmine-node from cache
+34 silly addNameRange number 2 { name: 'jasmine-node', range: '*', hasData: true }
+35 silly addNameRange versions [ 'jasmine-node',
+35 silly addNameRange   [ '1.0.1',
+35 silly addNameRange     '1.0.2',
+35 silly addNameRange     '1.0.3',
+35 silly addNameRange     '1.0.4',
+35 silly addNameRange     '1.0.5',
+35 silly addNameRange     '1.0.6',
+35 silly addNameRange     '1.0.7',
+35 silly addNameRange     '1.0.8',
+35 silly addNameRange     '1.0.9',
+35 silly addNameRange     '1.0.10',
+35 silly addNameRange     '1.0.11',
+35 silly addNameRange     '1.0.12',
+35 silly addNameRange     '1.0.13',
+35 silly addNameRange     '1.0.15',
+35 silly addNameRange     '1.0.16',
+35 silly addNameRange     '1.0.17',
+35 silly addNameRange     '1.0.18',
+35 silly addNameRange     '1.0.19',
+35 silly addNameRange     '1.0.20',
+35 silly addNameRange     '1.0.21',
+35 silly addNameRange     '1.0.22',
+35 silly addNameRange     '1.0.23',
+35 silly addNameRange     '1.0.24',
+35 silly addNameRange     '1.0.25',
+35 silly addNameRange     '1.0.26',
+35 silly addNameRange     '1.0.27',
+35 silly addNameRange     '1.0.28',
+35 silly addNameRange     '1.1.0',
+35 silly addNameRange     '1.2.0',
+35 silly addNameRange     '1.2.1',
+35 silly addNameRange     '1.2.2',
+35 silly addNameRange     '1.2.3',
+35 silly addNameRange     '1.3.0',
+35 silly addNameRange     '1.3.1',
+35 silly addNameRange     '1.4.0',
+35 silly addNameRange     '1.5.0',
+35 silly addNameRange     '1.6.0',
+35 silly addNameRange     '1.7.0',
+35 silly addNameRange     '1.7.1',
+35 silly addNameRange     '1.8.0',
+35 silly addNameRange     '1.8.1',
+35 silly addNameRange     '1.9.0',
+35 silly addNameRange     '1.9.1',
+35 silly addNameRange     '1.10.0',
+35 silly addNameRange     '1.10.1',
+35 silly addNameRange     '1.10.2',
+35 silly addNameRange     '1.11.0',
+35 silly addNameRange     '1.12.0',
+35 silly addNameRange     '1.12.1',
+35 silly addNameRange     '1.13.0',
+35 silly addNameRange     '1.0.0-rc1',
+35 silly addNameRange     '1.0.0-rc2',
+35 silly addNameRange     '1.0.0-rc3' ] ]
+36 verbose addNamed [ 'jasmine-node', '1.13.0' ]
+37 verbose addNamed [ '1.13.0', '1.13.0' ]
+38 silly lockFile 906c132e-jasmine-node-1-13-0 jasmine-node@1.13.0
+39 verbose lock jasmine-node@1.13.0 /Users/lennylemony/.npm/906c132e-jasmine-node-1-13-0.lock
+40 silly lockFile 906c132e-jasmine-node-1-13-0 jasmine-node@1.13.0
+41 silly lockFile 906c132e-jasmine-node-1-13-0 jasmine-node@1.13.0
+42 silly lockFile b74de4f8-jasmine-node jasmine-node@
+43 silly lockFile b74de4f8-jasmine-node jasmine-node@
+44 silly resolved [ { name: 'jasmine-node',
+44 silly resolved     version: '1.13.0',
+44 silly resolved     description: 'DOM-less simple JavaScript BDD testing framework for Node',
+44 silly resolved     contributors: [ [Object] ],
+44 silly resolved     homepage: 'https://github.com/mhevery/jasmine-node',
+44 silly resolved     repository:
+44 silly resolved      { type: 'git',
+44 silly resolved        url: 'https://github.com/mhevery/jasmine-node.git' },
+44 silly resolved     keywords: [ 'testing', 'bdd' ],
+44 silly resolved     author: { name: 'Misko Hevery', email: 'misko@hevery.com' },
+44 silly resolved     maintainers: [ [Object], [Object] ],
+44 silly resolved     licenses: [ 'MIT' ],
+44 silly resolved     dependencies:
+44 silly resolved      { 'coffee-script': '>=1.0.1',
+44 silly resolved        'jasmine-reporters': '>=0.2.0',
+44 silly resolved        'jasmine-growl-reporter': '~0.0.2',
+44 silly resolved        requirejs: '>=0.27.1',
+44 silly resolved        walkdir: '>= 0.0.1',
+44 silly resolved        underscore: '>= 1.3.1',
+44 silly resolved        gaze: '~0.3.2',
+44 silly resolved        mkdirp: '~0.3.5' },
+44 silly resolved     bin: { 'jasmine-node': 'bin/jasmine-node' },
+44 silly resolved     preferGlobal: true,
+44 silly resolved     main: 'lib/jasmine-node',
+44 silly resolved     scripts: { test: 'node lib/jasmine-node/cli.js spec' },
+44 silly resolved     devDependencies: {},
+44 silly resolved     readme: 'jasmine-node\n======\n\n[![Build Status](https://secure.travis-ci.org/spaghetticode/jasmine-node.png)](http://travis-ci.org/spaghetticode/jasmine-node)\n\nThis node.js module makes the wonderful Pivotal Lab\'s jasmine\n(http://github.com/pivotal/jasmine) spec framework available in\nnode.js.\n\njasmine\n-------\n\nVersion `1.3.1` of Jasmine is currently included with node-jasmine.\n\nwhat\'s new\n----------\n*  Growl notifications with the `--growl` flag (requires Growl to be installed)\n*  Ability to test specs written in Literate Coffee-Script\n*  Teamcity Reporter reinstated.\n*  Ability to specify multiple files to test via list in command line\n*  Ability to suppress stack trace with `--noStack`\n*  Async tests now run in the expected context instead of the global one\n*  `--config` flag that allows you to assign variables to process.env\n*  Terminal Reporters are now available in the Jasmine Object #184\n*  Done is now available in all timeout specs #199\n*  `afterEach` is available in requirejs #179\n*  Editors that replace instead of changing files should work with autotest #198\n*  Jasmine Mock Clock now works!\n*  Autotest now works!\n*  Using the latest Jasmine!\n*  Verbose mode tabs `describe` blocks much more accurately!\n*  `--coffee` now allows specs written in Literate CoffeeScript (`.litcoffee`)\n\ninstall\n------\n\nTo install the latest official version, use NPM:\n\n```sh\nnpm install jasmine-node -g\n```\n\nTo install the latest _bleeding edge_ version, clone this repository and check\nout the `beta` branch.\n\nusage\n------\n\nWrite the specifications for your code in `*.js` and `*.coffee` files in the `spec/` directory.\nYou can use sub-directories to better organise your specs. In the specs use `describe()`, `it()` etc. exactly \nas you would in client-side jasmine specs.\n\n**Note**: your specification files must be named as `*spec.js`, `*spec.coffee` or `*spec.litcoffee`,\nwhich matches the regular expression `/spec\\.(js|coffee|litcoffee)$/i`;\notherwise jasmine-node won\'t find them!\nFor example, `sampleSpecs.js` is wrong, `sampleSpec.js` is right.\n\nIf you have installed the npm package, you can run it with:\n\n```sh\njasmine-node spec/\n```\n\nIf you aren\'t using npm, you should add `pwd`/lib to the `$NODE_PATH`\nenvironment variable, then run:\n\n```sh\nnode lib/jasmine-node/cli.js\n```\n\n\nYou can supply the following arguments:\n\n  * `--autotest`, provides automatic execution of specs after each change\n  * `--watch`, when used with `--autotest`, paths after `--watch` will be\nwatched for changes, allowing to watch for changes outside of specs directory\n  * `--coffee`, allow execution of `.coffee` and `.litcoffee` specs\n  * `--color`, indicates spec output should uses color to\nindicates passing (green) or failing (red) specs\n  * `--noColor`, do not use color in the output\n  * `-m, --match REGEXP`, match only specs comtaining "REGEXPspec"\n  * `--matchall`, relax requirement of "spec" in spec file names\n  * `--verbose`, verbose output as the specs are run\n  * `--junitreport`, export tests results as junitreport xml format\n  * `--output FOLDER`, defines the output folder for junitreport files\n  * `--teamcity`, converts all console output to teamcity custom test runner commands. (Normally auto detected.)\n  * `--growl`, display test run summary in a growl notification (in addition to other outputs)\n  * `--runWithRequireJs`, loads all specs using requirejs instead of node\'s native require method\n  * `--requireJsSetup`, file run before specs to include and configure RequireJS\n  * `--test-dir`, the absolute root directory path where tests are located\n  * `--nohelpers`, does not load helpers\n  * `--forceexit`, force exit once tests complete\n  * `--captureExceptions`, listen to global exceptions, report them and exit (interferes with Domains in NodeJs, so do not use if using Domains as well\n  * `--config NAME VALUE`, set a global variable in `process.env`\n  * `--noStack`, suppress the stack trace generated from a test failure\n\nIndividual files to test can be added as bare arguments to the end of the args.\n\nExample:\n\n```bash\njasmine-node --coffee spec/AsyncSpec.coffee spec/CoffeeSpec.coffee spec/SampleSpec.js\n```\n\nasync tests\n-----------\n\njasmine-node includes an alternate syntax for writing asynchronous tests. Accepting\na done callback in the specification will trigger jasmine-node to run the test\nasynchronously waiting until the `done()` callback is called.\n\n```javascript\nvar request = require(\'request\');\n\nit("should respond with hello world", function(done) {\n  request("http://localhost:3000/hello", function(error, response, body){\n    expect(body).toEqual("hello world");\n    done();\n  });\n});\n```\n\nAn asynchronous test will fail after `5000` ms if `done()` is not called. This timeout\ncan be changed by setting `jasmine.getEnv().defaultTimeoutInterval` or by passing a timeout\ninterval in the specification.\n\n```javascript\nvar request = require(\'request\');\n\nit("should respond with hello world", function(done) {\n  request("http://localhost:3000/hello", function(error, response, body){\n    done();\n  });\n}, 250); // timeout after 250 ms\n```\n\nor\n\n```javascript\nvar request = require(\'request\');\n\njasmine.getEnv().defaultTimeoutInterval = 500;\n\nit("should respond with hello world", function(done) {\n  request("http://localhost:3000/hello", function(error, response, body){\n    done();\n  });  // timeout after 500 ms\n});\n```\n\nCheckout [`spec/SampleSpecs.js`](https://github.com/mhevery/jasmine-node/blob/master/spec/SampleSpecs.js) to see how to use it.\n\n\nrequirejs\n---------\n\nThere is a sample project in `/spec-requirejs`. It is comprised of:\n\n1.  `requirejs-setup.js`, this pulls in our wrapper template (next)\n1.  `requirejs-wrapper-template`, this builds up requirejs settings\n1.  `requirejs.sut.js`, this is a __SU__bject To __T__est, something required by requirejs\n1.  `requirejs.spec.js`, the actual jasmine spec for testing\n\nTo run it:\n\n```sh\nnode lib/jasmine-node/cli.js --runWithRequireJs --requireJsSetup ./spec-requirejs/requirejs-setup.js ./spec-requirejs/\n```\n\nexceptions\n----------\n\nOften you\'ll want to capture an uncaught exception and log it to the console,\nthis is accomplished by using the `--captureExceptions` flag. Exceptions will\nbe reported to the console, but jasmine-node will attempt to recover and\ncontinue. It was decided to not change the current functionality until `2.0`. So,\nuntil then, jasmine-node will still return `0` and continue on without this flag.\n\n### Scenario ###\n\nYou require a module, but it doesn\'t exist, ie `require(\'Q\')` instead of\n`require(\'q\')`. Jasmine-Node reports the error to the console, but carries on\nand returns `0`. This messes up Travis-CI because you need it to return a\nnon-zero status while doing CI tests.\n\n### Mitigation ###\n\nBefore `--captureExceptions`\n\n```sh\n> jasmine-node --coffee spec\n> echo $status\n0\n```\n\nRun jasmine node with the `--captureExceptions` flag.\n\n```sh\n> jasmine-node --coffee --captureExceptions spec\n> echo $status\n1\n```\n\n\ngrowl notifications\n-------------------\n\nJasmine node can display [Growl](http://growl.info) notifications of test\nrun summaries in addition to other reports.\nGrowl must be installed separately, see [node-growl](https://github.com/visionmedia/node-growl)\nfor platform-specific instructions. Pass the `--growl` flag to enable the notifications.\n\n\ndevelopment\n-----------\n\nInstall the dependent packages by running:\n\n```sh\nnpm install\n```\n\nRun the specs before you send your pull request:\n\n```sh\nspecs.sh\n```\n\n__Note:__ Some tests are designed to fail in the specs.sh. After each of the\nindividual runs completes, there is a line that lists what the expected\nPass/Assert/Fail count should be. If you add/remove/edit tests, please be sure\nto update this with your PR.\n\n\nchangelog\n---------\n\n*  _1.13.0_ Added timing to the verbose reporter (thanks to [rick-kilgore](https://github.com/rick-kilgore))\n*  _1.12.1_ Fixed an issue where an undefined variable caused an unhelpful\n   exception in --watch Resolves #278\n*  _1.12.0_\n  *  Changed `util.print` to `stdout.write` (thanks to [nrstott](https://github.com/nrstott))\n  *  Don’t affect line numbers with --requireJsSetup (thanks to [daviddaurelio](https://github.com/davidaurelio))\n  *  Catch errors when loading helpers (thanks to [pimterry](https://github.com/pimterry))\n  *  Keep autotesting until all tests have passed (thanks to [notclive](https://github.com/notclive))\n*  _1.11.0 - Added Growl notification option `--growl` (thanks to\n   [AlphaHydrae](https://github.com/AlphaHydrae))_\n*  _1.10.2 - Restored stack filter which was accidentally removed (thanks to\n   [kevinsawicki](https://github.com/kevinsawicki))_\n*  _1.10.1 - `beforeEach` and `afterEach` now properly handle the async-timeout function_\n*  _1.10.0 - Skipped tests now show in the terminal reporter\'s output (thanks\n   to [kevinsawicki](https://github.com/kevinsawicki))_\n*  _1.9.1 - Timeout now consistent between Async and Non-Async Calls (thanks to\n   [codemnky](https://github.com/codemnky))_\n*  _1.9.0 - Now re-throwing the file-not-found error, added info to README.md,\n   printing version with `--version`_\n*  _1.8.1 - Fixed silent failure due to invalid REGEX (thanks to\n   [pimterry](https://github.com/pimterry))_\n*  _1.8.0 - Fixed bug in autotest with multiple paths and added `--watch` feature\n    (thanks to [davegb3](https://github.com/davegb3))_\n*  _1.7.1 - Removed unneeded fs dependency (thanks to\n   [kevinsawicki](https://github.com/kevinsawicki)) Fixed broken fs call in\n   node `0.6` (thanks to [abe33](https://github.com/abe33))_\n*  _1.7.0 - Literate Coffee-Script now testable (thanks to [magicmoose](https://github.com/magicmoose))_\n*  _1.6.0 - Teamcity Reporter Reinstated (thanks to [bhcleek](https://github.com/bhcleek))_\n*  _1.5.1 - Missing files and require exceptions will now report instead of failing silently_\n*  _1.5.0 - Now takes multiple files for execution. (thanks to [abe33](https://github.com/abe33))_\n*  _1.4.0 - Optional flag to suppress stack trace on test failure (thanks to [Lastalas](https://github.com/Lastalas))_\n*  _1.3.1 - Fixed context for async tests (thanks to [omryn](https://github.com/omryn))_\n*  _1.3.0 - Added `--config` flag for changeable testing environments_\n*  _1.2.3 - Fixed #179, #184, #198, #199. Fixes autotest, afterEach in requirejs, terminal reporter is in jasmine object, done function missing in async tests_\n*  _1.2.2 - Revert Exception Capturing to avoid Breaking Domain Tests_\n*  _1.2.1 - Emergency fix for path reference missing_\n*  _1.2.0 - Fixed #149, #152, #171, #181, #195. `--autotest` now works as expected, jasmine clock now responds to the fake ticking as requested, and removed the path.exists warning_\n*  _1.1.1 - Fixed #173, #169 (Blocks were not indented in verbose properly, added more documentation to address #180_\n*  _1.1.0 - Updated Jasmine to `1.3.1`, fixed fs missing, catching uncaught exceptions, other fixes_\n',
+44 silly resolved     readmeFilename: 'README.md',
+44 silly resolved     bugs: { url: 'https://github.com/mhevery/jasmine-node/issues' },
+44 silly resolved     _id: 'jasmine-node@1.13.0',
+44 silly resolved     _from: 'jasmine-node@' } ]
+45 info install jasmine-node@1.13.0 into /Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1
+46 info installOne jasmine-node@1.13.0
+47 info /Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1/node_modules/jasmine-node unbuild
+48 verbose tar unpack /Users/lennylemony/.npm/jasmine-node/1.13.0/package.tgz
+49 silly lockFile d556678d-Club-1-node-modules-jasmine-node tar:///Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1/node_modules/jasmine-node
+50 verbose lock tar:///Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1/node_modules/jasmine-node /Users/lennylemony/.npm/d556678d-Club-1-node-modules-jasmine-node.lock
+51 silly lockFile 67cce3d2--jasmine-node-1-13-0-package-tgz tar:///Users/lennylemony/.npm/jasmine-node/1.13.0/package.tgz
+52 verbose lock tar:///Users/lennylemony/.npm/jasmine-node/1.13.0/package.tgz /Users/lennylemony/.npm/67cce3d2--jasmine-node-1-13-0-package-tgz.lock
+53 silly gunzTarPerm modes [ '755', '644' ]
+54 silly gunzTarPerm extractEntry package.json
+55 silly gunzTarPerm extractEntry .npmignore
+56 silly gunzTarPerm extractEntry README.md
+57 silly gunzTarPerm extractEntry LICENSE
+58 silly gunzTarPerm extractEntry bin/jasmine-node
+59 silly gunzTarPerm extractEntry bower.json
+60 silly gunzTarPerm extractEntry .travis.yml
+61 silly gunzTarPerm extractEntry specs.sh
+62 silly gunzTarPerm extractEntry scripts/specs
+63 silly gunzTarPerm extractEntry spec/sample_helper.js
+64 silly gunzTarPerm extractEntry spec/reporter_spec.js
+65 silly gunzTarPerm extractEntry spec/nested.js/NestedSpec.js
+66 silly gunzTarPerm extractEntry spec/SampleSpecs.js
+67 silly gunzTarPerm extractEntry spec/TestSpec.js
+68 silly gunzTarPerm extractEntry spec/TimerSpec.js
+69 silly gunzTarPerm extractEntry spec/helper_spec.js
+70 silly gunzTarPerm extractEntry spec/async-callback_spec.js
+71 silly gunzTarPerm extractEntry spec/CoffeeSpec.coffee
+72 silly gunzTarPerm extractEntry spec/litcoffee/Litcoffee.spec.litcoffee
+73 silly gunzTarPerm extractEntry spec/nested/NestedSpec.js
+74 silly gunzTarPerm extractEntry spec/nested/uber-nested/UberNestedSpec.js
+75 silly gunzTarPerm extractEntry spec/HelperSpec.coffee
+76 silly gunzTarPerm extractEntry spec/GrammarHelper.coffee
+77 silly gunzTarPerm extractEntry spec/AsyncSpec.coffee
+78 silly gunzTarPerm extractEntry spec-requirejs/requirejs-setup.js
+79 silly gunzTarPerm extractEntry spec-requirejs/requirejs-wrapper-template.js
+80 silly gunzTarPerm extractEntry spec-requirejs/requirejs.spec.js
+81 silly gunzTarPerm extractEntry spec-requirejs/requirejs.sut.js
+82 silly gunzTarPerm extractEntry spec-requirejs-coffee/requirejs-setup.js
+83 silly gunzTarPerm extractEntry spec-requirejs-coffee/RequireCsSpec.coffee
+84 silly gunzTarPerm extractEntry spec-requirejs-coffee/RequireJsSpec.coffee
+85 silly gunzTarPerm extractEntry spec-requirejs-coffee/requirecs.sut.coffee
+86 silly gunzTarPerm extractEntry lib/jasmine-node/async-callback.js
+87 silly gunzTarPerm extractEntry lib/jasmine-node/cli.js
+88 silly gunzTarPerm extractEntry lib/jasmine-node/cs.js
+89 silly gunzTarPerm extractEntry lib/jasmine-node/index.js
+90 silly gunzTarPerm extractEntry lib/jasmine-node/autotest.js
+91 silly gunzTarPerm extractEntry lib/jasmine-node/reporter.js
+92 silly gunzTarPerm extractEntry lib/jasmine-node/requirejs-runner.js
+93 silly gunzTarPerm extractEntry lib/jasmine-node/requirejs-spec-loader.js
+94 silly gunzTarPerm extractEntry lib/jasmine-node/requirejs-wrapper-template.js
+95 silly gunzTarPerm extractEntry lib/jasmine-node/spec-collection.js
+96 silly gunzTarPerm extractEntry lib/jasmine-node/jasmine-1.3.1.js
+97 silly lockFile d556678d-Club-1-node-modules-jasmine-node tar:///Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1/node_modules/jasmine-node
+98 silly lockFile d556678d-Club-1-node-modules-jasmine-node tar:///Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1/node_modules/jasmine-node
+99 silly lockFile 67cce3d2--jasmine-node-1-13-0-package-tgz tar:///Users/lennylemony/.npm/jasmine-node/1.13.0/package.tgz
+100 silly lockFile 67cce3d2--jasmine-node-1-13-0-package-tgz tar:///Users/lennylemony/.npm/jasmine-node/1.13.0/package.tgz
+101 info preinstall jasmine-node@1.13.0
+102 verbose readDependencies using package.json deps
+103 verbose readDependencies using package.json deps
+104 verbose cache add [ 'coffee-script@>=1.0.1', null ]
+105 verbose cache add name=undefined spec="coffee-script@>=1.0.1" args=["coffee-script@>=1.0.1",null]
+106 verbose parsed url { protocol: null,
+106 verbose parsed url   slashes: null,
+106 verbose parsed url   auth: null,
+106 verbose parsed url   host: null,
+106 verbose parsed url   port: null,
+106 verbose parsed url   hostname: null,
+106 verbose parsed url   hash: null,
+106 verbose parsed url   search: null,
+106 verbose parsed url   query: null,
+106 verbose parsed url   pathname: 'coffee-script@%3E=1.0.1',
+106 verbose parsed url   path: 'coffee-script@%3E=1.0.1',
+106 verbose parsed url   href: 'coffee-script@%3E=1.0.1' }
+107 verbose cache add name="coffee-script" spec=">=1.0.1" args=["coffee-script",">=1.0.1"]
+108 verbose parsed url { protocol: null,
+108 verbose parsed url   slashes: null,
+108 verbose parsed url   auth: null,
+108 verbose parsed url   host: null,
+108 verbose parsed url   port: null,
+108 verbose parsed url   hostname: null,
+108 verbose parsed url   hash: null,
+108 verbose parsed url   search: null,
+108 verbose parsed url   query: null,
+108 verbose parsed url   pathname: '%3E=1.0.1',
+108 verbose parsed url   path: '%3E=1.0.1',
+108 verbose parsed url   href: '%3E=1.0.1' }
+109 verbose addNamed [ 'coffee-script', '>=1.0.1' ]
+110 verbose addNamed [ null, '>=1.0.1' ]
+111 silly lockFile c3fd8fa4-coffee-script-1-0-1 coffee-script@>=1.0.1
+112 verbose lock coffee-script@>=1.0.1 /Users/lennylemony/.npm/c3fd8fa4-coffee-script-1-0-1.lock
+113 verbose cache add [ 'jasmine-reporters@>=0.2.0', null ]
+114 verbose cache add name=undefined spec="jasmine-reporters@>=0.2.0" args=["jasmine-reporters@>=0.2.0",null]
+115 verbose parsed url { protocol: null,
+115 verbose parsed url   slashes: null,
+115 verbose parsed url   auth: null,
+115 verbose parsed url   host: null,
+115 verbose parsed url   port: null,
+115 verbose parsed url   hostname: null,
+115 verbose parsed url   hash: null,
+115 verbose parsed url   search: null,
+115 verbose parsed url   query: null,
+115 verbose parsed url   pathname: 'jasmine-reporters@%3E=0.2.0',
+115 verbose parsed url   path: 'jasmine-reporters@%3E=0.2.0',
+115 verbose parsed url   href: 'jasmine-reporters@%3E=0.2.0' }
+116 verbose cache add name="jasmine-reporters" spec=">=0.2.0" args=["jasmine-reporters",">=0.2.0"]
+117 verbose parsed url { protocol: null,
+117 verbose parsed url   slashes: null,
+117 verbose parsed url   auth: null,
+117 verbose parsed url   host: null,
+117 verbose parsed url   port: null,
+117 verbose parsed url   hostname: null,
+117 verbose parsed url   hash: null,
+117 verbose parsed url   search: null,
+117 verbose parsed url   query: null,
+117 verbose parsed url   pathname: '%3E=0.2.0',
+117 verbose parsed url   path: '%3E=0.2.0',
+117 verbose parsed url   href: '%3E=0.2.0' }
+118 verbose addNamed [ 'jasmine-reporters', '>=0.2.0' ]
+119 verbose addNamed [ null, '>=0.2.0' ]
+120 silly lockFile 9da427e3-jasmine-reporters-0-2-0 jasmine-reporters@>=0.2.0
+121 verbose lock jasmine-reporters@>=0.2.0 /Users/lennylemony/.npm/9da427e3-jasmine-reporters-0-2-0.lock
+122 verbose cache add [ 'jasmine-growl-reporter@~0.0.2', null ]
+123 verbose cache add name=undefined spec="jasmine-growl-reporter@~0.0.2" args=["jasmine-growl-reporter@~0.0.2",null]
+124 verbose parsed url { protocol: null,
+124 verbose parsed url   slashes: null,
+124 verbose parsed url   auth: null,
+124 verbose parsed url   host: null,
+124 verbose parsed url   port: null,
+124 verbose parsed url   hostname: null,
+124 verbose parsed url   hash: null,
+124 verbose parsed url   search: null,
+124 verbose parsed url   query: null,
+124 verbose parsed url   pathname: 'jasmine-growl-reporter@~0.0.2',
+124 verbose parsed url   path: 'jasmine-growl-reporter@~0.0.2',
+124 verbose parsed url   href: 'jasmine-growl-reporter@~0.0.2' }
+125 verbose cache add name="jasmine-growl-reporter" spec="~0.0.2" args=["jasmine-growl-reporter","~0.0.2"]
+126 verbose parsed url { protocol: null,
+126 verbose parsed url   slashes: null,
+126 verbose parsed url   auth: null,
+126 verbose parsed url   host: null,
+126 verbose parsed url   port: null,
+126 verbose parsed url   hostname: null,
+126 verbose parsed url   hash: null,
+126 verbose parsed url   search: null,
+126 verbose parsed url   query: null,
+126 verbose parsed url   pathname: '~0.0.2',
+126 verbose parsed url   path: '~0.0.2',
+126 verbose parsed url   href: '~0.0.2' }
+127 verbose addNamed [ 'jasmine-growl-reporter', '~0.0.2' ]
+128 verbose addNamed [ null, '>=0.0.2-0 <0.1.0-0' ]
+129 silly lockFile e828dd87-jasmine-growl-reporter-0-0-2 jasmine-growl-reporter@~0.0.2
+130 verbose lock jasmine-growl-reporter@~0.0.2 /Users/lennylemony/.npm/e828dd87-jasmine-growl-reporter-0-0-2.lock
+131 verbose cache add [ 'requirejs@>=0.27.1', null ]
+132 verbose cache add name=undefined spec="requirejs@>=0.27.1" args=["requirejs@>=0.27.1",null]
+133 verbose parsed url { protocol: null,
+133 verbose parsed url   slashes: null,
+133 verbose parsed url   auth: null,
+133 verbose parsed url   host: null,
+133 verbose parsed url   port: null,
+133 verbose parsed url   hostname: null,
+133 verbose parsed url   hash: null,
+133 verbose parsed url   search: null,
+133 verbose parsed url   query: null,
+133 verbose parsed url   pathname: 'requirejs@%3E=0.27.1',
+133 verbose parsed url   path: 'requirejs@%3E=0.27.1',
+133 verbose parsed url   href: 'requirejs@%3E=0.27.1' }
+134 verbose cache add name="requirejs" spec=">=0.27.1" args=["requirejs",">=0.27.1"]
+135 verbose parsed url { protocol: null,
+135 verbose parsed url   slashes: null,
+135 verbose parsed url   auth: null,
+135 verbose parsed url   host: null,
+135 verbose parsed url   port: null,
+135 verbose parsed url   hostname: null,
+135 verbose parsed url   hash: null,
+135 verbose parsed url   search: null,
+135 verbose parsed url   query: null,
+135 verbose parsed url   pathname: '%3E=0.27.1',
+135 verbose parsed url   path: '%3E=0.27.1',
+135 verbose parsed url   href: '%3E=0.27.1' }
+136 verbose addNamed [ 'requirejs', '>=0.27.1' ]
+137 verbose addNamed [ null, '>=0.27.1' ]
+138 silly lockFile 542bd449-requirejs-0-27-1 requirejs@>=0.27.1
+139 verbose lock requirejs@>=0.27.1 /Users/lennylemony/.npm/542bd449-requirejs-0-27-1.lock
+140 verbose cache add [ 'walkdir@>= 0.0.1', null ]
+141 verbose cache add name=undefined spec="walkdir@>= 0.0.1" args=["walkdir@>= 0.0.1",null]
+142 verbose parsed url { protocol: null,
+142 verbose parsed url   slashes: null,
+142 verbose parsed url   auth: null,
+142 verbose parsed url   host: null,
+142 verbose parsed url   port: null,
+142 verbose parsed url   hostname: null,
+142 verbose parsed url   hash: null,
+142 verbose parsed url   search: null,
+142 verbose parsed url   query: null,
+142 verbose parsed url   pathname: 'walkdir@%3E=%200.0.1',
+142 verbose parsed url   path: 'walkdir@%3E=%200.0.1',
+142 verbose parsed url   href: 'walkdir@%3E=%200.0.1' }
+143 verbose cache add name="walkdir" spec=">= 0.0.1" args=["walkdir",">= 0.0.1"]
+144 verbose parsed url { protocol: null,
+144 verbose parsed url   slashes: null,
+144 verbose parsed url   auth: null,
+144 verbose parsed url   host: null,
+144 verbose parsed url   port: null,
+144 verbose parsed url   hostname: null,
+144 verbose parsed url   hash: null,
+144 verbose parsed url   search: null,
+144 verbose parsed url   query: null,
+144 verbose parsed url   pathname: '%3E=%200.0.1',
+144 verbose parsed url   path: '%3E=%200.0.1',
+144 verbose parsed url   href: '%3E=%200.0.1' }
+145 verbose addNamed [ 'walkdir', '>= 0.0.1' ]
+146 verbose addNamed [ null, '>=0.0.1' ]
+147 silly lockFile bd68f12d-walkdir-0-0-1 walkdir@>= 0.0.1
+148 verbose lock walkdir@>= 0.0.1 /Users/lennylemony/.npm/bd68f12d-walkdir-0-0-1.lock
+149 silly addNameRange { name: 'coffee-script', range: '>=1.0.1', hasData: false }
+150 verbose cache add [ 'underscore@>= 1.3.1', null ]
+151 verbose cache add name=undefined spec="underscore@>= 1.3.1" args=["underscore@>= 1.3.1",null]
+152 verbose parsed url { protocol: null,
+152 verbose parsed url   slashes: null,
+152 verbose parsed url   auth: null,
+152 verbose parsed url   host: null,
+152 verbose parsed url   port: null,
+152 verbose parsed url   hostname: null,
+152 verbose parsed url   hash: null,
+152 verbose parsed url   search: null,
+152 verbose parsed url   query: null,
+152 verbose parsed url   pathname: 'underscore@%3E=%201.3.1',
+152 verbose parsed url   path: 'underscore@%3E=%201.3.1',
+152 verbose parsed url   href: 'underscore@%3E=%201.3.1' }
+153 verbose cache add name="underscore" spec=">= 1.3.1" args=["underscore",">= 1.3.1"]
+154 verbose parsed url { protocol: null,
+154 verbose parsed url   slashes: null,
+154 verbose parsed url   auth: null,
+154 verbose parsed url   host: null,
+154 verbose parsed url   port: null,
+154 verbose parsed url   hostname: null,
+154 verbose parsed url   hash: null,
+154 verbose parsed url   search: null,
+154 verbose parsed url   query: null,
+154 verbose parsed url   pathname: '%3E=%201.3.1',
+154 verbose parsed url   path: '%3E=%201.3.1',
+154 verbose parsed url   href: '%3E=%201.3.1' }
+155 verbose addNamed [ 'underscore', '>= 1.3.1' ]
+156 verbose addNamed [ null, '>=1.3.1' ]
+157 silly lockFile 097a612a-underscore-1-3-1 underscore@>= 1.3.1
+158 verbose lock underscore@>= 1.3.1 /Users/lennylemony/.npm/097a612a-underscore-1-3-1.lock
+159 verbose cache add [ 'gaze@~0.3.2', null ]
+160 verbose cache add name=undefined spec="gaze@~0.3.2" args=["gaze@~0.3.2",null]
+161 verbose parsed url { protocol: null,
+161 verbose parsed url   slashes: null,
+161 verbose parsed url   auth: null,
+161 verbose parsed url   host: null,
+161 verbose parsed url   port: null,
+161 verbose parsed url   hostname: null,
+161 verbose parsed url   hash: null,
+161 verbose parsed url   search: null,
+161 verbose parsed url   query: null,
+161 verbose parsed url   pathname: 'gaze@~0.3.2',
+161 verbose parsed url   path: 'gaze@~0.3.2',
+161 verbose parsed url   href: 'gaze@~0.3.2' }
+162 verbose cache add name="gaze" spec="~0.3.2" args=["gaze","~0.3.2"]
+163 verbose parsed url { protocol: null,
+163 verbose parsed url   slashes: null,
+163 verbose parsed url   auth: null,
+163 verbose parsed url   host: null,
+163 verbose parsed url   port: null,
+163 verbose parsed url   hostname: null,
+163 verbose parsed url   hash: null,
+163 verbose parsed url   search: null,
+163 verbose parsed url   query: null,
+163 verbose parsed url   pathname: '~0.3.2',
+163 verbose parsed url   path: '~0.3.2',
+163 verbose parsed url   href: '~0.3.2' }
+164 verbose addNamed [ 'gaze', '~0.3.2' ]
+165 verbose addNamed [ null, '>=0.3.2-0 <0.4.0-0' ]
+166 silly lockFile a0f725df-gaze-0-3-2 gaze@~0.3.2
+167 verbose lock gaze@~0.3.2 /Users/lennylemony/.npm/a0f725df-gaze-0-3-2.lock
+168 verbose cache add [ 'mkdirp@~0.3.5', null ]
+169 verbose cache add name=undefined spec="mkdirp@~0.3.5" args=["mkdirp@~0.3.5",null]
+170 verbose parsed url { protocol: null,
+170 verbose parsed url   slashes: null,
+170 verbose parsed url   auth: null,
+170 verbose parsed url   host: null,
+170 verbose parsed url   port: null,
+170 verbose parsed url   hostname: null,
+170 verbose parsed url   hash: null,
+170 verbose parsed url   search: null,
+170 verbose parsed url   query: null,
+170 verbose parsed url   pathname: 'mkdirp@~0.3.5',
+170 verbose parsed url   path: 'mkdirp@~0.3.5',
+170 verbose parsed url   href: 'mkdirp@~0.3.5' }
+171 verbose cache add name="mkdirp" spec="~0.3.5" args=["mkdirp","~0.3.5"]
+172 verbose parsed url { protocol: null,
+172 verbose parsed url   slashes: null,
+172 verbose parsed url   auth: null,
+172 verbose parsed url   host: null,
+172 verbose parsed url   port: null,
+172 verbose parsed url   hostname: null,
+172 verbose parsed url   hash: null,
+172 verbose parsed url   search: null,
+172 verbose parsed url   query: null,
+172 verbose parsed url   pathname: '~0.3.5',
+172 verbose parsed url   path: '~0.3.5',
+172 verbose parsed url   href: '~0.3.5' }
+173 verbose addNamed [ 'mkdirp', '~0.3.5' ]
+174 verbose addNamed [ null, '>=0.3.5-0 <0.4.0-0' ]
+175 silly lockFile c3f0fe9b-mkdirp-0-3-5 mkdirp@~0.3.5
+176 verbose lock mkdirp@~0.3.5 /Users/lennylemony/.npm/c3f0fe9b-mkdirp-0-3-5.lock
+177 silly addNameRange { name: 'jasmine-reporters', range: '>=0.2.0', hasData: false }
+178 silly addNameRange { name: 'jasmine-growl-reporter',
+178 silly addNameRange   range: '>=0.0.2-0 <0.1.0-0',
+178 silly addNameRange   hasData: false }
+179 silly addNameRange { name: 'requirejs', range: '>=0.27.1', hasData: false }
+180 silly addNameRange { name: 'walkdir', range: '>=0.0.1', hasData: false }
+181 silly addNameRange { name: 'underscore', range: '>=1.3.1', hasData: false }
+182 silly addNameRange { name: 'gaze', range: '>=0.3.2-0 <0.4.0-0', hasData: false }
+183 silly addNameRange { name: 'mkdirp', range: '>=0.3.5-0 <0.4.0-0', hasData: false }
+184 verbose url raw coffee-script
+185 verbose url resolving [ 'https://registry.npmjs.org/', './coffee-script' ]
+186 verbose url resolved https://registry.npmjs.org/coffee-script
+187 info trying registry request attempt 1 at 16:48:35
+188 verbose etag "60IXPMCUZ148DNHI6NI4QGNMD"
+189 http GET https://registry.npmjs.org/coffee-script
+190 verbose url raw jasmine-growl-reporter
+191 verbose url resolving [ 'https://registry.npmjs.org/', './jasmine-growl-reporter' ]
+192 verbose url resolved https://registry.npmjs.org/jasmine-growl-reporter
+193 info trying registry request attempt 1 at 16:48:35
+194 verbose etag "6BGGGDWA85XRH9HRM1D2U755D"
+195 http GET https://registry.npmjs.org/jasmine-growl-reporter
+196 verbose url raw jasmine-reporters
+197 verbose url resolving [ 'https://registry.npmjs.org/', './jasmine-reporters' ]
+198 verbose url resolved https://registry.npmjs.org/jasmine-reporters
+199 info trying registry request attempt 1 at 16:48:35
+200 verbose etag "1W6LLE33TVZS9NIX3VJ8WCLV1"
+201 http GET https://registry.npmjs.org/jasmine-reporters
+202 verbose url raw requirejs
+203 verbose url resolving [ 'https://registry.npmjs.org/', './requirejs' ]
+204 verbose url resolved https://registry.npmjs.org/requirejs
+205 info trying registry request attempt 1 at 16:48:35
+206 verbose etag "CPFTCT3DM6AHK5KVFAROMN1G5"
+207 http GET https://registry.npmjs.org/requirejs
+208 verbose url raw walkdir
+209 verbose url resolving [ 'https://registry.npmjs.org/', './walkdir' ]
+210 verbose url resolved https://registry.npmjs.org/walkdir
+211 info trying registry request attempt 1 at 16:48:35
+212 verbose etag "369ELBJS8MF4ZTYUWG9RSF7JI"
+213 http GET https://registry.npmjs.org/walkdir
+214 verbose url raw underscore
+215 verbose url resolving [ 'https://registry.npmjs.org/', './underscore' ]
+216 verbose url resolved https://registry.npmjs.org/underscore
+217 info trying registry request attempt 1 at 16:48:35
+218 verbose etag "5LD9Z08NCHJV7VPCTXJ6WQGIZ"
+219 http GET https://registry.npmjs.org/underscore
+220 verbose url raw gaze
+221 verbose url resolving [ 'https://registry.npmjs.org/', './gaze' ]
+222 verbose url resolved https://registry.npmjs.org/gaze
+223 info trying registry request attempt 1 at 16:48:35
+224 verbose etag "E9VAROUDP5G3RUY08M4DD7PQC"
+225 http GET https://registry.npmjs.org/gaze
+226 verbose url raw mkdirp
+227 verbose url resolving [ 'https://registry.npmjs.org/', './mkdirp' ]
+228 verbose url resolved https://registry.npmjs.org/mkdirp
+229 info trying registry request attempt 1 at 16:48:35
+230 verbose etag "9WIXSIBPOG776UVGT4QG69T4R"
+231 http GET https://registry.npmjs.org/mkdirp
+232 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+233 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+234 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+235 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+236 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+237 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+238 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+239 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+240 info trying registry request attempt 2 at 16:48:45
+241 verbose etag "369ELBJS8MF4ZTYUWG9RSF7JI"
+242 http GET https://registry.npmjs.org/walkdir
+243 info trying registry request attempt 2 at 16:48:46
+244 verbose etag "CPFTCT3DM6AHK5KVFAROMN1G5"
+245 http GET https://registry.npmjs.org/requirejs
+246 info trying registry request attempt 2 at 16:48:46
+247 verbose etag "1W6LLE33TVZS9NIX3VJ8WCLV1"
+248 http GET https://registry.npmjs.org/jasmine-reporters
+249 info trying registry request attempt 2 at 16:48:46
+250 verbose etag "5LD9Z08NCHJV7VPCTXJ6WQGIZ"
+251 http GET https://registry.npmjs.org/underscore
+252 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+253 info trying registry request attempt 2 at 16:48:46
+254 verbose etag "E9VAROUDP5G3RUY08M4DD7PQC"
+255 http GET https://registry.npmjs.org/gaze
+256 info trying registry request attempt 2 at 16:48:46
+257 verbose etag "9WIXSIBPOG776UVGT4QG69T4R"
+258 http GET https://registry.npmjs.org/mkdirp
+259 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+260 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+261 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+262 info trying registry request attempt 2 at 16:48:46
+263 verbose etag "6BGGGDWA85XRH9HRM1D2U755D"
+264 http GET https://registry.npmjs.org/jasmine-growl-reporter
+265 info trying registry request attempt 2 at 16:48:46
+266 verbose etag "60IXPMCUZ148DNHI6NI4QGNMD"
+267 http GET https://registry.npmjs.org/coffee-script
+268 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+269 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+270 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+271 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+272 info trying registry request attempt 3 at 16:49:46
+273 verbose etag "369ELBJS8MF4ZTYUWG9RSF7JI"
+274 http GET https://registry.npmjs.org/walkdir
+275 info trying registry request attempt 3 at 16:49:46
+276 verbose etag "1W6LLE33TVZS9NIX3VJ8WCLV1"
+277 http GET https://registry.npmjs.org/jasmine-reporters
+278 info trying registry request attempt 3 at 16:49:46
+279 verbose etag "CPFTCT3DM6AHK5KVFAROMN1G5"
+280 http GET https://registry.npmjs.org/requirejs
+281 info trying registry request attempt 3 at 16:49:46
+282 verbose etag "5LD9Z08NCHJV7VPCTXJ6WQGIZ"
+283 http GET https://registry.npmjs.org/underscore
+284 info trying registry request attempt 3 at 16:49:46
+285 verbose etag "9WIXSIBPOG776UVGT4QG69T4R"
+286 http GET https://registry.npmjs.org/mkdirp
+287 info trying registry request attempt 3 at 16:49:46
+288 verbose etag "E9VAROUDP5G3RUY08M4DD7PQC"
+289 http GET https://registry.npmjs.org/gaze
+290 info trying registry request attempt 3 at 16:49:46
+291 verbose etag "6BGGGDWA85XRH9HRM1D2U755D"
+292 http GET https://registry.npmjs.org/jasmine-growl-reporter
+293 info trying registry request attempt 3 at 16:49:46
+294 verbose etag "60IXPMCUZ148DNHI6NI4QGNMD"
+295 http GET https://registry.npmjs.org/coffee-script
+296 silly registry.get cb [ 304, undefined ]
+297 verbose etag requirejs from cache
+298 silly registry.get cb [ 304, undefined ]
+299 verbose etag mkdirp from cache
+300 silly registry.get cb [ 304, undefined ]
+301 verbose etag underscore from cache
+302 silly addNameRange number 2 { name: 'requirejs', range: '>=0.27.1', hasData: true }
+303 silly addNameRange versions [ 'requirejs',
+303 silly addNameRange   [ '0.26.0',
+303 silly addNameRange     '0.27.0',
+303 silly addNameRange     '0.27.1',
+303 silly addNameRange     '1.0.0',
+303 silly addNameRange     '1.0.1',
+303 silly addNameRange     '1.0.2',
+303 silly addNameRange     '1.0.3',
+303 silly addNameRange     '1.0.4',
+303 silly addNameRange     '1.0.5',
+303 silly addNameRange     '1.0.6',
+303 silly addNameRange     '1.0.7',
+303 silly addNameRange     '1.0.8',
+303 silly addNameRange     '2.0.0',
+303 silly addNameRange     '2.0.1',
+303 silly addNameRange     '2.0.2',
+303 silly addNameRange     '2.0.3',
+303 silly addNameRange     '2.0.4',
+303 silly addNameRange     '2.0.5',
+303 silly addNameRange     '2.0.6',
+303 silly addNameRange     '2.1.0',
+303 silly addNameRange     '2.1.1',
+303 silly addNameRange     '2.1.2',
+303 silly addNameRange     '2.1.3',
+303 silly addNameRange     '2.1.4',
+303 silly addNameRange     '2.1.5',
+303 silly addNameRange     '2.1.6',
+303 silly addNameRange     '2.1.7',
+303 silly addNameRange     '2.1.8',
+303 silly addNameRange     '2.1.9',
+303 silly addNameRange     '2.1.10' ] ]
+304 verbose addNamed [ 'requirejs', '2.1.10' ]
+305 verbose addNamed [ '2.1.10', '2.1.10' ]
+306 silly lockFile f06f5fa0-requirejs-2-1-10 requirejs@2.1.10
+307 verbose lock requirejs@2.1.10 /Users/lennylemony/.npm/f06f5fa0-requirejs-2-1-10.lock
+308 silly registry.get cb [ 304, undefined ]
+309 verbose etag walkdir from cache
+310 silly registry.get cb [ 304, undefined ]
+311 verbose etag jasmine-reporters from cache
+312 silly addNameRange number 2 { name: 'mkdirp', range: '>=0.3.5-0 <0.4.0-0', hasData: true }
+313 silly addNameRange versions [ 'mkdirp',
+313 silly addNameRange   [ '0.0.1',
+313 silly addNameRange     '0.0.2',
+313 silly addNameRange     '0.0.3',
+313 silly addNameRange     '0.0.4',
+313 silly addNameRange     '0.0.5',
+313 silly addNameRange     '0.0.6',
+313 silly addNameRange     '0.0.7',
+313 silly addNameRange     '0.1.0',
+313 silly addNameRange     '0.2.0',
+313 silly addNameRange     '0.2.1',
+313 silly addNameRange     '0.2.2',
+313 silly addNameRange     '0.3.0',
+313 silly addNameRange     '0.3.1',
+313 silly addNameRange     '0.3.2',
+313 silly addNameRange     '0.3.3',
+313 silly addNameRange     '0.3.4',
+313 silly addNameRange     '0.3.5' ] ]
+314 verbose addNamed [ 'mkdirp', '0.3.5' ]
+315 verbose addNamed [ '0.3.5', '0.3.5' ]
+316 silly lockFile 67d2df2a-mkdirp-0-3-5 mkdirp@0.3.5
+317 verbose lock mkdirp@0.3.5 /Users/lennylemony/.npm/67d2df2a-mkdirp-0-3-5.lock
+318 silly addNameRange number 2 { name: 'underscore', range: '>=1.3.1', hasData: true }
+319 silly addNameRange versions [ 'underscore',
+319 silly addNameRange   [ '1.0.3',
+319 silly addNameRange     '1.0.4',
+319 silly addNameRange     '1.1.0',
+319 silly addNameRange     '1.1.1',
+319 silly addNameRange     '1.1.2',
+319 silly addNameRange     '1.1.3',
+319 silly addNameRange     '1.1.4',
+319 silly addNameRange     '1.1.5',
+319 silly addNameRange     '1.1.6',
+319 silly addNameRange     '1.1.7',
+319 silly addNameRange     '1.2.0',
+319 silly addNameRange     '1.2.1',
+319 silly addNameRange     '1.2.2',
+319 silly addNameRange     '1.2.3',
+319 silly addNameRange     '1.2.4',
+319 silly addNameRange     '1.3.0',
+319 silly addNameRange     '1.3.1',
+319 silly addNameRange     '1.3.2',
+319 silly addNameRange     '1.3.3',
+319 silly addNameRange     '1.4.0',
+319 silly addNameRange     '1.4.1',
+319 silly addNameRange     '1.4.2',
+319 silly addNameRange     '1.4.3',
+319 silly addNameRange     '1.4.4',
+319 silly addNameRange     '1.5.0',
+319 silly addNameRange     '1.5.1',
+319 silly addNameRange     '1.5.2',
+319 silly addNameRange     '1.6.0' ] ]
+320 verbose addNamed [ 'underscore', '1.6.0' ]
+321 verbose addNamed [ '1.6.0', '1.6.0' ]
+322 silly lockFile 96960ed1-underscore-1-6-0 underscore@1.6.0
+323 verbose lock underscore@1.6.0 /Users/lennylemony/.npm/96960ed1-underscore-1-6-0.lock
+324 silly lockFile a02bf4de--underscore-underscore-1-6-0-tgz https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz
+325 verbose lock https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz /Users/lennylemony/.npm/a02bf4de--underscore-underscore-1-6-0-tgz.lock
+326 silly addNameRange number 2 { name: 'walkdir', range: '>=0.0.1', hasData: true }
+327 silly addNameRange versions [ 'walkdir',
+327 silly addNameRange   [ '0.0.1', '0.0.2', '0.0.3', '0.0.4', '0.0.5', '0.0.7' ] ]
+328 verbose addNamed [ 'walkdir', '0.0.7' ]
+329 verbose addNamed [ '0.0.7', '0.0.7' ]
+330 silly lockFile 504ee366-walkdir-0-0-7 walkdir@0.0.7
+331 verbose lock walkdir@0.0.7 /Users/lennylemony/.npm/504ee366-walkdir-0-0-7.lock
+332 silly addNameRange number 2 { name: 'jasmine-reporters', range: '>=0.2.0', hasData: true }
+333 silly addNameRange versions [ 'jasmine-reporters', [ '0.1.0', '0.2.0', '0.2.1' ] ]
+334 verbose addNamed [ 'jasmine-reporters', '0.2.1' ]
+335 verbose addNamed [ '0.2.1', '0.2.1' ]
+336 silly lockFile 7b6ca09c-jasmine-reporters-0-2-1 jasmine-reporters@0.2.1
+337 verbose lock jasmine-reporters@0.2.1 /Users/lennylemony/.npm/7b6ca09c-jasmine-reporters-0-2-1.lock
+338 verbose addRemoteTarball [ 'https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz',
+338 verbose addRemoteTarball   '8b38b10cacdef63337b8b24e4ff86d45aea529a8' ]
+339 info retry fetch attempt 1 at 16:49:46
+340 verbose fetch to= /var/folders/3g/7h0x60ss1rd72x35f421ks300000gn/T/npm-17697--0mfcqUT/1393634986630-0.2704455121420324/tmp.tgz
+341 http GET https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz
+342 silly lockFile 7b6ca09c-jasmine-reporters-0-2-1 jasmine-reporters@0.2.1
+343 silly lockFile 7b6ca09c-jasmine-reporters-0-2-1 jasmine-reporters@0.2.1
+344 silly lockFile 9da427e3-jasmine-reporters-0-2-0 jasmine-reporters@>=0.2.0
+345 silly lockFile 9da427e3-jasmine-reporters-0-2-0 jasmine-reporters@>=0.2.0
+346 silly lockFile 504ee366-walkdir-0-0-7 walkdir@0.0.7
+347 silly lockFile 504ee366-walkdir-0-0-7 walkdir@0.0.7
+348 silly lockFile bd68f12d-walkdir-0-0-1 walkdir@>= 0.0.1
+349 silly lockFile bd68f12d-walkdir-0-0-1 walkdir@>= 0.0.1
+350 silly lockFile 67d2df2a-mkdirp-0-3-5 mkdirp@0.3.5
+351 silly lockFile 67d2df2a-mkdirp-0-3-5 mkdirp@0.3.5
+352 silly lockFile c3f0fe9b-mkdirp-0-3-5 mkdirp@~0.3.5
+353 silly lockFile c3f0fe9b-mkdirp-0-3-5 mkdirp@~0.3.5
+354 silly lockFile f06f5fa0-requirejs-2-1-10 requirejs@2.1.10
+355 silly lockFile f06f5fa0-requirejs-2-1-10 requirejs@2.1.10
+356 silly lockFile 542bd449-requirejs-0-27-1 requirejs@>=0.27.1
+357 silly lockFile 542bd449-requirejs-0-27-1 requirejs@>=0.27.1
+358 silly registry.get cb [ 304, undefined ]
+359 verbose etag jasmine-growl-reporter from cache
+360 silly addNameRange number 2 { name: 'jasmine-growl-reporter',
+360 silly addNameRange   range: '>=0.0.2-0 <0.1.0-0',
+360 silly addNameRange   hasData: true }
+361 silly addNameRange versions [ 'jasmine-growl-reporter', [ '0.0.1', '0.0.2' ] ]
+362 verbose addNamed [ 'jasmine-growl-reporter', '0.0.2' ]
+363 verbose addNamed [ '0.0.2', '0.0.2' ]
+364 silly lockFile 25891884-jasmine-growl-reporter-0-0-2 jasmine-growl-reporter@0.0.2
+365 verbose lock jasmine-growl-reporter@0.0.2 /Users/lennylemony/.npm/25891884-jasmine-growl-reporter-0-0-2.lock
+366 silly lockFile 25891884-jasmine-growl-reporter-0-0-2 jasmine-growl-reporter@0.0.2
+367 silly lockFile 25891884-jasmine-growl-reporter-0-0-2 jasmine-growl-reporter@0.0.2
+368 silly lockFile e828dd87-jasmine-growl-reporter-0-0-2 jasmine-growl-reporter@~0.0.2
+369 silly lockFile e828dd87-jasmine-growl-reporter-0-0-2 jasmine-growl-reporter@~0.0.2
+370 error fetch failed https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz
+371 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+372 silly registry.get cb [ 304, undefined ]
+373 verbose etag gaze from cache
+374 silly addNameRange number 2 { name: 'gaze', range: '>=0.3.2-0 <0.4.0-0', hasData: true }
+375 silly addNameRange versions [ 'gaze',
+375 silly addNameRange   [ '0.1.0',
+375 silly addNameRange     '0.1.1',
+375 silly addNameRange     '0.1.2',
+375 silly addNameRange     '0.1.3',
+375 silly addNameRange     '0.1.4',
+375 silly addNameRange     '0.1.5',
+375 silly addNameRange     '0.1.6',
+375 silly addNameRange     '0.2.0',
+375 silly addNameRange     '0.2.1',
+375 silly addNameRange     '0.2.2',
+375 silly addNameRange     '0.3.0',
+375 silly addNameRange     '0.3.1',
+375 silly addNameRange     '0.3.2',
+375 silly addNameRange     '0.3.3',
+375 silly addNameRange     '0.3.4',
+375 silly addNameRange     '0.4.0',
+375 silly addNameRange     '0.4.1',
+375 silly addNameRange     '0.4.2',
+375 silly addNameRange     '0.4.3' ] ]
+376 verbose addNamed [ 'gaze', '0.3.4' ]
+377 verbose addNamed [ '0.3.4', '0.3.4' ]
+378 silly lockFile 8adb657c-gaze-0-3-4 gaze@0.3.4
+379 verbose lock gaze@0.3.4 /Users/lennylemony/.npm/8adb657c-gaze-0-3-4.lock
+380 silly lockFile 8adb657c-gaze-0-3-4 gaze@0.3.4
+381 silly lockFile 8adb657c-gaze-0-3-4 gaze@0.3.4
+382 silly lockFile a0f725df-gaze-0-3-2 gaze@~0.3.2
+383 silly lockFile a0f725df-gaze-0-3-2 gaze@~0.3.2
+384 silly registry.get cb [ 304, undefined ]
+385 verbose etag coffee-script from cache
+386 silly addNameRange number 2 { name: 'coffee-script', range: '>=1.0.1', hasData: true }
+387 silly addNameRange versions [ 'coffee-script',
+387 silly addNameRange   [ '0.7.0',
+387 silly addNameRange     '0.7.1',
+387 silly addNameRange     '0.7.2',
+387 silly addNameRange     '0.9.0',
+387 silly addNameRange     '0.9.1',
+387 silly addNameRange     '0.9.2',
+387 silly addNameRange     '0.9.3',
+387 silly addNameRange     '0.9.4',
+387 silly addNameRange     '0.9.5',
+387 silly addNameRange     '0.9.6',
+387 silly addNameRange     '1.0.0',
+387 silly addNameRange     '1.0.1',
+387 silly addNameRange     '1.1.0',
+387 silly addNameRange     '1.1.1',
+387 silly addNameRange     '1.1.2',
+387 silly addNameRange     '1.1.3',
+387 silly addNameRange     '1.2.0',
+387 silly addNameRange     '1.3.0',
+387 silly addNameRange     '1.3.1',
+387 silly addNameRange     '1.3.2',
+387 silly addNameRange     '1.3.3',
+387 silly addNameRange     '1.4.0',
+387 silly addNameRange     '1.5.0',
+387 silly addNameRange     '1.6.0',
+387 silly addNameRange     '1.6.1',
+387 silly addNameRange     '1.6.2',
+387 silly addNameRange     '1.6.3',
+387 silly addNameRange     '1.7.0',
+387 silly addNameRange     '1.7.1' ] ]
+388 verbose addNamed [ 'coffee-script', '1.7.1' ]
+389 verbose addNamed [ '1.7.1', '1.7.1' ]
+390 silly lockFile 66cb63a1-coffee-script-1-7-1 coffee-script@1.7.1
+391 verbose lock coffee-script@1.7.1 /Users/lennylemony/.npm/66cb63a1-coffee-script-1-7-1.lock
+392 silly lockFile 81f11821-e-script-coffee-script-1-7-1-tgz https://registry.npmjs.org/coffee-script/-/coffee-script-1.7.1.tgz
+393 verbose lock https://registry.npmjs.org/coffee-script/-/coffee-script-1.7.1.tgz /Users/lennylemony/.npm/81f11821-e-script-coffee-script-1-7-1-tgz.lock
+394 verbose addRemoteTarball [ 'https://registry.npmjs.org/coffee-script/-/coffee-script-1.7.1.tgz',
+394 verbose addRemoteTarball   '62996a861780c75e6d5069d13822723b73404bfc' ]
+395 info retry fetch attempt 1 at 16:49:47
+396 verbose fetch to= /var/folders/3g/7h0x60ss1rd72x35f421ks300000gn/T/npm-17697--0mfcqUT/1393634987802-0.85330471675843/tmp.tgz
+397 http GET https://registry.npmjs.org/coffee-script/-/coffee-script-1.7.1.tgz
+398 error fetch failed https://registry.npmjs.org/coffee-script/-/coffee-script-1.7.1.tgz
+399 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+400 info retry fetch attempt 2 at 16:49:56
+401 verbose fetch to= /var/folders/3g/7h0x60ss1rd72x35f421ks300000gn/T/npm-17697--0mfcqUT/1393634986630-0.2704455121420324/tmp.tgz
+402 http GET https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz
+403 error fetch failed https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz
+404 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+405 info retry fetch attempt 2 at 16:49:57
+406 verbose fetch to= /var/folders/3g/7h0x60ss1rd72x35f421ks300000gn/T/npm-17697--0mfcqUT/1393634987802-0.85330471675843/tmp.tgz
+407 http GET https://registry.npmjs.org/coffee-script/-/coffee-script-1.7.1.tgz
+408 error fetch failed https://registry.npmjs.org/coffee-script/-/coffee-script-1.7.1.tgz
+409 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+410 info retry fetch attempt 3 at 16:50:56
+411 verbose fetch to= /var/folders/3g/7h0x60ss1rd72x35f421ks300000gn/T/npm-17697--0mfcqUT/1393634986630-0.2704455121420324/tmp.tgz
+412 http GET https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz
+413 error fetch failed https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz
+414 silly lockFile a02bf4de--underscore-underscore-1-6-0-tgz https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz
+415 silly lockFile a02bf4de--underscore-underscore-1-6-0-tgz https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz
+416 silly lockFile 96960ed1-underscore-1-6-0 underscore@1.6.0
+417 silly lockFile 96960ed1-underscore-1-6-0 underscore@1.6.0
+418 silly lockFile 097a612a-underscore-1-3-1 underscore@>= 1.3.1
+419 silly lockFile 097a612a-underscore-1-3-1 underscore@>= 1.3.1
+420 verbose about to build /Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1/node_modules/jasmine-node
+421 info /Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1/node_modules/jasmine-node unbuild
+422 info preuninstall jasmine-node@1.13.0
+423 info uninstall jasmine-node@1.13.0
+424 verbose true,/Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1/node_modules,/Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1/node_modules unbuild jasmine-node@1.13.0
+425 verbose /Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1/node_modules/.bin,[object Object] binRoot
+426 info postuninstall jasmine-node@1.13.0
+427 error Error: SELF_SIGNED_CERT_IN_CHAIN
+427 error     at SecurePair.<anonymous> (tls.js:1370:32)
+427 error     at SecurePair.EventEmitter.emit (events.js:92:17)
+427 error     at SecurePair.maybeInitFinished (tls.js:982:10)
+427 error     at CleartextStream.read [as _read] (tls.js:469:13)
+427 error     at CleartextStream.Readable.read (_stream_readable.js:320:10)
+427 error     at EncryptedStream.write [as _write] (tls.js:366:25)
+427 error     at doWrite (_stream_writable.js:221:10)
+427 error     at writeOrBuffer (_stream_writable.js:211:5)
+427 error     at EncryptedStream.Writable.write (_stream_writable.js:180:11)
+427 error     at write (_stream_readable.js:583:24)
+427 error     at flow (_stream_readable.js:592:7)
+427 error     at Socket.pipeOnReadable (_stream_readable.js:624:5)
+428 error If you need help, you may report this *entire* log,
+428 error including the npm and node versions, at:
+428 error     <http://github.com/isaacs/npm/issues>
+429 error System Darwin 13.0.0
+430 error command "node" "/usr/local/bin/npm" "install" "jasmine-node" "--save"
+431 error cwd /Users/lennylemony/Documents/hackreactor/FinalsClub/finalsClub-1
+432 error node -v v0.10.24
+433 error npm -v 1.3.21
+434 verbose exit [ 1, true ]
