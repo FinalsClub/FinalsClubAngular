@@ -118,9 +118,9 @@
 #editors {
   background-color: #EDF1F1;
   padding: 1%;
-  width: 20%;
-  position: absolute;
-  left: 108%;
-  bottom: 87%;
+  width: 15%;
+  position: fixed;
+  left: 82%;
+  bottom: 74%;
   z-index: 1;
 }
