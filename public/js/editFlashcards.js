@@ -91,7 +91,7 @@ app.controller('shareController', ['$scope', '$http', '$timeout', 'editFlashcard
     // auto-sync DB every 5 seconds
     setInterval(function() {
       $scope.syncDB();
-    }, 5000);
+    }, 10000);
   });
 }]);
 
