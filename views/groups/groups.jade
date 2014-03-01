@@ -23,8 +23,33 @@ include ../index
       h2 {{ group.name }}
       .groupNav
         a(href="groups/{{group._id}}/flashcards") Flashcards |  
+        a(href="#" ng-click='showLightbox(group._id)') Info |  
+        
+        .lightboxContent.white_content(class='{{group._id}}')
+          a.closeX(href='#' ng-click='showLightbox(group._id)') x
+          li {{ group.name }}
+            hr
+            li.gray.tiny(ng-show="group.intensity.length" )
+              span.bold Intensity: 
+              {{ group.intensity }} 
+            li.gray.tiny(ng-show="group.next_meeting.length" )
+              span.bold Next meeting: 
+              {{ group.next_meeting | date:"mediumDate" }} 
+            li.gray.tiny(ng-show="group.motto.length" )
+              span.bold Motto: 
+              {{ group.motto }}
+            li.gray.tiny
+              span.bold(ng-show="group.course_id.name.length") Course affiliation: 
+              {{ group.course_id.name }}
+            li.gray.tiny(ng-show="group.description.length" )
+              span.bold Description: 
+              {{ group.description }}
+            li.gray.tiny(ng-show="group.question.length" )
+              span.bold Question: 
+               {{ group.question }}
+
         a.gray.tiny(href="groups/{{group._id}}/edit") Edit group
       span(ng-repeat="user in group.users")
         img(src="{{user.image}}" title="{{user.first_name}} {{user.last_name}}")
       hr.smaller.mainPage
-          
+include ../footer
