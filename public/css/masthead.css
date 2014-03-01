@@ -159,33 +159,35 @@ header a {
 }
 
 /*-------------------LOG IN PAGE-------------------------*/
+.loginDiv {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 33%;
+}
+.login {
+  position: relative;
+  top: 2em;
+  background-color: #7D7DAF;
+  opacity: 0.8;
+  border: 0;
+  margin: 0.5em;
+  width: 15em;
+}
+
+.login:hover {
+  background: #49495B;
+}
+
+.or, .or:hover {
+  text-align: center;
+  background-color: transparent;
+}
 
 p:last-child .facebook {
   background-color: #5C5C5C;
-  border:0;
 }
 
 p:last-child .facebook:hover {
   background-color: #333;
-}
-
-p:last-child .facebook:active {
-  background-color:#333;
-  border: 1em inset #2F2F2F;
-  text-decoration:none;
-}
-
-p:nth-child(3) .facebook {
-  background-color: #7D7DAF; 
-  border: 0;
-}
-
-p:nth-child(3) .facebook:hover {
-  background-color: #4B4B69;
-}
-
-p:nth-child(3) .facebook:active {
-  background-color:#4B4B69;
-  border:1em inset #636378;
-  text-decoration:none;
 }
