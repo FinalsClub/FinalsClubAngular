@@ -3,7 +3,7 @@
 
 .topic {
   position: relative;
-  top: 0;
+  top: 1em;
 }
 
 .topicDiv p:first-child {

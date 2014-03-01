@@ -8,8 +8,6 @@ html, body {
 
 body {
   background-position: 20% 0; 
-    overflow: hidden;
-
 }
 
 ::-moz-selection {
@@ -94,7 +92,7 @@ hr {
 }
 
 .footer {
-  position:absolute;
+  position: fixed;
   bottom:0;
   width:100%;
   height:2.5em;   /* Height of the footer */
