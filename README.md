@@ -23,3 +23,9 @@ Jade files: /views
 JS files: /public/js
 CSS files: /public/css
 Server files: /
+
+
+Running in development and production
+---------------------------------------
+
+To run this code on localhost, you'll have to un-comment the "config" variable declaration on line 4 of authentication.js.  Running in production will require commenting the same line back out. 
