@@ -2,7 +2,7 @@ finalsClub
 ==========
 This code is deployed here: 
 --------------------------------
-https://finalsclub.herokuapp.com
+https://finalsclub.org
 --------------------------------
 
 
